@@ -1,0 +1,10 @@
+query getAllCourses($params: CourseParamsInput!) {
+	getAllCourses(params: $params) {
+		id
+		number
+		department {
+			id
+			title
+		}
+	}
+}

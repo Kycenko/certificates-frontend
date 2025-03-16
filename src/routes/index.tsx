@@ -1,13 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 
+import { checkAuth } from './__root'
 import { useGetAllCoursesQuery } from '@/graphql/generated'
 
 export const Route = createFileRoute('/')({
-	component: Index
+	component: Index,
+	beforeLoad: checkAuth
 })
 
 function Index() {
-	const { data } = useGetAllCoursesQuery()
+	const { data } = useGetAllCoursesQuery({
+		variables: { params: { orderBy: 'asc' } }
+	})
 
 	return (
 		<div>

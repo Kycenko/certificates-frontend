@@ -1,12 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import { ReactNode, RouterProvider, createRouter } from '@tanstack/react-router'
 
-import { routeTree } from '@/routeTree.gen'
+import { ThemeProvider } from '@/components/providers/theme.provider'
 
-const client = new ApolloClient({
-	uri: 'http://localhost:7777/graphql',
-	cache: new InMemoryCache()
-})
+import { client } from '@/graphql/graphql.config'
+import { routeTree } from '@/routeTree.gen'
 
 const router = createRouter({
 	routeTree
@@ -21,8 +19,14 @@ declare module '@tanstack/react-router' {
 function App({ children }: ReactNode) {
 	return (
 		<ApolloProvider client={client}>
-			<RouterProvider router={router} />
-			{children}
+			<ThemeProvider
+				defaultTheme='dark'
+				storageKey='vite-ui-theme'
+			>
+				<RouterProvider router={router} />
+
+				{children}
+			</ThemeProvider>
 		</ApolloProvider>
 	)
 }

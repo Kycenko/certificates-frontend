@@ -594,15 +594,77 @@ export type UserModel = {
   login: Scalars['String']['output'];
 };
 
-export type GetAllCoursesQueryVariables = Exact<{ [key: string]: never; }>;
+export type LoginMutationVariables = Exact<{
+  data: LoginInput;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthModel', accessToken: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, login: string, isAdmin: boolean } } };
+
+export type GetAllCoursesQueryVariables = Exact<{
+  params: CourseParamsInput;
+}>;
 
 
 export type GetAllCoursesQuery = { __typename?: 'Query', getAllCourses: Array<{ __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } }> };
 
+export type GetAllDepartmentsQueryVariables = Exact<{
+  params: DepartmentParamsInput;
+}>;
 
+
+export type GetAllDepartmentsQuery = { __typename?: 'Query', getAllDepartments: Array<{ __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: number }> | null }> };
+
+export type GetDepartmentByIdQueryVariables = Exact<{
+  getDepartmentById: Scalars['String']['input'];
+}>;
+
+
+export type GetDepartmentByIdQuery = { __typename?: 'Query', getDepartmentById: { __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: number }> | null } };
+
+
+export const LoginDocument = gql`
+    mutation login($data: LoginInput!) {
+  login(data: $data) {
+    accessToken
+    refreshToken
+    user {
+      id
+      login
+      isAdmin
+    }
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const GetAllCoursesDocument = gql`
-    query GetAllCourses {
-  getAllCourses(params: {orderBy: "desc"}) {
+    query getAllCourses($params: CourseParamsInput!) {
+  getAllCourses(params: $params) {
     id
     number
     department {
@@ -625,10 +687,11 @@ export const GetAllCoursesDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllCoursesQuery({
  *   variables: {
+ *      params: // value for 'params'
  *   },
  * });
  */
-export function useGetAllCoursesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCoursesQuery, GetAllCoursesQueryVariables>) {
+export function useGetAllCoursesQuery(baseOptions: Apollo.QueryHookOptions<GetAllCoursesQuery, GetAllCoursesQueryVariables> & ({ variables: GetAllCoursesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllCoursesQuery, GetAllCoursesQueryVariables>(GetAllCoursesDocument, options);
       }
@@ -644,3 +707,93 @@ export type GetAllCoursesQueryHookResult = ReturnType<typeof useGetAllCoursesQue
 export type GetAllCoursesLazyQueryHookResult = ReturnType<typeof useGetAllCoursesLazyQuery>;
 export type GetAllCoursesSuspenseQueryHookResult = ReturnType<typeof useGetAllCoursesSuspenseQuery>;
 export type GetAllCoursesQueryResult = Apollo.QueryResult<GetAllCoursesQuery, GetAllCoursesQueryVariables>;
+export const GetAllDepartmentsDocument = gql`
+    query getAllDepartments($params: DepartmentParamsInput!) {
+  getAllDepartments(params: $params) {
+    id
+    title
+    courses {
+      id
+      number
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllDepartmentsQuery__
+ *
+ * To run a query within a React component, call `useGetAllDepartmentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllDepartmentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllDepartmentsQuery({
+ *   variables: {
+ *      params: // value for 'params'
+ *   },
+ * });
+ */
+export function useGetAllDepartmentsQuery(baseOptions: Apollo.QueryHookOptions<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables> & ({ variables: GetAllDepartmentsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>(GetAllDepartmentsDocument, options);
+      }
+export function useGetAllDepartmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>(GetAllDepartmentsDocument, options);
+        }
+export function useGetAllDepartmentsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>(GetAllDepartmentsDocument, options);
+        }
+export type GetAllDepartmentsQueryHookResult = ReturnType<typeof useGetAllDepartmentsQuery>;
+export type GetAllDepartmentsLazyQueryHookResult = ReturnType<typeof useGetAllDepartmentsLazyQuery>;
+export type GetAllDepartmentsSuspenseQueryHookResult = ReturnType<typeof useGetAllDepartmentsSuspenseQuery>;
+export type GetAllDepartmentsQueryResult = Apollo.QueryResult<GetAllDepartmentsQuery, GetAllDepartmentsQueryVariables>;
+export const GetDepartmentByIdDocument = gql`
+    query getDepartmentById($getDepartmentById: String!) {
+  getDepartmentById(id: $getDepartmentById) {
+    id
+    title
+    courses {
+      id
+      number
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetDepartmentByIdQuery__
+ *
+ * To run a query within a React component, call `useGetDepartmentByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDepartmentByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDepartmentByIdQuery({
+ *   variables: {
+ *      getDepartmentById: // value for 'getDepartmentById'
+ *   },
+ * });
+ */
+export function useGetDepartmentByIdQuery(baseOptions: Apollo.QueryHookOptions<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables> & ({ variables: GetDepartmentByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>(GetDepartmentByIdDocument, options);
+      }
+export function useGetDepartmentByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>(GetDepartmentByIdDocument, options);
+        }
+export function useGetDepartmentByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>(GetDepartmentByIdDocument, options);
+        }
+export type GetDepartmentByIdQueryHookResult = ReturnType<typeof useGetDepartmentByIdQuery>;
+export type GetDepartmentByIdLazyQueryHookResult = ReturnType<typeof useGetDepartmentByIdLazyQuery>;
+export type GetDepartmentByIdSuspenseQueryHookResult = ReturnType<typeof useGetDepartmentByIdSuspenseQuery>;
+export type GetDepartmentByIdQueryResult = Apollo.QueryResult<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>;
