@@ -1,0 +1,10 @@
+query GetAllCourses {
+	getAllCourses(params: { orderBy: "desc" }) {
+		id
+		number
+		department {
+			id
+			title
+		}
+	}
+}
