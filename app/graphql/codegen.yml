@@ -1,9 +1,9 @@
 overwrite: true
 ignoreNoDocuments: true
 schema: http://localhost:7777/graphql/
-documents: src/graphql/**/*.gql
+documents: ./app/graphql/**/*.gql
 generates:
-  ./src/graphql/generated.ts:
+  ./app/graphql/generated.ts:
     plugins:
       - typescript
       - typescript-operations
