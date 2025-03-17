@@ -1,0 +1,3 @@
+mutation removeDepartment($removeDepartmentId: String!) {
+	removeDepartment(id: $removeDepartmentId)
+}

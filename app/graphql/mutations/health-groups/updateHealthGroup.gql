@@ -1,0 +1,9 @@
+mutation UpdateHealthGroup(
+	$data: HealthGroupInput!
+	$updateHealthGroupId: String!
+) {
+	updateHealthGroup(data: $data, id: $updateHealthGroupId) {
+		id
+		title
+	}
+}

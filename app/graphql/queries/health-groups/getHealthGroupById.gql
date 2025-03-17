@@ -1,0 +1,6 @@
+query GetHealthGroupById($getHealthGroupByIdId: String!) {
+	getHealthGroupById(id: $getHealthGroupByIdId) {
+		id
+		id
+	}
+}

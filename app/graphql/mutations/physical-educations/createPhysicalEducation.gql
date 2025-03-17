@@ -1,0 +1,6 @@
+mutation CreatePhysicalEducation($data: PhysicalEducationInput!) {
+	createPhysicalEducation(data: $data) {
+		id
+		title
+	}
+}

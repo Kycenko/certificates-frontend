@@ -1,0 +1,11 @@
+query GetGroupById($getGroupByIdId: String!) {
+	getGroupById(id: $getGroupByIdId) {
+		id
+		title
+		course {
+			id
+			number
+			departmentId
+		}
+	}
+}

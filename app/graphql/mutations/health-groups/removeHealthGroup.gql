@@ -1,0 +1,3 @@
+mutation RemoveHealthGroup($removeHealthGroupId: String!) {
+	removeHealthGroup(id: $removeHealthGroupId)
+}

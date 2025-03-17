@@ -1,0 +1,9 @@
+mutation CreateCertificate($data: CertificateInput!) {
+	createCertificate(data: $data) {
+		startDate
+		finishDate
+		studentId
+		healthGroupId
+		physicalEducationId
+	}
+}

@@ -1,0 +1,6 @@
+query GetAllHealthGroups($params: HealthGroupParamsInput!) {
+	getAllHealthGroups(params: $params) {
+		id
+		title
+	}
+}

@@ -1,0 +1,6 @@
+mutation createDepartment($data: DepartmentInput!) {
+	createDepartment(data: $data) {
+		id
+		title
+	}
+}

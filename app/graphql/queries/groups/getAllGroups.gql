@@ -1,0 +1,11 @@
+query GetAllGroups($params: GroupParamsInput!) {
+	getAllGroups(params: $params) {
+		id
+		title
+		course {
+			id
+			number
+			departmentId
+		}
+	}
+}

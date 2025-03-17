@@ -1,0 +1,9 @@
+mutation UpdatePhysicalEducation(
+	$data: PhysicalEducationInput!
+	$updatePhysicalEducationId: String!
+) {
+	updatePhysicalEducation(data: $data, id: $updatePhysicalEducationId) {
+		id
+		title
+	}
+}

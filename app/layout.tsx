@@ -30,7 +30,24 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Providers> {children}</Providers>
+				<Providers>
+					<div className='flex flex-col h-screen'>
+						{/* Navbar (на всю ширину, поверх всего) */}
+						<header className='bg-gray-800 text-white p-4 flex items-center justify-between w-full fixed top-0 left-0 right-0 h-14 z-50'>
+							<h1 className='text-lg font-semibold'>Navbar</h1>
+						</header>
+
+						<div className='flex flex-1 pt-14'>
+							{/* Sidebar */}
+							<aside className='bg-gray-900  text-white p-4 w-64 hidden md:block'>
+								<h2 className='text-xl font-bold'>Sidebar</h2>
+							</aside>
+
+							{/* Main Content */}
+							<main className='p-4 flex-1'>{children}</main>
+						</div>
+					</div>
+				</Providers>
 			</body>
 		</html>
 	)

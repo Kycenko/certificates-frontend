@@ -1,0 +1,3 @@
+mutation RemovePhysicalEducation($removePhysicalEducationId: String!) {
+	removePhysicalEducation(id: $removePhysicalEducationId)
+}

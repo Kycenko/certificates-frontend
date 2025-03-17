@@ -1,0 +1,6 @@
+mutation CreateHealthGroup($data: HealthGroupInput!) {
+	createHealthGroup(data: $data) {
+		id
+		title
+	}
+}

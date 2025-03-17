@@ -1,0 +1,6 @@
+query GetPhysicalEducationByTitle($title: String!) {
+	getPhysicalEducationByTitle(title: $title) {
+		id
+		title
+	}
+}
