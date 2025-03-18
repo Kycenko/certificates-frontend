@@ -1,12 +1,14 @@
 overwrite: true
-ignoreNoDocuments: true
+ignoreNoDocuments: false
 schema: http://localhost:7777/graphql/
-documents: ./app/graphql/**/*.gql
+documents: 'app/graphql/**/*.gql'
 generates:
-  ./app/graphql/generated.ts:
+  app/graphql/generated.ts:
     plugins:
       - typescript
       - typescript-operations
       - typescript-react-apollo
     config:
       withHooks: true
+      withHOC: false
+      withComponent: false

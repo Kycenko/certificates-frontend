@@ -1,10 +1,10 @@
-mutation createStudent CreateStudent($data: StudentInput!) {
-  createStudent(data: $data) {
-    firstName
-    lastName
-    secondName
-    birthDate
-    isExpelled
-    groupId
-  }
+mutation createStudent($data: StudentInput!) {
+	createStudent(data: $data) {
+		firstName
+		lastName
+		secondName
+		birthDate
+		isExpelled
+		groupId
+	}
 }

@@ -1,18 +1,22 @@
 'use client'
 
 import { ApolloProvider } from '@apollo/client'
-import { MantineProvider, createTheme } from '@mantine/core'
 
 import { client } from '../graphql/apollo-client.config'
 
-export default function Providers({ children }: { children: React.ReactNode }) {
-	const theme = createTheme({
-		primaryColor: 'blue'
-	})
+import { ThemeProvider } from './theme-provider'
 
+export default function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<ApolloProvider client={client}>
-			<MantineProvider theme={theme}>{children}</MantineProvider>
+			<ThemeProvider
+				attribute='class'
+				defaultTheme='system'
+				enableSystem
+				disableTransitionOnChange
+			>
+				{children}
+			</ThemeProvider>
 		</ApolloProvider>
 	)
 }

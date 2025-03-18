@@ -1,0 +1,3 @@
+mutation removeManyDepartments($ids: [String!]!) {
+	removeManyDepartments(ids: $ids)
+}

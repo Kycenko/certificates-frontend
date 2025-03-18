@@ -1,17 +1,19 @@
 'use client'
 
-import {
-	Button,
-	Card,
-	Flex,
-	PasswordInput,
-	Text,
-	TextInput,
-	Title
-} from '@mantine/core'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+
+import { Button } from '@/components/ui/button'
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 import { useLoginMutation } from '@/app/graphql/generated'
 import { LoginSchema } from '@/app/types/login.schema'
@@ -49,58 +51,54 @@ export default function LoginForm() {
 	}
 
 	return (
-		<Flex
-			direction='column'
-			gap='md'
-			maw={400}
-			mx='auto'
-			my='xl'
-		>
-			<Card
-				shadow='sm'
-				padding='lg'
-				radius='md'
-				withBorder
-			>
-				<Card.Section p='md'>
-					<Title order={2}>Login</Title>
-					<Text
-						size='sm'
-						color='dimmed'
-					>
-						Enter your login below to login to your account
-					</Text>
-				</Card.Section>
-				<FormProvider {...methods}>
+		<div className={'flex flex-col gap-6'}>
+			<Card>
+				<CardHeader>
+					<CardTitle className='text-2xl'>Login</CardTitle>
+					<CardDescription>
+						Enter your email below to login to your account
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<Flex
-							direction='column'
-							gap='md'
-						>
-							<TextInput
-								{...register('login', { required: 'This field is required' })}
-								label='Login'
-								placeholder='admin'
-								error={errors.login?.message}
-							/>
-							<PasswordInput
-								{...register('password', {
-									required: 'This field is required'
-								})}
-								label='Password'
-								placeholder='Your password'
-								error={errors.password?.message}
-							/>
+						<div className='flex flex-col gap-6'>
+							<div className='grid gap-2'>
+								<Label htmlFor='email'>Login</Label>
+								<Input
+									{...register('login')}
+									id='login'
+									type='login'
+									placeholder='user'
+								/>
+							</div>
+							<div className='grid gap-2'>
+								<div className='flex items-center'>
+									<Label htmlFor='password'>Password</Label>
+									{/* <a className='ml-auto inline-block text-sm underline-offset-4 hover:underline'>
+										Forgot your password?
+									</a> */}
+								</div>
+								<Input
+									{...register('password')}
+									id='password'
+									type='password'
+									placeholder='password'
+								/>
+							</div>
 							<Button
 								type='submit'
-								fullWidth
+								className='w-full'
 							>
 								Login
 							</Button>
-						</Flex>
+						</div>
+						{/* <div className='mt-4 text-center text-sm'>
+							Don&apos;t have an account?{' '}
+							<a className='underline underline-offset-4'>Sign up</a>
+						</div> */}
 					</form>
-				</FormProvider>
+				</CardContent>
 			</Card>
-		</Flex>
+		</div>
 	)
 }
