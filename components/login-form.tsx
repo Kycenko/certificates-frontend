@@ -29,8 +29,8 @@ export default function LoginForm() {
 	const router = useRouter()
 	const [login] = useLoginMutation()
 
-	const onSubmit = (data: LoginSchema) => {
-		login({
+	async function onSubmit(data: LoginSchema) {
+		await login({
 			variables: {
 				data: {
 					login: data.login,
