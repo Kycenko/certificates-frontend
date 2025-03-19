@@ -1,14 +1,14 @@
 'use client'
 
 import { DataTable } from './data-table'
-import { departmentColumns } from './table-columns/department-columns'
+import { studentColumns } from './table-columns/student-columns'
 import {
-	useGetAllDepartmentsQuery,
+	useGetAllStudentsQuery,
 	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
-export default function DepartmentsComponent() {
-	const { data, loading } = useGetAllDepartmentsQuery({
+export default function StudentsComponent() {
+	const { data, loading } = useGetAllStudentsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
@@ -23,9 +23,10 @@ export default function DepartmentsComponent() {
 	return (
 		<div>
 			<DataTable
-				data={data?.getAllDepartments}
-				columns={departmentColumns}
+				data={data?.getAllStudents}
+				columns={studentColumns}
 				filter={true}
+				filterParam='lastName'
 				visibility={true}
 				onRemoveMany={handleRemoveMany}
 			/>

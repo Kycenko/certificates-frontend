@@ -1,11 +1,11 @@
 import { Search } from 'lucide-react'
 import Link from 'next/link'
 
-import { navLinks } from '@/components/nav-links'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+import { navLinks } from '../components/nav-links'
+import { ThemeToggle } from '../components/theme-toggle'
+import { Button } from '../components/ui/button'
+import { Card, CardContent, CardTitle } from '../components/ui/card'
+import { Input } from '../components/ui/input'
 
 export default function HomeLayout({
 	children

@@ -4,17 +4,16 @@ import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-import { Button } from '@/components/ui/button'
+import { Button } from './ui/button'
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-
+} from './ui/card'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 import { useLoginMutation } from '@/app/graphql/generated'
 import { LoginSchema } from '@/app/types/login.schema'
 

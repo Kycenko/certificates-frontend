@@ -8,12 +8,12 @@
 		"css": "app/globals.css",
 		"baseColor": "neutral",
 		"cssVariables": true,
-		"prefix": ""
+		"prefix": "./app"
 	},
 	"aliases": {
-		"components": "@/components",
+		"components": "@/app/components",
 		"utils": "@/lib/utils",
-		"ui": "@/components/ui",
+		"ui": "@/app/components/ui",
 		"lib": "@/lib",
 		"hooks": "@/hooks"
 	},

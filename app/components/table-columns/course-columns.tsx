@@ -3,9 +3,7 @@ import { ArrowUpDown } from 'lucide-react'
 
 import { Button } from '../ui/button'
 
-type Course = {
-	number: number
-}
+import { Course } from '@/app/types/course.types'
 
 export const courseColumns: ColumnDef<Course>[] = [
 	{
@@ -23,6 +21,23 @@ export const courseColumns: ColumnDef<Course>[] = [
 		},
 		cell: ({ row }) => (
 			<div className='lowercase'>{`${row.getValue('number')}-курс`}</div>
+		)
+	},
+	{
+		accessorKey: 'department',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Отделение
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => (
+			<div className='lowercase'>{row.original.department.title}</div>
 		)
 	}
 ]

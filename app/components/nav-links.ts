@@ -10,5 +10,13 @@ export const navLinks = [
 	{
 		href: '/courses',
 		title: 'Курсы'
+	},
+	{
+		href: '/groups',
+		title: 'Группы'
+	},
+	{
+		href: '/students',
+		title: 'Студенты'
 	}
 ]

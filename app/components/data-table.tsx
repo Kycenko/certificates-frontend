@@ -15,18 +15,8 @@ import {
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow
-} from '@/components/ui/table'
-
+import { Button } from './ui/button'
+import { Checkbox } from './ui/checkbox'
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -36,11 +26,21 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from './ui/dropdown-menu'
+import { Input } from './ui/input'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow
+} from './ui/table'
 
 interface TableProps {
 	data: any[]
 	columns: ColumnDef<any, any>[]
 	filter?: boolean
+	filterParam?: string
 	pagination?: boolean
 	visibility?: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
@@ -50,6 +50,7 @@ export function DataTable({
 	data,
 	columns,
 	onRemoveMany,
+	filterParam,
 	filter = false,
 	visibility = false,
 	pagination = false
@@ -144,10 +145,14 @@ export function DataTable({
 							<Input
 								placeholder='Поиск...'
 								value={
-									(table.getColumn('title')?.getFilterValue() as string) ?? ''
+									(table
+										.getColumn(`${filterParam}`)
+										?.getFilterValue() as string) ?? ''
 								}
 								onChange={event =>
-									table.getColumn('title')?.setFilterValue(event.target.value)
+									table
+										.getColumn(`${filterParam}`)
+										?.setFilterValue(event.target.value)
 								}
 								className='max-w-lg pl-8'
 							/>

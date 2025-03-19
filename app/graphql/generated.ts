@@ -939,7 +939,7 @@ export type GetAllGroupsQuery = {
 			__typename?: 'CourseModel'
 			id: string
 			number: number
-			departmentId: string
+			department: { __typename?: 'DepartmentModel'; id: string; title: string }
 		} | null
 	}>
 }
@@ -1009,6 +1009,37 @@ export type GetPhysicalEducationByTitleQuery = {
 		id: string
 		title: string
 	}
+}
+
+export type GetAllStudentsQueryVariables = Exact<{
+	params: StudentParamsInput
+}>
+
+export type GetAllStudentsQuery = {
+	__typename?: 'Query'
+	getAllStudents: Array<{
+		__typename?: 'StudentModel'
+		firstName: string
+		lastName: string
+		secondName?: string | null
+		birthDate: any
+		isExpelled: boolean
+		group?: {
+			__typename?: 'GroupModel'
+			id: string
+			title: string
+			course?: {
+				__typename?: 'CourseModel'
+				id: string
+				number: number
+				department: {
+					__typename?: 'DepartmentModel'
+					id: string
+					title: string
+				}
+			} | null
+		} | null
+	}>
 }
 
 export const LoginDocument = gql`
@@ -2558,7 +2589,10 @@ export const GetAllGroupsDocument = gql`
 			course {
 				id
 				number
-				departmentId
+				department {
+					id
+					title
+				}
 			}
 		}
 	}
@@ -3057,4 +3091,102 @@ export type GetPhysicalEducationByTitleSuspenseQueryHookResult = ReturnType<
 export type GetPhysicalEducationByTitleQueryResult = Apollo.QueryResult<
 	GetPhysicalEducationByTitleQuery,
 	GetPhysicalEducationByTitleQueryVariables
+>
+export const GetAllStudentsDocument = gql`
+	query getAllStudents($params: StudentParamsInput!) {
+		getAllStudents(params: $params) {
+			firstName
+			lastName
+			secondName
+			birthDate
+			isExpelled
+			group {
+				id
+				title
+				course {
+					id
+					number
+					department {
+						id
+						title
+					}
+				}
+			}
+		}
+	}
+`
+
+/**
+ * __useGetAllStudentsQuery__
+ *
+ * To run a query within a React component, call `useGetAllStudentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllStudentsQuery({
+ *   variables: {
+ *      params: // value for 'params'
+ *   },
+ * });
+ */
+export function useGetAllStudentsQuery(
+	baseOptions: Apollo.QueryHookOptions<
+		GetAllStudentsQuery,
+		GetAllStudentsQueryVariables
+	> &
+		(
+			| { variables: GetAllStudentsQueryVariables; skip?: boolean }
+			| { skip: boolean }
+		)
+) {
+	const options = { ...defaultOptions, ...baseOptions }
+	return Apollo.useQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>(
+		GetAllStudentsDocument,
+		options
+	)
+}
+export function useGetAllStudentsLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetAllStudentsQuery,
+		GetAllStudentsQueryVariables
+	>
+) {
+	const options = { ...defaultOptions, ...baseOptions }
+	return Apollo.useLazyQuery<GetAllStudentsQuery, GetAllStudentsQueryVariables>(
+		GetAllStudentsDocument,
+		options
+	)
+}
+export function useGetAllStudentsSuspenseQuery(
+	baseOptions?:
+		| Apollo.SkipToken
+		| Apollo.SuspenseQueryHookOptions<
+				GetAllStudentsQuery,
+				GetAllStudentsQueryVariables
+		  >
+) {
+	const options =
+		baseOptions === Apollo.skipToken
+			? baseOptions
+			: { ...defaultOptions, ...baseOptions }
+	return Apollo.useSuspenseQuery<
+		GetAllStudentsQuery,
+		GetAllStudentsQueryVariables
+	>(GetAllStudentsDocument, options)
+}
+export type GetAllStudentsQueryHookResult = ReturnType<
+	typeof useGetAllStudentsQuery
+>
+export type GetAllStudentsLazyQueryHookResult = ReturnType<
+	typeof useGetAllStudentsLazyQuery
+>
+export type GetAllStudentsSuspenseQueryHookResult = ReturnType<
+	typeof useGetAllStudentsSuspenseQuery
+>
+export type GetAllStudentsQueryResult = Apollo.QueryResult<
+	GetAllStudentsQuery,
+	GetAllStudentsQueryVariables
 >

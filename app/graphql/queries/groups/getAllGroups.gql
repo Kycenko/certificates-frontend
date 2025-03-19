@@ -5,7 +5,10 @@ query GetAllGroups($params: GroupParamsInput!) {
 		course {
 			id
 			number
-			departmentId
+			department {
+				id
+				title
+			}
 		}
 	}
 }
