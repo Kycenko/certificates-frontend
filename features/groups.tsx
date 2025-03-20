@@ -1,13 +1,17 @@
 'use client'
 
-import { DataTable } from './data-table'
-import { groupColumns } from './table-columns/group-columns'
+import { DataTable } from '@/components/data-table'
+import { groupColumns } from '@/components/table-columns/group-columns'
+
+import { useTableSettingsStore } from '@/store/table-setting.store'
+
 import {
 	useGetAllGroupsQuery,
 	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
 export default function GroupsComponent() {
+	const { pagination, columnVisibility, search } = useTableSettingsStore()
 	const { data, loading } = useGetAllGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
@@ -23,12 +27,13 @@ export default function GroupsComponent() {
 	return (
 		<div>
 			<DataTable
-				columns={groupColumns}
-				filter={true}
-				filterParam='title'
-				visibility={true}
-				onRemoveMany={handleRemoveMany}
 				data={data?.getAllGroups}
+				columns={groupColumns}
+				onRemoveMany={handleRemoveMany}
+				search={search}
+				pagination={pagination}
+				visibility={columnVisibility}
+				searchParam='title'
 			/>
 		</div>
 	)

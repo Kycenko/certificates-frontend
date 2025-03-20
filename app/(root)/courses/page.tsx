@@ -1,4 +1,4 @@
-import CoursesComponent from '@/app/components/courses'
+import CoursesComponent from '@/features/courses'
 
 export default function CoursesPage() {
 	return <CoursesComponent />

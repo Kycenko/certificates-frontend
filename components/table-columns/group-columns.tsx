@@ -1,11 +1,11 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 
+import { Group } from '@/types/group.types'
+
 import { Button } from '../ui/button'
 
-import { Department } from '@/app/types/department.types'
-
-export const departmentColumns: ColumnDef<Department>[] = [
+export const groupColumns: ColumnDef<Group>[] = [
 	{
 		accessorKey: 'title',
 		header: ({ column }) => {
@@ -22,20 +22,37 @@ export const departmentColumns: ColumnDef<Department>[] = [
 		cell: ({ row }) => <div className='lowercase'>{row.getValue('title')}</div>
 	},
 	{
-		accessorKey: 'courses',
+		accessorKey: 'course',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Кол-во курсов
+					Курс
 					<ArrowUpDown />
 				</Button>
 			)
 		},
 		cell: ({ row }) => (
-			<div className='lowercase'>{row.original.courses.length}</div>
+			<div className='lowercase'>{`${row.original.course?.number}-й курс`}</div>
+		)
+	},
+	{
+		accessorKey: 'department',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Отделение
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => (
+			<div className='lowercase'>{row.original.course.department?.title}</div>
 		)
 	}
 ]

@@ -1,11 +1,11 @@
 import { Search } from 'lucide-react'
 import Link from 'next/link'
 
-import { navLinks } from '../components/nav-links'
-import { ThemeToggle } from '../components/theme-toggle'
-import { Button } from '../components/ui/button'
-import { Card, CardContent, CardTitle } from '../components/ui/card'
-import { Input } from '../components/ui/input'
+import { navLinks } from '@/components/nav-links'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 
 export default function HomeLayout({
 	children
@@ -17,7 +17,7 @@ export default function HomeLayout({
 			<div className='p-4 border-b bg-background'>
 				<div className='flex justify-between items-center'>
 					<CardTitle className='text-xl font-semibold text-foreground'>
-						Medical
+						Медицинские справки
 					</CardTitle>
 					<div className='flex items-center gap-4'>
 						<div className='relative'>

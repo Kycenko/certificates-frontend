@@ -1,13 +1,17 @@
 'use client'
 
-import { DataTable } from './data-table'
-import { studentColumns } from './table-columns/student-columns'
+import { DataTable } from '@/components/data-table'
+import { studentColumns } from '@/components/table-columns/student-columns'
+
+import { useTableSettingsStore } from '@/store/table-setting.store'
+
 import {
 	useGetAllStudentsQuery,
 	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
 export default function StudentsComponent() {
+	const { search, pagination, columnVisibility } = useTableSettingsStore()
 	const { data, loading } = useGetAllStudentsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
@@ -25,9 +29,10 @@ export default function StudentsComponent() {
 			<DataTable
 				data={data?.getAllStudents}
 				columns={studentColumns}
-				filter={true}
-				filterParam='lastName'
-				visibility={true}
+				search={search}
+				searchParam='lastName'
+				visibility={columnVisibility}
+				pagination={pagination}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</div>

@@ -2,9 +2,9 @@ import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
 
-import { Button } from '../ui/button'
+import { Student } from '@/types/student.types'
 
-import { Student } from '@/app/types/student.types'
+import { Button } from '../ui/button'
 
 export const studentColumns: ColumnDef<Student>[] = [
 	{

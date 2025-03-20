@@ -1,24 +1,29 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-import { Button } from './ui/button'
+import { LoginSchema, loginSchema } from '@/types/schemas/login.schema'
+
+import { Button } from '../components/ui/button'
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle
-} from './ui/card'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
+} from '../components/ui/card'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
+
 import { useLoginMutation } from '@/app/graphql/generated'
-import { LoginSchema } from '@/app/types/login.schema'
 
 export default function LoginForm() {
-	const methods = useForm<LoginSchema>()
+	const methods = useForm<LoginSchema>({
+		resolver: zodResolver(loginSchema)
+	})
 
 	const {
 		handleSubmit,

@@ -39,10 +39,10 @@ import {
 interface TableProps {
 	data: any[]
 	columns: ColumnDef<any, any>[]
-	filter?: boolean
-	filterParam?: string
-	pagination?: boolean
-	visibility?: boolean
+	search: boolean
+	searchParam: string
+	pagination: boolean
+	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
 }
 
@@ -50,10 +50,10 @@ export function DataTable({
 	data,
 	columns,
 	onRemoveMany,
-	filterParam,
-	filter = false,
-	visibility = false,
-	pagination = false
+	searchParam,
+	search,
+	visibility,
+	pagination
 }: TableProps) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -139,19 +139,19 @@ export function DataTable({
 		<div className='w-full'>
 			<div className='flex justify-between items-center py-4'>
 				<div>
-					{filter && (
+					{search && (
 						<div className='relative'>
 							<Search className='absolute left-2 top-2.5 h-4 w-4 text-muted-foreground' />
 							<Input
 								placeholder='Поиск...'
 								value={
 									(table
-										.getColumn(`${filterParam}`)
+										.getColumn(`${searchParam}`)
 										?.getFilterValue() as string) ?? ''
 								}
 								onChange={event =>
 									table
-										.getColumn(`${filterParam}`)
+										.getColumn(`${searchParam}`)
 										?.setFilterValue(event.target.value)
 								}
 								className='max-w-lg pl-8'

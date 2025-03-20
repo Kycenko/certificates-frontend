@@ -1,4 +1,4 @@
-import DepartmentsComponent from '@/app/components/departments'
+import DepartmentsComponent from '@/features/departments'
 
 export default function DepartmentsPage() {
 	return <DepartmentsComponent />

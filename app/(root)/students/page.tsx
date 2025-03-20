@@ -1,4 +1,4 @@
-import StudentsComponent from '@/app/components/students'
+import StudentsComponent from '@/features/students'
 
 export default function StudentsPage() {
 	return <StudentsComponent />

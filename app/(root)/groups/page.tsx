@@ -1,4 +1,4 @@
-import GroupsComponent from '@/app/components/groups'
+import GroupsComponent from '@/features/groups'
 
 export default function GroupsPage() {
 	return <GroupsComponent />

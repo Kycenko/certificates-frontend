@@ -1,9 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 
-import { Button } from '../ui/button'
+import { Course } from '@/types/course.types'
 
-import { Course } from '@/app/types/course.types'
+import { Button } from '../ui/button'
 
 export const courseColumns: ColumnDef<Course>[] = [
 	{
@@ -24,7 +24,8 @@ export const courseColumns: ColumnDef<Course>[] = [
 		)
 	},
 	{
-		accessorKey: 'department',
+		accessorFn: row => row.department.title,
+		id: 'department.title',
 		header: ({ column }) => {
 			return (
 				<Button
@@ -32,12 +33,12 @@ export const courseColumns: ColumnDef<Course>[] = [
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отделение
-					<ArrowUpDown />
+					<ArrowUpDown className='ml-2 h-4 w-4' />
 				</Button>
 			)
 		},
 		cell: ({ row }) => (
-			<div className='lowercase'>{row.original.department.title}</div>
+			<div className='lowercase'>{row.getValue('department.title')}</div>
 		)
 	}
 ]
