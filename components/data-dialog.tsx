@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ReactNode } from 'react'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import { DefaultValues, FieldValues, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,12 @@ import {
 	DialogTrigger
 } from '@/components/ui/dialog'
 
+import { Form } from './ui/form'
+
 interface DataDialogProps<T extends FieldValues> {
 	onSubmit: (data: T) => void
 	fields: ReactNode
+	defaultValues?: DefaultValues<T>
 	headers: {
 		triggerTitle: string
 		dialogTitle: string
@@ -31,15 +34,17 @@ interface DataDialogProps<T extends FieldValues> {
 export function DataDialog<T extends FieldValues>({
 	onSubmit,
 	fields,
+	defaultValues,
 	headers,
 	schema
 }: DataDialogProps<T>) {
 	const methods = useForm<T>({
+		defaultValues,
 		mode: 'onChange',
 		resolver: zodResolver(schema)
 	})
 
-	const { handleSubmit, reset, formState } = methods
+	const { handleSubmit, reset } = methods
 
 	function onSubmitted(data: T) {
 		onSubmit(data)
@@ -51,8 +56,8 @@ export function DataDialog<T extends FieldValues>({
 			<DialogTrigger asChild>
 				<Button variant='outline'>{headers.triggerTitle}</Button>
 			</DialogTrigger>
-			<DialogContent className='sm:max-w-[425px]'>
-				<FormProvider {...methods}>
+			<DialogContent className='sm:max-w-[300px]'>
+				<Form {...methods}>
 					<form onSubmit={handleSubmit(data => onSubmitted(data))}>
 						<DialogHeader>
 							<DialogTitle>{headers.dialogTitle}</DialogTitle>
@@ -62,21 +67,17 @@ export function DataDialog<T extends FieldValues>({
 								</DialogDescription>
 							)}
 						</DialogHeader>
-						<div className='grid gap-4 py-4'>
-							<div className='grid grid-cols-4 items-center gap-4'>
-								{fields}
-							</div>
-						</div>
+						<div className='flex flex-col gap-4 py-4'>{fields}</div>
 						<DialogFooter>
 							<Button
-								disabled={!formState.isValid}
+								disabled={!methods.formState.isValid}
 								type='submit'
 							>
 								{headers.submitTitle}
 							</Button>
 						</DialogFooter>
 					</form>
-				</FormProvider>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	)

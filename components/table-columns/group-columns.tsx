@@ -19,7 +19,7 @@ export const groupColumns: ColumnDef<Group>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('title')}</div>
+		cell: ({ row }) => <div>{row.getValue('title')}</div>
 	},
 	{
 		accessorKey: 'course',
@@ -34,9 +34,7 @@ export const groupColumns: ColumnDef<Group>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{`${row.original.course?.number}-й курс`}</div>
-		)
+		cell: ({ row }) => <div>{`${row.original.course?.number}-й курс`}</div>
 	},
 	{
 		accessorKey: 'department',
@@ -51,8 +49,21 @@ export const groupColumns: ColumnDef<Group>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{row.original.course.department?.title}</div>
-		)
+		cell: ({ row }) => <div>{row.original.course.department?.title}</div>
+	},
+	{
+		accessorKey: 'students',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Кол-во студентов
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.original.students?.length || '0'}</div>
 	}
 ]

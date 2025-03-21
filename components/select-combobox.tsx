@@ -1,9 +1,7 @@
-'use client'
+import { Check } from 'lucide-react'
+import React from 'react'
 
-import { Check, ChevronsUpDown } from 'lucide-react'
-import * as React from 'react'
-
-import { Button } from '@/components/ui/button'
+import { Button } from './ui/button'
 import {
 	Command,
 	CommandEmpty,
@@ -11,18 +9,39 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList
-} from '@/components/ui/command'
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger
-} from '@/components/ui/popover'
-
+} from './ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { cn } from '@/lib/utils'
 
-export function SelectCombobox({ data }: { data: any[] }) {
+interface SelectComboboxProps<T> {
+	data: T[]
+	valueKey: keyof T
+	labelKey: keyof T | ((item: T) => string)
+	placeholder?: string
+	onValueChange?: (value: T[keyof T]) => void
+	value?: T[keyof T]
+	className?: string
+}
+
+export function SelectCombobox<T>({
+	data,
+	valueKey,
+	labelKey,
+	placeholder = 'Выберите...',
+	onValueChange,
+	value,
+	className
+}: SelectComboboxProps<T>) {
 	const [open, setOpen] = React.useState(false)
-	const [value, setValue] = React.useState('')
+
+	const selectedItem = data.find(item => item[valueKey] === value)
+
+	const getLabel = (item: T) => {
+		if (typeof labelKey === 'function') {
+			return labelKey(item)
+		}
+		return String(item[labelKey])
+	}
 
 	return (
 		<Popover
@@ -34,32 +53,31 @@ export function SelectCombobox({ data }: { data: any[] }) {
 					variant='outline'
 					role='combobox'
 					aria-expanded={open}
-					className='w-[200px] justify-between'
+					className={cn('w-[200px] justify-between', className)}
 				>
-					{value ? data.find(item => item.title === value)?.title : 'Поиск...'}
-					<ChevronsUpDown className='ml-2 h-4 w-4 opacity-50' />
+					{selectedItem ? getLabel(selectedItem) : placeholder}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className='w-[200px] p-0'>
 				<Command>
-					<CommandInput placeholder='Поиск...' />
+					<CommandInput placeholder={placeholder} />
 					<CommandList>
 						<CommandEmpty>Ничего не найдено.</CommandEmpty>
 						<CommandGroup>
 							{data.map(item => (
 								<CommandItem
-									key={item.id}
-									value={item.title}
-									onSelect={currentValue => {
-										setValue(currentValue === value ? '' : currentValue)
+									key={String(item[valueKey])}
+									value={getLabel(item)}
+									onSelect={() => {
+										onValueChange?.(item[valueKey])
 										setOpen(false)
 									}}
 								>
-									{item.title}
+									{getLabel(item)}
 									<Check
 										className={cn(
-											'ml-auto',
-											value === item.title ? 'opacity-100' : 'opacity-0'
+											'ml-auto h-4 w-4',
+											value === item[valueKey] ? 'opacity-100' : 'opacity-0'
 										)}
 									/>
 								</CommandItem>

@@ -7,4 +7,5 @@ export type Student = {
 	birthDate: Date
 	isExpelled: boolean
 	group: Group
+	certificates: any[]
 }

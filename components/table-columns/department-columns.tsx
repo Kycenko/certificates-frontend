@@ -19,7 +19,7 @@ export const departmentColumns: ColumnDef<Department>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('title')}</div>
+		cell: ({ row }) => <div>{row.getValue('title')}</div>
 	},
 	{
 		accessorKey: 'courses',
@@ -34,8 +34,6 @@ export const departmentColumns: ColumnDef<Department>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{row.original.courses.length}</div>
-		)
+		cell: ({ row }) => <div>{row.original.courses.length}</div>
 	}
 ]

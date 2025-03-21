@@ -7,15 +7,20 @@ import { DataTable } from '@/components/data-table'
 import { GlobalSpinner } from '@/components/global-spinnner'
 import { departmentColumns } from '@/components/table-columns/department-columns'
 import { TableSettings } from '@/components/table-settings'
+import {
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 
 import {
 	DepartmentSchema,
 	departmentSchema
 } from '@/types/schemas/department.schema'
 
-import { useTableSettingsStore } from '@/store/table-setting.store'
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
 	useCreateDepartmentMutation,
@@ -76,25 +81,24 @@ export default function DepartmentsComponent() {
 }
 
 function DepartmentFields() {
-	const {
-		register,
-		formState: { errors }
-	} = useFormContext<DepartmentSchema>()
+	const { control } = useFormContext<DepartmentSchema>()
 
 	return (
-		<>
-			<Label
-				htmlFor='title'
-				className='text-right'
-			>
-				Title
-			</Label>
-			<Input
-				{...register('title')}
-				id='title'
-				className='col-span-3'
-			/>
-			{errors.title && <span>{errors.title.message}</span>}
-		</>
+		<FormField
+			control={control}
+			name='title'
+			render={({ field }) => (
+				<FormItem>
+					<FormLabel>Отделение</FormLabel>
+					<Input
+						placeholder='Название отделения'
+						onChange={field.onChange}
+						value={field.value}
+					/>
+
+					<FormMessage />
+				</FormItem>
+			)}
+		/>
 	)
 }

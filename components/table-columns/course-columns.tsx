@@ -19,9 +19,7 @@ export const courseColumns: ColumnDef<Course>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{`${row.getValue('number')}-курс`}</div>
-		)
+		cell: ({ row }) => <div>{`${row.getValue('number')}-курс`}</div>
 	},
 	{
 		accessorFn: row => row.department.title,
@@ -37,8 +35,21 @@ export const courseColumns: ColumnDef<Course>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{row.getValue('department.title')}</div>
-		)
+		cell: ({ row }) => <div>{row.getValue('department.title')}</div>
+	},
+	{
+		accessorKey: 'groups',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Кол-во групп
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.original.groups?.length || '0'}</div>
 	}
 ]

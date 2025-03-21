@@ -4,13 +4,22 @@ import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
+import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
+import { SelectData } from '@/components/select-data'
 import { courseColumns } from '@/components/table-columns/course-columns'
 import { TableSettings } from '@/components/table-settings'
+import {
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage
+} from '@/components/ui/form'
+import { SelectItem } from '@/components/ui/select'
 
 import { CourseSchema, courseSchema } from '@/types/schemas/course.schema'
 
-import { useTableSettingsStore } from '@/store/table-setting.store'
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
 	useCreateCourseMutation,
@@ -46,13 +55,14 @@ export default function CoursesComponent() {
 			variables: {
 				data: {
 					...data,
-					number: +data.number
+					number: +data.number,
+					departmentId: data.departmentId
 				}
 			}
 		})
 	}
 
-	if (!data || loading) return <div>Loading...</div>
+	if (!data || loading) return <GlobalSpinner />
 
 	return (
 		<div>
@@ -64,6 +74,7 @@ export default function CoursesComponent() {
 						dialogTitle: 'Добавление отделения',
 						submitTitle: 'Добавить'
 					}}
+					defaultValues={{ departmentId: '', number: '' }}
 					fields={
 						<CourseFields
 							departmentData={departments?.getAllDepartments || []}
@@ -86,32 +97,54 @@ export default function CoursesComponent() {
 	)
 }
 
-function CourseFields({ departmentData }: { departmentData: any[] }) {
-	const {
-		register,
-		formState: { errors }
-	} = useFormContext<CourseSchema>()
+function CourseFields({
+	departmentData
+}: {
+	departmentData: { id: string; title: string }[]
+}) {
+	const { control } = useFormContext<CourseSchema>()
 
 	return (
 		<>
-			{/* <Label
-				htmlFor='title'
-				className='text-right'
-			>
-				Номер
-			</Label>
-			<Input
-				{...register('number')}
-				id='number'
-				className='col-span-3'
-			/> */}
-			<select {...register('number')}>
-				<option value={1}>1</option>
-			</select>
-			{errors.number && <span>{errors.number.message}</span>}
-			<SelectCombobox
-				{...register('departmentId')}
-				data={departmentData}
+			<FormField
+				control={control}
+				name='number'
+				render={({ field }) => (
+					<FormItem>
+						<FormLabel>Номер</FormLabel>
+						<SelectData
+							value={field.value}
+							onValueChange={field.onChange}
+							label='Номер курса'
+							placeholder='Выберите номер курса'
+						>
+							<SelectItem value='1'>1-й курс</SelectItem>
+							<SelectItem value='2'>2-й курс</SelectItem>
+							<SelectItem value='3'>3-й курс</SelectItem>
+							<SelectItem value='4'>4-й курс</SelectItem>
+						</SelectData>
+
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+
+			<FormField
+				name='departmentId'
+				control={control}
+				render={({ field }) => (
+					<FormItem>
+						<SelectCombobox
+							data={departmentData}
+							valueKey='id'
+							labelKey='title'
+							placeholder='Выберите отделение'
+							value={field.value}
+							onValueChange={field.onChange}
+						/>
+						<FormMessage />
+					</FormItem>
+				)}
 			/>
 		</>
 	)

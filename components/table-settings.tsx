@@ -9,7 +9,7 @@ import {
 	PopoverTrigger
 } from '@/components/ui/popover'
 
-import { useTableSettingsStore } from '@/store/table-setting.store'
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export function TableSettings() {
 	const {
@@ -31,7 +31,7 @@ export function TableSettings() {
 			<PopoverContent className='w-60'>
 				<div className='grid gap-4'>
 					<div className='space-y-2'>
-						<h4 className='font-medium leading-none'>
+						<h4 className='leading-none font-medium'>
 							Настройки отображения таблицы
 						</h4>
 					</div>

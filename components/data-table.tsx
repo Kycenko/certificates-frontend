@@ -137,11 +137,11 @@ export function DataTable({
 
 	return (
 		<div className='w-full'>
-			<div className='flex justify-between items-center py-4'>
+			<div className='flex items-center justify-between py-4'>
 				<div>
 					{search && (
 						<div className='relative'>
-							<Search className='absolute left-2 top-2.5 h-4 w-4 text-muted-foreground' />
+							<Search className='text-muted-foreground absolute top-2.5 left-2 h-4 w-4' />
 							<Input
 								placeholder='Поиск...'
 								value={
@@ -252,7 +252,7 @@ export function DataTable({
 			</div>
 			{pagination && (
 				<div className='flex items-center justify-end space-x-2 py-4'>
-					<div className='flex-1 text-sm text-muted-foreground'>
+					<div className='text-muted-foreground flex-1 text-sm'>
 						{table.getFilteredSelectedRowModel().rows.length} из{' '}
 						{table.getFilteredRowModel().rows.length} строк выбрано.
 					</div>

@@ -113,7 +113,11 @@ export const studentColumns: ColumnDef<Student>[] = [
 			)
 		},
 		cell: ({ row }) => (
-			<div>{`${row.original.group?.course?.number}-й` || 'Не указан'} </div>
+			<div>
+				{row.original.group?.course?.number !== undefined
+					? `${row.original.group.course.number}-й курс`
+					: 'Не указан'}
+			</div>
 		)
 	},
 	{
@@ -132,5 +136,20 @@ export const studentColumns: ColumnDef<Student>[] = [
 		cell: ({ row }) => (
 			<div>{row.original.group?.course?.department?.title || 'Не указано'}</div>
 		)
+	},
+	{
+		accessorKey: 'certificates',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Кол-во справок
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.original.certificates?.length || '0'}</div>
 	}
 ]
