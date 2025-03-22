@@ -20,6 +20,7 @@ interface SelectComboboxProps<T> {
 	placeholder?: string
 	onValueChange?: (value: T[keyof T]) => void
 	value?: T[keyof T]
+	disabled?: boolean
 	className?: string
 }
 
@@ -30,6 +31,7 @@ export function SelectCombobox<T>({
 	placeholder = 'Выберите...',
 	onValueChange,
 	value,
+	disabled,
 	className
 }: SelectComboboxProps<T>) {
 	const [open, setOpen] = React.useState(false)
@@ -66,6 +68,7 @@ export function SelectCombobox<T>({
 						<CommandGroup>
 							{data.map(item => (
 								<CommandItem
+									disabled={disabled}
 									key={String(item[valueKey])}
 									value={getLabel(item)}
 									onSelect={() => {

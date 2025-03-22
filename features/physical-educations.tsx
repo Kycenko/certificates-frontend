@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
 import { GlobalSpinner } from '@/components/global-spinnner'
-import { departmentColumns } from '@/components/table-columns/department-columns'
+import { physicalEducationColumns } from '@/components/table-columns/physical-education.columns'
 import { TableSettings } from '@/components/table-settings'
 import {
 	FormField,
@@ -16,33 +16,33 @@ import {
 import { Input } from '@/components/ui/input'
 
 import {
-	DepartmentSchema,
-	departmentSchema
-} from '@/types/schemas/department.schema'
+	PhysicalEducationSchema,
+	physicalEducationSchema
+} from '@/types/schemas/physical-education.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
-	useCreateDepartmentMutation,
-	useGetAllDepartmentsQuery,
-	useRemoveManyDepartmentsMutation
+	useCreatePhysicalEducationMutation,
+	useGetAllPhysicalEducationsQuery,
+	useRemoveManyPhysicalEducationsMutation
 } from '@/app/graphql/generated'
 
-export default function DepartmentsComponent() {
+export default function PhysicalEducationsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
-	const { data, loading } = useGetAllDepartmentsQuery({
+	const { data, loading } = useGetAllPhysicalEducationsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
-	const [create] = useCreateDepartmentMutation({
-		refetchQueries: ['getAllDepartments']
+	const [create] = useCreatePhysicalEducationMutation({
+		refetchQueries: ['getAllPhysicalEducations']
 	})
-	const [remove] = useRemoveManyDepartmentsMutation({
-		refetchQueries: ['getAllDepartments']
+	const [remove] = useRemoveManyPhysicalEducationsMutation({
+		refetchQueries: ['getAllPhysicalEducations']
 	})
 
-	async function handleCreate(data: DepartmentSchema) {
+	async function handleCreate(data: PhysicalEducationSchema) {
 		await create({ variables: { data } })
 	}
 	async function handleRemoveMany(selectedIds: Set<string>) {
@@ -55,22 +55,22 @@ export default function DepartmentsComponent() {
 		<div>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
-					schema={departmentSchema}
+					schema={physicalEducationSchema}
 					defaultValues={{ title: '' }}
 					headers={{
 						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление отделения',
+						dialogTitle: 'Добавление группы по физкультуре',
 						submitTitle: 'Добавить'
 					}}
-					fields={<DepartmentFields />}
+					fields={<PhysicalEducationFields />}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
 			</div>
 
 			<DataTable
-				data={data?.getAllDepartments || []}
-				columns={departmentColumns}
+				data={data?.getAllPhysicalEducations || []}
+				columns={physicalEducationColumns}
 				search={search}
 				pagination={pagination}
 				visibility={columnVisibility}
@@ -81,8 +81,8 @@ export default function DepartmentsComponent() {
 	)
 }
 
-function DepartmentFields() {
-	const { control } = useFormContext<DepartmentSchema>()
+function PhysicalEducationFields() {
+	const { control } = useFormContext<PhysicalEducationSchema>()
 
 	return (
 		<FormField
@@ -90,9 +90,9 @@ function DepartmentFields() {
 			name='title'
 			render={({ field }) => (
 				<FormItem>
-					<FormLabel>Отделение</FormLabel>
+					<FormLabel>Группа по физкультуре</FormLabel>
 					<Input
-						placeholder='Название отделения'
+						placeholder='Название группы по физкультуре'
 						onChange={field.onChange}
 						value={field.value}
 					/>

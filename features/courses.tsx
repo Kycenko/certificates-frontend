@@ -24,25 +24,26 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import {
 	useCreateCourseMutation,
 	useGetAllCoursesQuery,
-	useGetAllDepartmentsQuery,
-	useRemoveManyDepartmentsMutation
+	useGetAllDepartmentsLazyQuery,
+	useRemoveManyCoursesMutation
 } from '@/app/graphql/generated'
 
 export default function CoursesComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
-	const { data: departments } = useGetAllDepartmentsQuery({
-		variables: { params: { orderBy: 'asc' } }
-	})
+	const [fetchDepartments, { data: departments, loading: isLoading }] =
+		useGetAllDepartmentsLazyQuery({
+			variables: { params: { orderBy: 'asc' } }
+		})
 
 	const { data, loading } = useGetAllCoursesQuery({
-		variables: { params: { orderBy: 'asc', departmentTitle: '' } }
+		variables: { params: { orderBy: 'asc' } }
 	})
 
 	const [create] = useCreateCourseMutation({
 		refetchQueries: ['getAllCourses']
 	})
-	const [remove] = useRemoveManyDepartmentsMutation({
+	const [remove] = useRemoveManyCoursesMutation({
 		refetchQueries: ['getAllCourses']
 	})
 
@@ -62,7 +63,7 @@ export default function CoursesComponent() {
 		})
 	}
 
-	if (!data || loading) return <GlobalSpinner />
+	if (loading) return <GlobalSpinner />
 
 	return (
 		<div>
@@ -77,15 +78,17 @@ export default function CoursesComponent() {
 					defaultValues={{ departmentId: '', number: '' }}
 					fields={
 						<CourseFields
-							departmentData={departments?.getAllDepartments || []}
+							isLoading={isLoading}
+							data={departments?.getAllDepartments || []}
 						/>
 					}
+					onOpenChange={fetchDepartments}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
 			</div>
 			<DataTable
-				data={data?.getAllCourses}
+				data={data?.getAllCourses || []}
 				columns={courseColumns}
 				search={search}
 				searchParam='department.title'
@@ -98,9 +101,11 @@ export default function CoursesComponent() {
 }
 
 function CourseFields({
-	departmentData
+	data,
+	isLoading
 }: {
-	departmentData: { id: string; title: string }[]
+	data: { id: string; title: string }[]
+	isLoading: boolean
 }) {
 	const { control } = useFormContext<CourseSchema>()
 
@@ -135,7 +140,8 @@ function CourseFields({
 				render={({ field }) => (
 					<FormItem>
 						<SelectCombobox
-							data={departmentData}
+							data={data}
+							disabled={isLoading}
 							valueKey='id'
 							labelKey='title'
 							placeholder='Выберите отделение'

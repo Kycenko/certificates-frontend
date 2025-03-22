@@ -20,6 +20,7 @@ import { Form } from './ui/form'
 
 interface DataDialogProps<T extends FieldValues> {
 	onSubmit: (data: T) => void
+	onOpenChange?: () => void
 	fields: ReactNode
 	defaultValues?: DefaultValues<T>
 	headers: {
@@ -33,6 +34,7 @@ interface DataDialogProps<T extends FieldValues> {
 
 export function DataDialog<T extends FieldValues>({
 	onSubmit,
+	onOpenChange,
 	fields,
 	defaultValues,
 	headers,
@@ -52,7 +54,11 @@ export function DataDialog<T extends FieldValues>({
 	}
 
 	return (
-		<Dialog>
+		<Dialog
+			onOpenChange={open => {
+				if (open) onOpenChange?.()
+			}}
+		>
 			<DialogTrigger asChild>
 				<Button variant='outline'>{headers.triggerTitle}</Button>
 			</DialogTrigger>

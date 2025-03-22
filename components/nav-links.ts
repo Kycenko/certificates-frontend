@@ -4,6 +4,14 @@ export const navLinks = [
 		title: 'Главная'
 	},
 	{
+		href: '/health-groups',
+		title: 'Группы здоровья'
+	},
+	{
+		href: '/physical-educations',
+		title: 'Группы по физкультуре'
+	},
+	{
 		href: '/departments',
 		title: 'Отделения'
 	},
@@ -18,5 +26,9 @@ export const navLinks = [
 	{
 		href: '/students',
 		title: 'Студенты'
+	},
+	{
+		href: '/certificates',
+		title: 'Справки'
 	}
 ]

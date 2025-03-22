@@ -1,0 +1,23 @@
+query getAllCertificates($params: CertificateParamsInput!) {
+	getAllCertificates(params: $params) {
+		id
+		startDate
+		finishDate
+		student {
+			id
+			firstName
+			lastName
+			secondName
+			birthDate
+			isExpelled
+		}
+		physicalEducation {
+			id
+			title
+		}
+		healthGroup {
+			id
+			title
+		}
+	}
+}

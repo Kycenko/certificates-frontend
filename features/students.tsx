@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
 import { DatePicker } from '@/components/date-picker'
+import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
 import { studentColumns } from '@/components/table-columns/student-columns'
 import { TableSettings } from '@/components/table-settings'
@@ -22,20 +23,22 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
 	useCreateStudentMutation,
-	useGetAllGroupsQuery,
+	useGetAllGroupsLazyQuery,
 	useGetAllStudentsQuery,
 	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
 export default function StudentsComponent() {
 	const { search, pagination, columnVisibility } = useTableSettingsStore()
+
 	const { data, loading } = useGetAllStudentsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
-	const { data: groupsData } = useGetAllGroupsQuery({
-		variables: { params: { orderBy: 'asc' } }
-	})
+	const [fetchGroups, { data: groupsData, loading: isLoading }] =
+		useGetAllGroupsLazyQuery({
+			variables: { params: { orderBy: 'asc' } }
+		})
 
 	const [create] = useCreateStudentMutation({
 		refetchQueries: ['getAllStudents']
@@ -53,7 +56,7 @@ export default function StudentsComponent() {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}
 
-	if (!data || loading) return <div>Loading...</div>
+	if (loading) return <GlobalSpinner />
 
 	return (
 		<div>
@@ -71,14 +74,20 @@ export default function StudentsComponent() {
 						dialogTitle: 'Добавление студента',
 						submitTitle: 'Добавить'
 					}}
-					fields={<StudentFields groupsData={groupsData?.getAllGroups || []} />}
+					fields={
+						<StudentFields
+							isLoading={loading}
+							data={groupsData?.getAllGroups || []}
+						/>
+					}
 					schema={studentSchema}
+					onOpenChange={fetchGroups}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
 			</div>
 			<DataTable
-				data={data?.getAllStudents}
+				data={data?.getAllStudents || []}
 				columns={studentColumns}
 				search={search}
 				searchParam='lastName'
@@ -90,12 +99,14 @@ export default function StudentsComponent() {
 	)
 }
 function StudentFields({
-	groupsData
+	data,
+	isLoading
 }: {
-	groupsData: {
+	data: {
 		id: string
 		title: string
 	}[]
+	isLoading: boolean
 }) {
 	const { control } = useFormContext<StudentSchema>()
 
@@ -170,7 +181,8 @@ function StudentFields({
 				render={({ field }) => (
 					<FormItem>
 						<SelectCombobox
-							data={groupsData}
+							disabled={isLoading}
+							data={data}
 							valueKey={'id'}
 							labelKey={'title'}
 							placeholder='Выберите группу'

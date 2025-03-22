@@ -13,7 +13,7 @@ import {
 	useReactTable
 } from '@tanstack/react-table'
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
@@ -127,13 +127,13 @@ export function DataTable({
 		}
 	})
 
-	function handleDeleteSelected() {
+	const handleDeleteSelected = useCallback(() => {
 		const selectedRowIds = new Set(
 			table.getSelectedRowModel().rows.map(row => row.original.id)
 		)
 		onRemoveMany(selectedRowIds)
 		setRowSelection({})
-	}
+	}, [table, onRemoveMany])
 
 	return (
 		<div className='w-full'>

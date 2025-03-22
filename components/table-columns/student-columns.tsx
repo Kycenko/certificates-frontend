@@ -8,21 +8,6 @@ import { Button } from '../ui/button'
 
 export const studentColumns: ColumnDef<Student>[] = [
 	{
-		accessorKey: 'firstName',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-				>
-					Имя
-					<ArrowUpDown />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div>{row.getValue('firstName')}</div>
-	},
-	{
 		accessorKey: 'lastName',
 		header: ({ column }) => {
 			return (
@@ -37,6 +22,22 @@ export const studentColumns: ColumnDef<Student>[] = [
 		},
 		cell: ({ row }) => <div>{row.getValue('lastName')}</div>
 	},
+	{
+		accessorKey: 'firstName',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Имя
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.getValue('firstName')}</div>
+	},
+
 	{
 		accessorKey: 'secondName',
 		header: ({ column }) => {

@@ -2,6 +2,14 @@ query GetAllGroups($params: GroupParamsInput!) {
 	getAllGroups(params: $params) {
 		id
 		title
+		students {
+			id
+			firstName
+			lastName
+			secondName
+			birthDate
+			isExpelled
+		}
 		course {
 			id
 			number

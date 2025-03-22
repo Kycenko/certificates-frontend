@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react'
+import { Search, User } from 'lucide-react'
 import Link from 'next/link'
 
 import { navLinks } from '@/components/nav-links'
@@ -53,12 +53,17 @@ export default function HomeLayout({
 									))}
 								</ul>
 
-								<Button
-									variant='ghost'
-									className='text-foreground hover:bg-muted mt-auto w-full cursor-pointer justify-start'
-								>
-									Выход
-								</Button>
+								<div className='mt-auto'>
+									<Link href={'/profile'}>
+										<Button
+											variant='outline'
+											className='mt-auto w-full cursor-pointer justify-start gap-2'
+										>
+											<User className='h-4 w-4' />
+											Профиль
+										</Button>
+									</Link>
+								</div>
 							</nav>
 						</CardContent>
 					</Card>

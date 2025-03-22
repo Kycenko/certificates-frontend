@@ -1,0 +1,3 @@
+mutation removeManyPhysicalEducations($ids: [String!]!) {
+	removeManyPhysicalEducations(ids: $ids)
+}

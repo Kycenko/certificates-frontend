@@ -22,26 +22,28 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
 	useCreateGroupMutation,
-	useGetAllCoursesQuery,
+	useGetAllCoursesLazyQuery,
 	useGetAllGroupsQuery,
-	useRemoveManyDepartmentsMutation
+	useRemoveManyGroupsMutation
 } from '@/app/graphql/generated'
 
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
+
 	const { data, loading } = useGetAllGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
-	const { data: courses } = useGetAllCoursesQuery({
-		variables: { params: { orderBy: 'asc' } }
-	})
+	const [fetchCourses, { data: courses, loading: isLoading }] =
+		useGetAllCoursesLazyQuery({
+			variables: { params: { orderBy: 'asc' } }
+		})
 
 	const [create] = useCreateGroupMutation({
 		refetchQueries: ['getAllGroups']
 	})
 
-	const [remove] = useRemoveManyDepartmentsMutation({
+	const [remove] = useRemoveManyGroupsMutation({
 		refetchQueries: ['getAllGroups']
 	})
 
@@ -69,7 +71,13 @@ export default function GroupsComponent() {
 						dialogTitle: 'Добавление группы',
 						submitTitle: 'Добавить'
 					}}
-					fields={<GroupFields coursesData={courses?.getAllCourses || []} />}
+					fields={
+						<GroupFields
+							isLoading={isLoading}
+							data={courses?.getAllCourses || []}
+						/>
+					}
+					onOpenChange={fetchCourses}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
@@ -88,13 +96,15 @@ export default function GroupsComponent() {
 }
 
 function GroupFields({
-	coursesData
+	data,
+	isLoading
 }: {
-	coursesData: {
+	data: {
 		id: string
 		number: number
 		department: { title: string }
 	}[]
+	isLoading: boolean
 }) {
 	const { control } = useFormContext<GroupSchema>()
 
@@ -123,7 +133,8 @@ function GroupFields({
 				render={({ field }) => (
 					<FormItem>
 						<SelectCombobox
-							data={coursesData}
+							data={data}
+							disabled={isLoading}
 							valueKey={'id'}
 							labelKey={item =>
 								`${item.number}-й курс (${item.department.title})`

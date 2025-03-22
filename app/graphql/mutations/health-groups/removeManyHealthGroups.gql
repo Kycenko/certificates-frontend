@@ -1,0 +1,3 @@
+mutation removeManyHealthGroups($ids: [String!]!) {
+	removeManyHealthGroups(ids: $ids)
+}

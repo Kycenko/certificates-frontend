@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
 import { GlobalSpinner } from '@/components/global-spinnner'
-import { departmentColumns } from '@/components/table-columns/department-columns'
+import { healthGroupColumns } from '@/components/table-columns/health-group.columns'
 import { TableSettings } from '@/components/table-settings'
 import {
 	FormField,
@@ -16,33 +16,33 @@ import {
 import { Input } from '@/components/ui/input'
 
 import {
-	DepartmentSchema,
-	departmentSchema
-} from '@/types/schemas/department.schema'
+	HealthGroupSchema,
+	healthGroupSchema
+} from '@/types/schemas/health-group.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import {
-	useCreateDepartmentMutation,
-	useGetAllDepartmentsQuery,
-	useRemoveManyDepartmentsMutation
+	useCreateHealthGroupMutation,
+	useGetAllHealthGroupsQuery,
+	useRemoveManyHealthGroupsMutation
 } from '@/app/graphql/generated'
 
-export default function DepartmentsComponent() {
+export default function HealthGroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
-	const { data, loading } = useGetAllDepartmentsQuery({
+	const { data, loading } = useGetAllHealthGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
-	const [create] = useCreateDepartmentMutation({
-		refetchQueries: ['getAllDepartments']
+	const [create] = useCreateHealthGroupMutation({
+		refetchQueries: ['getAllHealthGroups']
 	})
-	const [remove] = useRemoveManyDepartmentsMutation({
-		refetchQueries: ['getAllDepartments']
+	const [remove] = useRemoveManyHealthGroupsMutation({
+		refetchQueries: ['getAllHealthGroups']
 	})
 
-	async function handleCreate(data: DepartmentSchema) {
+	async function handleCreate(data: HealthGroupSchema) {
 		await create({ variables: { data } })
 	}
 	async function handleRemoveMany(selectedIds: Set<string>) {
@@ -55,22 +55,22 @@ export default function DepartmentsComponent() {
 		<div>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
-					schema={departmentSchema}
+					schema={healthGroupSchema}
 					defaultValues={{ title: '' }}
 					headers={{
 						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление отделения',
+						dialogTitle: 'Добавление группы здоровья',
 						submitTitle: 'Добавить'
 					}}
-					fields={<DepartmentFields />}
+					fields={<HealthGroupFields />}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
 			</div>
 
 			<DataTable
-				data={data?.getAllDepartments || []}
-				columns={departmentColumns}
+				data={data?.getAllHealthGroups || []}
+				columns={healthGroupColumns}
 				search={search}
 				pagination={pagination}
 				visibility={columnVisibility}
@@ -81,8 +81,8 @@ export default function DepartmentsComponent() {
 	)
 }
 
-function DepartmentFields() {
-	const { control } = useFormContext<DepartmentSchema>()
+function HealthGroupFields() {
+	const { control } = useFormContext<HealthGroupSchema>()
 
 	return (
 		<FormField
@@ -90,9 +90,9 @@ function DepartmentFields() {
 			name='title'
 			render={({ field }) => (
 				<FormItem>
-					<FormLabel>Отделение</FormLabel>
+					<FormLabel>Группа здоровья</FormLabel>
 					<Input
-						placeholder='Название отделения'
+						placeholder='Название группы здоровья'
 						onChange={field.onChange}
 						value={field.value}
 					/>

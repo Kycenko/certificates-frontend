@@ -1,49 +1,74 @@
 'use client'
 
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
+import { ChangeEvent, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import { Input } from '@/components/ui/input'
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger
 } from '@/components/ui/popover'
 
-import { cn } from '@/lib/utils'
+import { Button } from './ui/button'
 
 interface DatePickerProps {
 	label: string
-	selected: Date
-	onSelect: (date: any) => void
+	selected: Date | undefined
+	onSelect: (date: Date | undefined) => void
 }
 
 export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
+	const [inputValue, setInputValue] = useState<string>('')
+
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setInputValue(e.target.value)
+
+		const parsedDate = parse(value, 'dd.MM.yyyy', new Date())
+
+		if (parsedDate.toString() !== 'Invalid Date' && parsedDate <= new Date())
+			onSelect(parsedDate)
+		else onSelect(undefined)
+	}
+
+	const handleCalendarSelect = (date: Date | undefined) => {
+		if (date) {
+			setInputValue(format(date, 'dd.MM.yyyy'))
+			onSelect(date)
+		}
+	}
+
 	return (
 		<Popover>
-			<PopoverTrigger asChild>
-				<Button
-					variant={'outline'}
-					className={cn(
-						'justify-start text-left font-normal',
-						!selected && 'text-muted-foreground'
-					)}
-				>
-					<CalendarIcon />
-					{selected ? (
-						format(selected, 'PPP', { locale: ru })
-					) : (
-						<span>{label}</span>
-					)}
-				</Button>
-			</PopoverTrigger>
+			<div className='relative'>
+				<Input
+					placeholder={label}
+					value={inputValue}
+					onChange={handleInputChange}
+					className='pl-10'
+				/>
+				<PopoverTrigger asChild>
+					<Button
+						variant='ghost'
+						size='icon'
+						className='absolute top-0 left-0 h-full px-3'
+					>
+						<CalendarIcon className='h-4 w-4' />
+					</Button>
+				</PopoverTrigger>
+			</div>
 			<PopoverContent className='w-auto p-0'>
 				<Calendar
 					mode='single'
 					selected={selected}
-					onSelect={onSelect}
+					onSelect={handleCalendarSelect}
+					disabled={date => date > new Date()}
+					locale={ru}
+					fixedWeeks
 					initialFocus
 				/>
 			</PopoverContent>

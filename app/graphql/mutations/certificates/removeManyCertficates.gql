@@ -1,0 +1,3 @@
+mutation removeManyCertificates($ids: [String!]!) {
+	removeManyCertificates(ids: $ids)
+}
