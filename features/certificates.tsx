@@ -11,7 +11,7 @@ import { TableSettings } from '@/components/table-settings'
 import {
 	CertificateSchema,
 	certificateSchema
-} from '@/types/schemas/certficata.schema'
+} from '@/types/schemas/certficate.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -60,7 +60,6 @@ export default function CertificatesComponent() {
 						dialogTitle: 'Добавление справки',
 						submitTitle: 'Добавить'
 					}}
-					defaultValues={{}}
 					fields={
 						<CertificateFields studentData={data?.getAllCertificates || []} />
 					}

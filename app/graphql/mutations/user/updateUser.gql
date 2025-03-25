@@ -1,0 +1,11 @@
+mutation updateUser(
+	$data: UpdateUserInput!
+	$updateUserId: String!
+	$password: String!
+) {
+	updateUser(data: $data, id: $updateUserId, password: $password) {
+		id
+		login
+		isAdmin
+	}
+}

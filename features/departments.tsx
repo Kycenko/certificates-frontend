@@ -25,7 +25,8 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import {
 	useCreateDepartmentMutation,
 	useGetAllDepartmentsQuery,
-	useRemoveManyDepartmentsMutation
+	useRemoveManyDepartmentsMutation,
+	useUpdateDepartmentMutation
 } from '@/app/graphql/generated'
 
 export default function DepartmentsComponent() {
@@ -38,6 +39,9 @@ export default function DepartmentsComponent() {
 	const [create] = useCreateDepartmentMutation({
 		refetchQueries: ['getAllDepartments']
 	})
+
+	const [update] = useUpdateDepartmentMutation()
+
 	const [remove] = useRemoveManyDepartmentsMutation({
 		refetchQueries: ['getAllDepartments']
 	})

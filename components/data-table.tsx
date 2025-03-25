@@ -12,7 +12,7 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
-import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
+import { ChevronDown, MoreVertical, Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
 import { Button } from './ui/button'
@@ -94,14 +94,21 @@ export function DataTable({
 							variant='ghost'
 							className='h-8 w-8 p-0'
 						>
-							<span className='sr-only'>Открыть</span>
-							<MoreHorizontal />
+							<MoreVertical />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Опции</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>Подробнее</DropdownMenuItem>
+						<DropdownMenuItem></DropdownMenuItem>
+
+						<DropdownMenuItem
+							onClick={() => {
+								row.original.id
+							}}
+						>
+							Изменить
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			)
@@ -200,14 +207,17 @@ export function DataTable({
 					)}
 				</div>
 			</div>
-			<div className='rounded-md border'>
+			<div className='border-t border-b'>
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map(header => {
 									return (
-										<TableHead key={header.id}>
+										<TableHead
+											key={header.id}
+											className='border-r last:border-r-0'
+										>
 											{header.isPlaceholder
 												? null
 												: flexRender(
@@ -228,7 +238,10 @@ export function DataTable({
 									data-state={row.getIsSelected() && 'selected'}
 								>
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>
+										<TableCell
+											key={cell.id}
+											className='border-r last:border-r-0'
+										>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
@@ -241,7 +254,7 @@ export function DataTable({
 							<TableRow>
 								<TableCell
 									colSpan={columns.length}
-									className='h-24 text-center'
+									className='h-24 border-r text-center last:border-r-0'
 								>
 									Ничего не найдено.
 								</TableCell>

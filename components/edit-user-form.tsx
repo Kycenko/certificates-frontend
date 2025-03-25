@@ -1,8 +1,7 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Checkbox } from '@radix-ui/react-checkbox'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,33 +14,54 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
-import { useGetProfileQuery } from '@/app/graphql/generated'
+import { UserSchema } from '@/types/schemas/user.schema'
+
+import { GlobalSpinner } from './global-spinnner'
+import {
+	useGetProfileQuery,
+	useUpdateUserMutation
+} from '@/app/graphql/generated'
 
 export function EditUserForm() {
 	const { data, loading } = useGetProfileQuery()
 
-	const { login, isAdmin } = data?.getProfile || {}
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+	const [update] = useUpdateUserMutation()
+
+	const { login, isAdmin, id } = data?.getProfile || {}
+
+	const form = useForm({
 		defaultValues: {
-			login: login,
-			password: '',
-			isAdmin: isAdmin
+			login,
+			isAdmin,
+			password: ''
 		}
 	})
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log('Данные формы:', values)
+	const { control, handleSubmit } = form
+
+	const onSubmit = async (data: UserSchema) => {
+		await update({
+			variables: {
+				data: {
+					login: data.login,
+					isAdmin: data.isAdmin
+				},
+				updateUserId: id || '',
+				password: data.password
+			}
+		})
 	}
+
+	if (loading) <GlobalSpinner />
 
 	return (
 		<Form {...form}>
 			<form
-				onSubmit={form.handleSubmit(onSubmit)}
+				// onSubmit={handleSubmit(onSubmit)}
 				className='space-y-8'
 			>
 				<FormField
-					control={form.control}
+					control={control}
 					name='login'
 					render={({ field }) => (
 						<FormItem>
@@ -50,6 +70,8 @@ export function EditUserForm() {
 								<Input
 									placeholder='Введите логин'
 									defaultValue={login}
+									value={field.value}
+									onChange={field.onChange}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -58,7 +80,7 @@ export function EditUserForm() {
 				/>
 
 				<FormField
-					control={form.control}
+					control={control}
 					name='password'
 					render={({ field }) => (
 						<FormItem>
@@ -67,7 +89,26 @@ export function EditUserForm() {
 								<Input
 									type='password'
 									placeholder='Введите пароль'
-									{...field}
+									value={field.value}
+									onChange={field.onChange}
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={control}
+					name='isAdmin'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Администратор?</FormLabel>
+							<FormControl>
+								<Checkbox
+									checked={field.value}
+									defaultChecked={isAdmin}
+									onCheckedChange={field.onChange}
 								/>
 							</FormControl>
 							<FormMessage />
