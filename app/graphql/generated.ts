@@ -946,7 +946,7 @@ export type GetAllStudentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStudentsQuery = { __typename?: 'Query', getAllStudents: Array<{ __typename?: 'StudentModel', firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, group?: { __typename?: 'GroupModel', id: string, title: string, course?: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null } | null }> };
+export type GetAllStudentsQuery = { __typename?: 'Query', getAllStudents: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, group?: { __typename?: 'GroupModel', id: string, title: string, course?: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null } | null }> };
 
 
 export const LoginDocument = gql`
@@ -2513,6 +2513,7 @@ export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfi
 export const GetAllStudentsDocument = gql`
     query getAllStudents($params: StudentParamsInput!) {
   getAllStudents(params: $params) {
+    id
     firstName
     lastName
     secondName

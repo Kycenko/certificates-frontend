@@ -25,7 +25,7 @@ import {
 	useCreateStudentMutation,
 	useGetAllGroupsLazyQuery,
 	useGetAllStudentsQuery,
-	useRemoveManyDepartmentsMutation
+	useRemoveManyStudentsMutation
 } from '@/app/graphql/generated'
 
 export default function StudentsComponent() {
@@ -44,7 +44,7 @@ export default function StudentsComponent() {
 		refetchQueries: ['getAllStudents']
 	})
 
-	const [remove] = useRemoveManyDepartmentsMutation({
+	const [remove] = useRemoveManyStudentsMutation({
 		refetchQueries: ['getAllStudents']
 	})
 
@@ -76,7 +76,7 @@ export default function StudentsComponent() {
 					}}
 					fields={
 						<StudentFields
-							isLoading={loading}
+							isLoading={isLoading}
 							data={groupsData?.getAllGroups || []}
 						/>
 					}
@@ -87,6 +87,7 @@ export default function StudentsComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				filterable={true}
 				data={data?.getAllStudents || []}
 				columns={studentColumns}
 				search={search}

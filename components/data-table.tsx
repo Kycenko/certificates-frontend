@@ -44,6 +44,7 @@ interface TableProps {
 	pagination: boolean
 	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
+	filterable?: boolean
 }
 
 export function DataTable({

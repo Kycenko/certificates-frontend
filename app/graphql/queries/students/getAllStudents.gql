@@ -1,5 +1,6 @@
 query getAllStudents($params: StudentParamsInput!) {
 	getAllStudents(params: $params) {
+		id
 		firstName
 		lastName
 		secondName

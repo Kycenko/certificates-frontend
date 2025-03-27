@@ -1,11 +1,33 @@
 import { ColumnDef } from '@tanstack/react-table'
+import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
 
 import { Certificate } from '@/types/certificate.types'
 
 import { Button } from '../ui/button'
 
-export const certiicateColumns: ColumnDef<Certificate>[] = [
+export const certificateColumns: ColumnDef<Certificate>[] = [
+	{
+		accessorFn: row => row.student.lastName,
+		id: 'student.lastName',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					ФИО
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => (
+			<div>
+				{row.original.student.lastName} {row.original.student.firstName}{' '}
+				{row.original.student.secondName}
+			</div>
+		)
+	},
 	{
 		accessorKey: 'startDate',
 		header: ({ column }) => {
@@ -19,7 +41,9 @@ export const certiicateColumns: ColumnDef<Certificate>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div>{row.getValue('startDate')}</div>
+		cell: ({ row }) => (
+			<div>{format(row.getValue('startDate'), 'dd.MM.yyyy')}</div>
+		)
 	},
 	{
 		accessorKey: 'finishDate',
@@ -34,6 +58,38 @@ export const certiicateColumns: ColumnDef<Certificate>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div>{row.getValue('finishDate')}</div>
+		cell: ({ row }) => (
+			<div>{format(row.getValue('finishDate'), 'dd.MM.yyyy')}</div>
+		)
+	},
+	{
+		accessorKey: 'healthGroup',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Группа здоровья
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.original.healthGroup.title}</div>
+	},
+	{
+		accessorKey: 'physicalEducation',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Группа по физкультуре
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => <div>{row.original.physicalEducation.title}</div>
 	}
 ]

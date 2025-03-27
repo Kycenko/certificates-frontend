@@ -91,6 +91,7 @@ export default function CoursesComponent() {
 				data={data?.getAllCourses || []}
 				columns={courseColumns}
 				search={search}
+				filterable={true}
 				searchParam='department.title'
 				pagination={pagination}
 				visibility={columnVisibility}

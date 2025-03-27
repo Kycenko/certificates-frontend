@@ -55,12 +55,12 @@ export function SelectCombobox<T>({
 					variant='outline'
 					role='combobox'
 					aria-expanded={open}
-					className={cn('w-[200px] justify-between', className)}
+					className={cn('w-full justify-between', className)}
 				>
 					{selectedItem ? getLabel(selectedItem) : placeholder}
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className='w-[200px] p-0'>
+			<PopoverContent className='w-full p-0'>
 				<Command>
 					<CommandInput placeholder={placeholder} />
 					<CommandList>

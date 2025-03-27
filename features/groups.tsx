@@ -55,7 +55,7 @@ export default function GroupsComponent() {
 		await create({ variables: { data } })
 	}
 
-	if (!data || loading) return <GlobalSpinner />
+	if (loading) return <GlobalSpinner />
 
 	return (
 		<div>
@@ -83,10 +83,11 @@ export default function GroupsComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
-				data={data?.getAllGroups}
+				data={data?.getAllGroups || []}
 				columns={groupColumns}
 				onRemoveMany={handleRemoveMany}
 				search={search}
+				filterable={true}
 				pagination={pagination}
 				visibility={columnVisibility}
 				searchParam='title'

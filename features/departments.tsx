@@ -25,8 +25,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import {
 	useCreateDepartmentMutation,
 	useGetAllDepartmentsQuery,
-	useRemoveManyDepartmentsMutation,
-	useUpdateDepartmentMutation
+	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
 export default function DepartmentsComponent() {
@@ -39,8 +38,6 @@ export default function DepartmentsComponent() {
 	const [create] = useCreateDepartmentMutation({
 		refetchQueries: ['getAllDepartments']
 	})
-
-	const [update] = useUpdateDepartmentMutation()
 
 	const [remove] = useRemoveManyDepartmentsMutation({
 		refetchQueries: ['getAllDepartments']
@@ -78,6 +75,7 @@ export default function DepartmentsComponent() {
 				search={search}
 				pagination={pagination}
 				visibility={columnVisibility}
+				filterable={true}
 				searchParam='title'
 				onRemoveMany={handleRemoveMany}
 			/>

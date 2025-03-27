@@ -19,9 +19,15 @@ interface DatePickerProps {
 	label: string
 	selected: Date | undefined
 	onSelect: (date: Date | undefined) => void
+	disabled?: boolean
 }
 
-export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
+export function DatePicker({
+	label,
+	selected,
+	onSelect,
+	disabled
+}: DatePickerProps) {
 	const [inputValue, setInputValue] = useState<string>('')
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +72,7 @@ export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
 					mode='single'
 					selected={selected}
 					onSelect={handleCalendarSelect}
-					disabled={date => date > new Date()}
+					disabled={disabled}
 					locale={ru}
 					fixedWeeks
 					initialFocus

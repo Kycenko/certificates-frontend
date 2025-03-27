@@ -43,7 +43,9 @@ export default function HealthGroupsComponent() {
 	})
 
 	async function handleCreate(data: HealthGroupSchema) {
-		await create({ variables: { data } })
+		await create({
+			variables: { data }
+		})
 	}
 	async function handleRemoveMany(selectedIds: Set<string>) {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
