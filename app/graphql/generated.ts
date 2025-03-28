@@ -80,6 +80,7 @@ export type CertificateParamsInput = {
   orderBy?: Scalars['String']['input'];
   page?: Scalars['Float']['input'];
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  studentLastName?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CourseInput = {
@@ -150,6 +151,7 @@ export type HealthGroupInput = {
 
 export type HealthGroupModel = {
   __typename?: 'HealthGroupModel';
+  certificates?: Maybe<Array<CertificateModel>>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -168,7 +170,6 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  changePassword: UserModel;
   createCertificate: CertificateModel;
   createCertificateHistory: CertificateHistoryModel;
   createCourse: CourseModel;
@@ -182,6 +183,15 @@ export type Mutation = {
   login: AuthModel;
   logout: Scalars['Boolean']['output'];
   register: AuthModel;
+  removeAllCertificateHistories: Scalars['Boolean']['output'];
+  removeAllCertificates: Scalars['Boolean']['output'];
+  removeAllCourses: Scalars['Boolean']['output'];
+  removeAllDepartments: Scalars['Boolean']['output'];
+  removeAllGroups: Scalars['Boolean']['output'];
+  removeAllHealthGroup: HealthGroupModel;
+  removeAllPhysicalEducations: Scalars['Boolean']['output'];
+  removeAllStudentHistory: Scalars['Boolean']['output'];
+  removeAllStudents: Scalars['Boolean']['output'];
   removeCertificate: Scalars['Boolean']['output'];
   removeCourse: Scalars['Boolean']['output'];
   removeDepartment: Scalars['Boolean']['output'];
@@ -204,14 +214,6 @@ export type Mutation = {
   updateHealthGroup: HealthGroupModel;
   updatePhysicalEducation: PhysicalEducationModel;
   updateStudent: StudentModel;
-  updateUser: UserModel;
-};
-
-
-export type MutationChangePasswordArgs = {
-  id: Scalars['String']['input'];
-  newPassword: Scalars['String']['input'];
-  oldPassword: Scalars['String']['input'];
 };
 
 
@@ -273,6 +275,16 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationRemoveAllCertificateHistoriesArgs = {
+  certificateId: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveAllStudentHistoryArgs = {
+  studentId: Scalars['String']['input'];
 };
 
 
@@ -392,19 +404,13 @@ export type MutationUpdateStudentArgs = {
   id: Scalars['String']['input'];
 };
 
-
-export type MutationUpdateUserArgs = {
-  data: UpdateUserInput;
-  id: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
 export type PhysicalEducationInput = {
   title: Scalars['String']['input'];
 };
 
 export type PhysicalEducationModel = {
   __typename?: 'PhysicalEducationModel';
+  certificates?: Maybe<Array<CertificateModel>>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -449,32 +455,32 @@ export type QueryGetAllCertificateHistoriesArgs = {
 
 
 export type QueryGetAllCertificatesArgs = {
-  params: CertificateParamsInput;
+  params?: InputMaybe<CertificateParamsInput>;
 };
 
 
 export type QueryGetAllCoursesArgs = {
-  params: CourseParamsInput;
+  params?: InputMaybe<CourseParamsInput>;
 };
 
 
 export type QueryGetAllDepartmentsArgs = {
-  params: DepartmentParamsInput;
+  params?: InputMaybe<DepartmentParamsInput>;
 };
 
 
 export type QueryGetAllGroupsArgs = {
-  params: GroupParamsInput;
+  params?: InputMaybe<GroupParamsInput>;
 };
 
 
 export type QueryGetAllHealthGroupsArgs = {
-  params: HealthGroupParamsInput;
+  params?: InputMaybe<HealthGroupParamsInput>;
 };
 
 
 export type QueryGetAllPhysicalEducationsArgs = {
-  params: PhysicalEducationParamsInput;
+  params?: InputMaybe<PhysicalEducationParamsInput>;
 };
 
 
@@ -484,7 +490,7 @@ export type QueryGetAllStudentHistoriesArgs = {
 
 
 export type QueryGetAllStudentsArgs = {
-  params: StudentParamsInput;
+  params?: InputMaybe<StudentParamsInput>;
 };
 
 
@@ -628,16 +634,13 @@ export type UpdateStudentInput = {
   secondName?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type UpdateUserInput = {
-  isAdmin?: InputMaybe<Scalars['Boolean']['input']>;
-  login?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type UserModel = {
   __typename?: 'UserModel';
-  id: Scalars['ID']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
   isAdmin: Scalars['Boolean']['output'];
   login: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -786,7 +789,7 @@ export type RemoveManyHealthGroupsMutation = { __typename?: 'Mutation', removeMa
 
 export type UpdateHealthGroupMutationVariables = Exact<{
   data: HealthGroupInput;
-  updateHealthGroupId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -850,15 +853,6 @@ export type UpdateStudentMutationVariables = Exact<{
 
 export type UpdateStudentMutation = { __typename?: 'Mutation', updateStudent: { __typename?: 'StudentModel', firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, groupId?: string | null } };
 
-export type UpdateUserMutationVariables = Exact<{
-  data: UpdateUserInput;
-  updateUserId: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-}>;
-
-
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'UserModel', id: string, login: string, isAdmin: boolean } };
-
 export type GetAllCertificatesQueryVariables = Exact<{
   params: CertificateParamsInput;
 }>;
@@ -913,14 +907,14 @@ export type GetAllHealthGroupsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllHealthGroupsQuery = { __typename?: 'Query', getAllHealthGroups: Array<{ __typename?: 'HealthGroupModel', id: string, title: string }> };
+export type GetAllHealthGroupsQuery = { __typename?: 'Query', getAllHealthGroups: Array<{ __typename?: 'HealthGroupModel', id: string, title: string, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any, studentId: string }> | null }> };
 
 export type GetHealthGroupByIdQueryVariables = Exact<{
-  getHealthGroupByIdId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type GetHealthGroupByIdQuery = { __typename?: 'Query', getHealthGroupById: { __typename?: 'HealthGroupModel', id: string } };
+export type GetHealthGroupByIdQuery = { __typename?: 'Query', getHealthGroupById: { __typename?: 'HealthGroupModel', id: string, title: string, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any, student: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null } }> | null } };
 
 export type GetAllPhysicalEducationsQueryVariables = Exact<{
   params: PhysicalEducationParamsInput;
@@ -935,11 +929,6 @@ export type GetPhysicalEducationByTitleQueryVariables = Exact<{
 
 
 export type GetPhysicalEducationByTitleQuery = { __typename?: 'Query', getPhysicalEducationByTitle: { __typename?: 'PhysicalEducationModel', id: string, title: string } };
-
-export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'UserModel', id: string, isAdmin: boolean, login: string } };
 
 export type GetAllStudentsQueryVariables = Exact<{
   params: StudentParamsInput;
@@ -1619,8 +1608,8 @@ export type RemoveManyHealthGroupsMutationHookResult = ReturnType<typeof useRemo
 export type RemoveManyHealthGroupsMutationResult = Apollo.MutationResult<RemoveManyHealthGroupsMutation>;
 export type RemoveManyHealthGroupsMutationOptions = Apollo.BaseMutationOptions<RemoveManyHealthGroupsMutation, RemoveManyHealthGroupsMutationVariables>;
 export const UpdateHealthGroupDocument = gql`
-    mutation UpdateHealthGroup($data: HealthGroupInput!, $updateHealthGroupId: String!) {
-  updateHealthGroup(data: $data, id: $updateHealthGroupId) {
+    mutation UpdateHealthGroup($data: HealthGroupInput!, $id: String!) {
+  updateHealthGroup(data: $data, id: $id) {
     id
     title
   }
@@ -1642,7 +1631,7 @@ export type UpdateHealthGroupMutationFn = Apollo.MutationFunction<UpdateHealthGr
  * const [updateHealthGroupMutation, { data, loading, error }] = useUpdateHealthGroupMutation({
  *   variables: {
  *      data: // value for 'data'
- *      updateHealthGroupId: // value for 'updateHealthGroupId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1923,43 +1912,6 @@ export function useUpdateStudentMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateStudentMutationHookResult = ReturnType<typeof useUpdateStudentMutation>;
 export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMutation>;
 export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<UpdateStudentMutation, UpdateStudentMutationVariables>;
-export const UpdateUserDocument = gql`
-    mutation updateUser($data: UpdateUserInput!, $updateUserId: String!, $password: String!) {
-  updateUser(data: $data, id: $updateUserId, password: $password) {
-    id
-    login
-    isAdmin
-  }
-}
-    `;
-export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
-
-/**
- * __useUpdateUserMutation__
- *
- * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
- *   variables: {
- *      data: // value for 'data'
- *      updateUserId: // value for 'updateUserId'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
-      }
-export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const GetAllCertificatesDocument = gql`
     query getAllCertificates($params: CertificateParamsInput!) {
   getAllCertificates(params: $params) {
@@ -2310,6 +2262,12 @@ export const GetAllHealthGroupsDocument = gql`
   getAllHealthGroups(params: $params) {
     id
     title
+    certificates {
+      id
+      startDate
+      finishDate
+      studentId
+    }
   }
 }
     `;
@@ -2347,10 +2305,21 @@ export type GetAllHealthGroupsLazyQueryHookResult = ReturnType<typeof useGetAllH
 export type GetAllHealthGroupsSuspenseQueryHookResult = ReturnType<typeof useGetAllHealthGroupsSuspenseQuery>;
 export type GetAllHealthGroupsQueryResult = Apollo.QueryResult<GetAllHealthGroupsQuery, GetAllHealthGroupsQueryVariables>;
 export const GetHealthGroupByIdDocument = gql`
-    query GetHealthGroupById($getHealthGroupByIdId: String!) {
-  getHealthGroupById(id: $getHealthGroupByIdId) {
+    query getHealthGroupById($id: String!) {
+  getHealthGroupById(id: $id) {
     id
-    id
+    title
+    certificates {
+      id
+      startDate
+      finishDate
+      student {
+        id
+        lastName
+        firstName
+        secondName
+      }
+    }
   }
 }
     `;
@@ -2367,7 +2336,7 @@ export const GetHealthGroupByIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetHealthGroupByIdQuery({
  *   variables: {
- *      getHealthGroupByIdId: // value for 'getHealthGroupByIdId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -2469,47 +2438,6 @@ export type GetPhysicalEducationByTitleQueryHookResult = ReturnType<typeof useGe
 export type GetPhysicalEducationByTitleLazyQueryHookResult = ReturnType<typeof useGetPhysicalEducationByTitleLazyQuery>;
 export type GetPhysicalEducationByTitleSuspenseQueryHookResult = ReturnType<typeof useGetPhysicalEducationByTitleSuspenseQuery>;
 export type GetPhysicalEducationByTitleQueryResult = Apollo.QueryResult<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>;
-export const GetProfileDocument = gql`
-    query getProfile {
-  getProfile {
-    id
-    isAdmin
-    login
-  }
-}
-    `;
-
-/**
- * __useGetProfileQuery__
- *
- * To run a query within a React component, call `useGetProfileQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProfileQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetProfileQuery(baseOptions?: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
-      }
-export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
-        }
-export function useGetProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
-        }
-export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
-export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
-export type GetProfileSuspenseQueryHookResult = ReturnType<typeof useGetProfileSuspenseQuery>;
-export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const GetAllStudentsDocument = gql`
     query getAllStudents($params: StudentParamsInput!) {
   getAllStudents(params: $params) {

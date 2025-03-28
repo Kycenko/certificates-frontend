@@ -1,6 +1,8 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
@@ -29,6 +31,7 @@ import {
 } from '@/app/graphql/generated'
 
 export default function DepartmentsComponent() {
+	const router = useRouter()
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
 	const { data, loading } = useGetAllDepartmentsQuery({
@@ -39,15 +42,29 @@ export default function DepartmentsComponent() {
 		refetchQueries: ['getAllDepartments']
 	})
 
-	const [remove] = useRemoveManyDepartmentsMutation({
+	const [removeMany] = useRemoveManyDepartmentsMutation({
 		refetchQueries: ['getAllDepartments']
 	})
 
+	const handleInfo = (id: string) => {
+		router.push(`/departments/${id}`)
+	}
+
 	async function handleCreate(data: DepartmentSchema) {
-		await create({ variables: { data } })
+		try {
+			await create({ variables: { data } })
+			toast.success('Отделение успешно добавлено')
+		} catch {
+			toast.error('Произошла ошибка при добавлении отделения')
+		}
 	}
 	async function handleRemoveMany(selectedIds: Set<string>) {
-		await remove({ variables: { ids: Array.from(selectedIds) } })
+		try {
+			await removeMany({ variables: { ids: Array.from(selectedIds) } })
+			toast.success('Отделения успешно удалены')
+		} catch {
+			toast.error('Произошла ошибка при удалении отделений')
+		}
 	}
 
 	if (loading) return <GlobalSpinner />
@@ -77,6 +94,7 @@ export default function DepartmentsComponent() {
 				visibility={columnVisibility}
 				filterable={true}
 				searchParam='title'
+				onInfo={handleInfo}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</div>

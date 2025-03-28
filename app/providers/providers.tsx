@@ -1,6 +1,7 @@
 'use client'
 
 import { ApolloProvider } from '@apollo/client'
+import { Toaster } from 'sonner'
 
 import { client } from '../graphql/apollo-client.config'
 
@@ -16,6 +17,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 				disableTransitionOnChange
 			>
 				{children}
+				<Toaster />
 			</ThemeProvider>
 		</ApolloProvider>
 	)

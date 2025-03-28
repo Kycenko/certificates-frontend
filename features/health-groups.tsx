@@ -1,10 +1,10 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { healthGroupColumns } from '@/components/table-columns/health-group.columns'
 import { TableSettings } from '@/components/table-settings'
 import {
@@ -29,6 +29,7 @@ import {
 } from '@/app/graphql/generated'
 
 export default function HealthGroupsComponent() {
+	const router = useRouter()
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
 	const { data, loading } = useGetAllHealthGroupsQuery({
@@ -51,7 +52,9 @@ export default function HealthGroupsComponent() {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}
 
-	if (loading) return <GlobalSpinner />
+	function OnInfo(id: string) {
+		router.push(`/groups-management/hg/${id}`)
+	}
 
 	return (
 		<div>
@@ -77,6 +80,8 @@ export default function HealthGroupsComponent() {
 				pagination={pagination}
 				visibility={columnVisibility}
 				searchParam='title'
+				onInfo={OnInfo}
+				isLoading={loading}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</div>

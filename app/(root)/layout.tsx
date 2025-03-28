@@ -1,7 +1,7 @@
-import { User } from 'lucide-react'
 import Link from 'next/link'
 
 import { navLinks } from '@/components/nav-links'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 
 export default function HomeLayout({
@@ -32,26 +32,15 @@ export default function HomeLayout({
 							))}
 						</ul>
 
-						<div className='mt-auto pt-4'>
-							<Link
-								href={'/profile'}
-								passHref
-							>
-								<Button
-									variant='outline'
-									className='w-full cursor-pointer justify-start gap-2'
-								>
-									<User className='h-4 w-4' />
-									Профиль
-								</Button>
-							</Link>
+						<div className='mt-auto flex gap-3 pt-4'>
+							<ThemeToggle />
 						</div>
 					</nav>
 				</div>
 
-				<div className='flex-1 overflow-auto'>
+				<div className='flex-1 space-y-4 overflow-auto p-6'>
 					<div className='bg-card h-full'>
-						<div className='text-foreground p-2'>{children}</div>
+						<div className=''>{children}</div>
 					</div>
 				</div>
 			</div>

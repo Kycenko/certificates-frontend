@@ -1,10 +1,10 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { physicalEducationColumns } from '@/components/table-columns/physical-education.columns'
 import { TableSettings } from '@/components/table-settings'
 import {
@@ -29,6 +29,7 @@ import {
 } from '@/app/graphql/generated'
 
 export default function PhysicalEducationsComponent() {
+	const router = useRouter()
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
 	const { data, loading } = useGetAllPhysicalEducationsQuery({
@@ -49,7 +50,9 @@ export default function PhysicalEducationsComponent() {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}
 
-	if (loading) return <GlobalSpinner />
+	function OnInfo(id: string) {
+		router.push(`/groups-management/pe/${id}`)
+	}
 
 	return (
 		<div>
@@ -75,6 +78,8 @@ export default function PhysicalEducationsComponent() {
 				pagination={pagination}
 				visibility={columnVisibility}
 				searchParam='title'
+				onInfo={OnInfo}
+				isLoading={loading}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</div>

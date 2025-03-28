@@ -2,5 +2,11 @@ query GetAllHealthGroups($params: HealthGroupParamsInput!) {
 	getAllHealthGroups(params: $params) {
 		id
 		title
+		certificates {
+			id
+			startDate
+			finishDate
+			studentId
+		}
 	}
 }
