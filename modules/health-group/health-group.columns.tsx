@@ -1,10 +1,7 @@
-import { ColumnDef } from '@tanstack/react-table'
-
-
 import { HealthGroup } from '@modules/health-group/health-group.types'
-
-import { Button } from '@/shared/ui/button'
-
+import { Button } from '@shared/ui/button'
+import { ColumnDef } from '@tanstack/react-table'
+import { ArrowUpDown } from 'lucide-react'
 
 export const healthGroupColumns: ColumnDef<HealthGroup>[] = [
 	{
@@ -12,8 +9,8 @@ export const healthGroupColumns: ColumnDef<HealthGroup>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='gh"st'
-	"			onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Название
 					<ArrowUpDown />

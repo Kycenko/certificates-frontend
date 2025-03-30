@@ -1,6 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table'
-
 import { Certificate } from '@modules/certificate/certificate.types'
+import { ColumnDef } from '@tanstack/react-table'
 
 export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 	{

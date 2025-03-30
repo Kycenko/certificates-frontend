@@ -1,5 +1,6 @@
+import { Group } from '../group/group.types'
+
 import { Department } from './department.types'
-import { Group } from './group.types'
 
 export type Course = {
 	id: string

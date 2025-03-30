@@ -1,3 +1,3 @@
 mutation removeManyCourses($ids: [String!]!) {
-	removeManyCourses(ids: $ids)
+    removeManyCourses(ids: $ids)
 }

@@ -1,10 +1,10 @@
 query getCourseById($getCourseById: String!) {
-	getCourseById(id: $getCourseById) {
-		id
-		number
-		department {
-			id
-			title
-		}
-	}
+    getCourseById(id: $getCourseById) {
+        id
+        number
+        department {
+            id
+            title
+        }
+    }
 }

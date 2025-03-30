@@ -1,5 +1,6 @@
-import { Certificate } from './certificate.types'
-import { Group } from './group.types'
+import { Group } from '@modules/group/group.types'
+
+import { Certificate } from '../certificate/certificate.types'
 
 export type Student = {
 	id: string

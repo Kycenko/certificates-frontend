@@ -1,17 +1,17 @@
 query getHealthGroupById($id: String!) {
-	getHealthGroupById(id: $id) {
-		id
-		title
-		certificates {
-			id
-			startDate
-			finishDate
-			student {
-				id
-				lastName
-				firstName
-				secondName
-			}
-		}
-	}
+    getHealthGroupById(id: $id) {
+        id
+        title
+        certificates {
+            id
+            startDate
+            finishDate
+            student {
+                id
+                lastName
+                firstName
+                secondName
+            }
+        }
+    }
 }

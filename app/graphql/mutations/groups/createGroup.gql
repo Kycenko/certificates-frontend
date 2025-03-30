@@ -1,7 +1,7 @@
 mutation createGroup($data: GroupInput!) {
-	createGroup(data: $data) {
-		id
-		title
-		courseId
-	}
+    createGroup(data: $data) {
+        id
+        title
+        courseId
+    }
 }

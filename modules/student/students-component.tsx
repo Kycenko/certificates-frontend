@@ -1,26 +1,23 @@
 'use client'
 
-import { useFormContext } from 'react-hook-form'
-
-import { studentColumns } from '@modules/student/student-columns'
-
-import { StudentSchema, studentSchema } from '@modules/student/student.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreateStudentMutation,
 	useGetAllGroupsLazyQuery,
 	useGetAllStudentsQuery,
 	useRemoveManyStudentsMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { DatePicker } from '@/shared/components/date-picker'
-import { SelectCombobox } from '@/shared/components/select-combobox'
-import { TableSettings } from '@/shared/components/table-settings'
-import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
-import { Input } from '@/shared/ui/input'
+} from '@app/graphql/generated'
+import { studentColumns } from '@modules/student/student-columns'
+import { StudentSchema, studentSchema } from '@modules/student/student.schema'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { DatePicker } from '@shared/components/date-picker'
+import { SelectCombobox } from '@shared/components/select-combobox'
+import { TableSettings } from '@shared/components/table-settings'
+import { FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form'
+import { Input } from '@shared/ui/input'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export default function StudentsComponent() {
 	const { search, pagination, columnVisibility } = useTableSettingsStore()

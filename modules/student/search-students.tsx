@@ -1,11 +1,7 @@
 'use client'
 
-import { Search } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-
-import { useGetAllStudentsQuery } from '@/app/graphql/generated'
-import { Button } from '@/shared/ui/button'
+import { useGetAllStudentsQuery } from '@app/graphql/generated'
+import { Button } from '@shared/ui/button'
 import {
 	Command,
 	CommandEmpty,
@@ -13,9 +9,12 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList
-} from '@/shared/ui/command'
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/ui/dialog'
-import { Skeleton } from '@/shared/ui/skeleton'
+} from '@shared/ui/command'
+import { Dialog, DialogContent, DialogTrigger } from '@shared/ui/dialog'
+import { Skeleton } from '@shared/ui/skeleton'
+import { Search } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export function StudentSearch() {
 	const [open, setOpen] = useState(false)

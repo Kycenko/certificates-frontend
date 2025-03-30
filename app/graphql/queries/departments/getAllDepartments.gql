@@ -1,10 +1,10 @@
 query getAllDepartments($params: DepartmentParamsInput!) {
-	getAllDepartments(params: $params) {
-		id
-		title
-		courses {
-			id
-			number
-		}
-	}
+    getAllDepartments(params: $params) {
+        id
+        title
+        courses {
+            id
+            number
+        }
+    }
 }

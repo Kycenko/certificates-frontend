@@ -1,4 +1,4 @@
-import { Certificate } from './certificate.types'
+import { Certificate } from '@modules/certificate/certificate.types'
 
 export type PhysicalEducation = {
 	id: string

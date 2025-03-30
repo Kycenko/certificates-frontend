@@ -1,8 +1,8 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import HealthGroupsComponent from '@modules/health-group/health-groups-component'
+import PhysicalEducationsComponent from '@modules/physical-education/physical-educations-component'
 
-import HealthGroupsComponent from '@/features/health-groups'
-import PhysicalEducationsComponent from '@/features/physical-educations'
+import { Card, CardContent } from '@/shared/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 
 export default function GroupsManagementPage() {
 	return (

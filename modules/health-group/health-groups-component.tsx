@@ -1,32 +1,24 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
-
-import { healthGroupColumns } from '@modules/health-group/health-group.columns'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/shared/ui/form'
-import { Input } from '@/shared/ui/input'
-
-import {
-	HealthGroupSchema,
-	healthGroupSchema
-} from '@modules/health-group/health-group.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreateHealthGroupMutation,
 	useGetAllHealthGroupsQuery,
 	useRemoveManyHealthGroupsMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { TableSettings } from '@/shared/components/table-settings'
+} from '@app/graphql/generated'
+import { healthGroupColumns } from '@modules/health-group/health-group.columns'
+import {
+	HealthGroupSchema,
+	healthGroupSchema
+} from '@modules/health-group/health-group.schema'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { TableSettings } from '@shared/components/table-settings'
+import { FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form'
+import { Input } from '@shared/ui/input'
+import { useRouter } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export default function HealthGroupsComponent() {
 	const router = useRouter()

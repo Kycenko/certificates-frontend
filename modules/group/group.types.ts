@@ -1,5 +1,6 @@
-import { Course } from './course.types'
-import { Student } from './student.types'
+import { Course } from '@modules/course/course.types'
+
+import { Student } from '../student/student.types'
 
 export type Group = {
 	id: string

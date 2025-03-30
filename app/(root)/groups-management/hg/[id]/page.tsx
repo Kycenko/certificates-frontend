@@ -1,30 +1,23 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
-import { toast } from 'sonner'
-
-import { DetailsDataTable } from '@/components/details-data-table'
-import EditSheet from '@/components/edit-sheet'
-import { healthGroupDetailsColumns } from '@/components/table-columns/health-group-details.columns'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Skeleton } from '@/components/ui/skeleton'
-
+import { healthGroupDetailsColumns } from '@modules/health-group/health-group-details.columns'
 import {
 	HealthGroupSchema,
 	healthGroupSchema
-} from '@/types/schemas/health-group.schema'
+} from '@modules/health-group/health-group.schema'
+import { useParams } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import {
 	useGetHealthGroupByIdQuery,
 	useUpdateHealthGroupMutation
 } from '@/app/graphql/generated'
+import { DetailsDataTable } from '@/shared/components/details-data-table'
+import EditSheet from '@/shared/components/edit-sheet'
+import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
+import { Skeleton } from '@/shared/ui/skeleton'
 
 export default function HealthGroupDetailsPage() {
 	const { id } = useParams<{ id: string }>()

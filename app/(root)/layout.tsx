@@ -1,8 +1,4 @@
-import Link from 'next/link'
-
-import { navLinks } from '@/components/nav-links'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
+import NavLinks from '@/shared/components/nav-links'
 
 export default function HomeLayout({
 	children
@@ -13,29 +9,7 @@ export default function HomeLayout({
 		<div className='flex h-screen'>
 			<div className='flex flex-1 overflow-hidden'>
 				<div className='bg-background w-64 overflow-y-auto border-r p-4'>
-					<nav className='flex h-full flex-col'>
-						<ul className='flex flex-grow flex-col space-y-2'>
-							{navLinks.map(({ href, title }) => (
-								<li key={href}>
-									<Link
-										href={href}
-										passHref
-									>
-										<Button
-											variant='ghost'
-											className='text-foreground hover:bg-muted w-full cursor-pointer justify-start'
-										>
-											{title}
-										</Button>
-									</Link>
-								</li>
-							))}
-						</ul>
-
-						<div className='mt-auto flex gap-3 pt-4'>
-							<ThemeToggle />
-						</div>
-					</nav>
+					<NavLinks />
 				</div>
 
 				<div className='flex-1 overflow-auto p-10'>

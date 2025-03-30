@@ -1,31 +1,24 @@
 'use client'
 
-import { useFormContext } from 'react-hook-form'
-
-import { courseColumns } from '@/components/table-columns/course-columns'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/components/ui/form'
-import { SelectItem } from '@/components/ui/select'
-
-import { CourseSchema, courseSchema } from '@/types/schemas/course.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreateCourseMutation,
 	useGetAllCoursesQuery,
 	useGetAllDepartmentsLazyQuery,
 	useRemoveManyCoursesMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { SelectCombobox } from '@/shared/components/select-combobox'
-import { SelectData } from '@/shared/components/select-data'
-import { TableSettings } from '@/shared/components/table-settings'
+} from '@app/graphql/generated'
+import { courseColumns } from '@modules/course/course-columns'
+import { CourseSchema, courseSchema } from '@modules/course/course.schema'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { SelectCombobox } from '@shared/components/select-combobox'
+import { SelectData } from '@shared/components/select-data'
+import { TableSettings } from '@shared/components/table-settings'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
+
+import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
+import { SelectItem } from '@/shared/ui/select'
 
 export default function CoursesComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()

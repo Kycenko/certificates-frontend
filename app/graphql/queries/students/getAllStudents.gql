@@ -1,22 +1,22 @@
 query getAllStudents($params: StudentParamsInput!) {
-	getAllStudents(params: $params) {
-		id
-		firstName
-		lastName
-		secondName
-		birthDate
-		isExpelled
-		group {
-			id
-			title
-			course {
-				id
-				number
-				department {
-					id
-					title
-				}
-			}
-		}
-	}
+    getAllStudents(params: $params) {
+        id
+        firstName
+        lastName
+        secondName
+        birthDate
+        isExpelled
+        group {
+            id
+            title
+            course {
+                id
+                number
+                department {
+                    id
+                    title
+                }
+            }
+        }
+    }
 }

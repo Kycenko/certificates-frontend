@@ -1,18 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
-
-import { certificateColumns } from '@modules/certificate/certificate-columns'
-import { FormField, FormItem, FormMessage } from '@/shared/ui/form'
-
-import {
-	CertificateSchema,
-	certificateSchema
-} from '@modules/certificate/certficate.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreateCertificateMutation,
 	useGetAllCertificatesQuery,
@@ -20,12 +7,22 @@ import {
 	useGetAllPhysicalEducationsLazyQuery,
 	useGetAllStudentsLazyQuery,
 	useRemoveManyCertificatesMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { DatePicker } from '@/shared/components/date-picker'
-import { SelectCombobox } from '@/shared/components/select-combobox'
-import { TableSettings } from '@/shared/components/table-settings'
+} from '@app/graphql/generated'
+import {
+	CertificateSchema,
+	certificateSchema
+} from '@modules/certificate/certficate.schema'
+import { certificateColumns } from '@modules/certificate/certificate-columns'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { DatePicker } from '@shared/components/date-picker'
+import { SelectCombobox } from '@shared/components/select-combobox'
+import { TableSettings } from '@shared/components/table-settings'
+import { FormField, FormItem, FormMessage } from '@shared/ui/form'
+import { useRouter } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export default function CertificatesComponent() {
 	const router = useRouter()

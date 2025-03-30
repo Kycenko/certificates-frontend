@@ -1,9 +1,9 @@
 mutation CreateCertificate($data: CertificateInput!) {
-	createCertificate(data: $data) {
-		startDate
-		finishDate
-		studentId
-		healthGroupId
-		physicalEducationId
-	}
+    createCertificate(data: $data) {
+        startDate
+        finishDate
+        studentId
+        healthGroupId
+        physicalEducationId
+    }
 }

@@ -1,11 +1,7 @@
+import { Group } from '@modules/group/group.types'
+import { Button } from '@shared/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
-
-
-import { Group } from '@modules/group/group.types'
-
-import { Button } from '@/shared/ui/button'
-
 
 export const groupColumns: ColumnDef<Group>[] = [
 	{
@@ -13,8 +9,8 @@ export const groupColumns: ColumnDef<Group>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='gh"st'
-	"			onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Название
 					<ArrowUpDown />
@@ -28,8 +24,8 @@ export const groupColumns: ColumnDef<Group>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='gh"st'
-	"			onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Курс
 					<ArrowUpDown />
@@ -43,8 +39,8 @@ export const groupColumns: ColumnDef<Group>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='gh"st'
-	"			onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отделение
 					<ArrowUpDown />
@@ -58,8 +54,8 @@ export const groupColumns: ColumnDef<Group>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='gh"st'
-	"			onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Кол-во студентов
 					<ArrowUpDown />

@@ -1,30 +1,22 @@
 'use client'
 
-import { useFormContext } from 'react-hook-form'
-
-import { groupColumns } from '@modules/group/group-columns'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/shared/ui/form'
-import { Input } from '@/shared/ui/input'
-
-import { GroupSchema, groupSchema } from '@modules/group/group.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreateGroupMutation,
 	useGetAllCoursesLazyQuery,
 	useGetAllGroupsQuery,
 	useRemoveManyGroupsMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { SelectCombobox } from '@/shared/components/select-combobox'
-import { TableSettings } from '@/shared/components/table-settings'
+} from '@app/graphql/generated'
+import { groupColumns } from '@modules/group/group-columns'
+import { GroupSchema, groupSchema } from '@modules/group/group.schema'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { SelectCombobox } from '@shared/components/select-combobox'
+import { TableSettings } from '@shared/components/table-settings'
+import { FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form'
+import { Input } from '@shared/ui/input'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()

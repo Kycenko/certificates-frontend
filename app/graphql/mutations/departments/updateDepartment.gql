@@ -1,9 +1,9 @@
 mutation updateDepartment(
-	$data: DepartmentInput!
-	$updateDepartmentId: String!
+    $data: DepartmentInput!
+    $updateDepartmentId: String!
 ) {
-	updateDepartment(data: $data, id: $updateDepartmentId) {
-		id
-		title
-	}
+    updateDepartment(data: $data, id: $updateDepartmentId) {
+        id
+        title
+    }
 }

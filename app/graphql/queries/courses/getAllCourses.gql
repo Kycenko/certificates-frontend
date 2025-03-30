@@ -1,14 +1,14 @@
 query getAllCourses($params: CourseParamsInput!) {
-	getAllCourses(params: $params) {
-		id
-		number
-		groups {
-			id
-			title
-		}
-		department {
-			id
-			title
-		}
-	}
+    getAllCourses(params: $params) {
+        id
+        number
+        groups {
+            id
+            title
+        }
+        department {
+            id
+            title
+        }
+    }
 }

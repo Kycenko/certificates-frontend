@@ -1,11 +1,7 @@
+import { Course } from '@modules/course/course.types'
+import { Button } from '@shared/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-
-
-import { Course } from '@/types/course.types'
-
-
-import { Button } from '@/shared/ui/button'
-
+import { ArrowUpDown } from 'lucide-react'
 
 export const courseColumns: ColumnDef<Course>[] = [
 	{
@@ -13,7 +9,7 @@ export const courseColumns: ColumnDef<Course>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					varia"t='gh"st'
+					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Номер
@@ -29,11 +25,11 @@ export const courseColumns: ColumnDef<Course>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					varia"t='gh"st'
+					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отделение
-					<ArrowUpDown classNa"e='ml-2 h-4 "-4' />
+					<ArrowUpDown className='"-4 ml-2 h-4' />
 				</Button>
 			)
 		},
@@ -44,7 +40,7 @@ export const courseColumns: ColumnDef<Course>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					varia"t='gh"st'
+					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Кол-во групп

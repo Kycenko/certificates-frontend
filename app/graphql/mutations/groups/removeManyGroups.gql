@@ -1,3 +1,3 @@
 mutation removeManyGroups($ids: [String!]!) {
-	removeManyGroups(ids: $ids)
+    removeManyGroups(ids: $ids)
 }

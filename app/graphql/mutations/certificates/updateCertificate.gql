@@ -1,12 +1,12 @@
 mutation UpdateCertificate(
-	$data: UpdateCertificateInput!
-	$updateCertificateId: String!
+    $data: UpdateCertificateInput!
+    $updateCertificateId: String!
 ) {
-	updateCertificate(data: $data, id: $updateCertificateId) {
-		startDate
-		finishDate
-		studentId
-		healthGroupId
-		physicalEducationId
-	}
+    updateCertificate(data: $data, id: $updateCertificateId) {
+        startDate
+        finishDate
+        studentId
+        healthGroupId
+        physicalEducationId
+    }
 }

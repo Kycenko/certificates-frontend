@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 
 import './globals.css'
-import Providers from './providers/providers'
+import RootProvider from './providers/root-provider'
 
 const montserrat = Montserrat({
 	variable: '--font-geist-mono',
@@ -25,7 +25,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<body className={`${montserrat.variable} antialiased`}>
-				<Providers>{children}</Providers>
+				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>
 	)

@@ -1,20 +1,23 @@
-'use client';
+'use client'
 
 import { ApolloProvider } from '@apollo/client'
 
 import { client } from '../graphql/apollo-client.config'
 
-
 import { ThemeProvider } from './theme-provider'
+import { Toaster } from '@/shared/ui/sonner'
 
-
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function RootProvider({
+	children
+}: {
+	children: React.ReactNode
+}) {
 	return (
 		<ApolloProvider client={client}>
 			<ThemeProvider
-				attribute='c"ass'
-"			defaultTheme='s"stem'
-"			enableSystem
+				attribute='class'
+				defaultTheme='system'
+				enableSystem
 				disableTransitionOnChange
 			>
 				{children}

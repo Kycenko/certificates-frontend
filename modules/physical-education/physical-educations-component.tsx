@@ -1,32 +1,24 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
-
-import { physicalEducationColumns } from '@modules/physical-education/physical-education.columns'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/shared/ui/form'
-import { Input } from '@/shared/ui/input'
-
-import {
-	PhysicalEducationSchema,
-	physicalEducationSchema
-} from '@modules/physical-education/physical-education.schema'
-
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
 import {
 	useCreatePhysicalEducationMutation,
 	useGetAllPhysicalEducationsQuery,
 	useRemoveManyPhysicalEducationsMutation
-} from '@/app/graphql/generated'
-import { DataDialog } from '@/shared/components/data-dialog'
-import { DataTable } from '@/shared/components/data-table'
-import { TableSettings } from '@/shared/components/table-settings'
+} from '@app/graphql/generated'
+import { physicalEducationColumns } from '@modules/physical-education/physical-education.columns'
+import {
+	PhysicalEducationSchema,
+	physicalEducationSchema
+} from '@modules/physical-education/physical-education.schema'
+import { DataDialog } from '@shared/components/data-dialog'
+import { DataTable } from '@shared/components/data-table'
+import { TableSettings } from '@shared/components/table-settings'
+import { FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form'
+import { Input } from '@shared/ui/input'
+import { useRouter } from 'next/navigation'
+import { useFormContext } from 'react-hook-form'
+
+import { useTableSettingsStore } from '@/store/table-settings.store'
 
 export default function PhysicalEducationsComponent() {
 	const router = useRouter()

@@ -1,6 +1,7 @@
-import { HealthGroup } from './health-group.types'
-import { PhysicalEducation } from './physical-education.types'
-import { Student } from './student.types'
+import { Student } from '@modules/student/student.types'
+
+import { HealthGroup } from '../health-group/health-group.types'
+import { PhysicalEducation } from '../physical-education/physical-education.types'
 
 export type Certificate = {
 	id: string
