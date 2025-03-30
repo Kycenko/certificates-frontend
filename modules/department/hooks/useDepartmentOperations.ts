@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 
 import {
 	useCreateDepartmentMutation,
+	useGetAllDepartmentsQuery,
 	useGetDepartmentByIdQuery,
 	useRemoveDepartmentMutation,
 	useRemoveManyDepartmentsMutation,
@@ -14,6 +15,11 @@ import { DepartmentSchema } from '@/modules/department/department.schema'
 
 export function useDepartmentOperations(id?: string) {
 	const router = useRouter()
+
+	const { data: departmentsData, loading: departmentsLoading } =
+		useGetAllDepartmentsQuery({
+			variables: { params: { orderBy: 'asc' } }
+		})
 
 	const {
 		data: departmentData,
@@ -84,6 +90,11 @@ export function useDepartmentOperations(id?: string) {
 	}
 
 	return {
+		departments: {
+			data: departmentsData,
+			loading: departmentsLoading
+		},
+
 		department: {
 			data: departmentData,
 			loading: departmentLoading,
