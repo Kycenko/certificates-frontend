@@ -23,12 +23,8 @@ interface DataDialogProps<T extends FieldValues> {
 	onOpenChange?: () => void
 	fields: ReactNode
 	defaultValues?: DefaultValues<T>
-	headers: {
-		triggerTitle: string
-		dialogTitle: string
-		dialogDescription?: string
-		submitTitle: string
-	}
+	title: string
+	description?: string
 	schema: z.ZodSchema<T>
 }
 
@@ -37,7 +33,8 @@ export function DataDialog<T extends FieldValues>({
 	onOpenChange,
 	fields,
 	defaultValues,
-	headers,
+	title,
+	description,
 	schema
 }: DataDialogProps<T>) {
 	const methods = useForm<T>({
@@ -53,24 +50,22 @@ export function DataDialog<T extends FieldValues>({
 		reset()
 	}
 
+	function handleOpenChange(open: boolean) {
+		if (open) onOpenChange?.()
+	}
+
 	return (
-		<Dialog
-			onOpenChange={open => {
-				if (open) onOpenChange?.()
-			}}
-		>
+		<Dialog onOpenChange={handleOpenChange}>
 			<DialogTrigger asChild>
-				<Button variant='outline'>{headers.triggerTitle}</Button>
+				<Button variant='outline'>Добавить</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[300px]'>
 				<Form {...methods}>
 					<form onSubmit={handleSubmit(data => onSubmitted(data))}>
 						<DialogHeader>
-							<DialogTitle>{headers.dialogTitle}</DialogTitle>
-							{headers.dialogDescription && (
-								<DialogDescription>
-									{headers.dialogDescription}
-								</DialogDescription>
+							<DialogTitle>{title}</DialogTitle>
+							{description && (
+								<DialogDescription>{description}</DialogDescription>
 							)}
 						</DialogHeader>
 						<div className='flex flex-col gap-4 py-4'>{fields}</div>
@@ -79,7 +74,7 @@ export function DataDialog<T extends FieldValues>({
 								disabled={!methods.formState.isValid}
 								type='submit'
 							>
-								{headers.submitTitle}
+								Добавить
 							</Button>
 						</DialogFooter>
 					</form>

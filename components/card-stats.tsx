@@ -1,8 +1,16 @@
+'use client'
+
 import { AlertTriangle, CheckCircle2, Clock, FileText } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { useGetAllCertificatesQuery } from '@/app/graphql/generated'
 
 export default function CardStats() {
+	const { data, loading } = useGetAllCertificatesQuery({
+		variables: { params: { orderBy: 'asc' } }
+	})
+	const dataLength = data?.getAllCertificates?.length
+
 	return (
 		<div className='mb-6 grid grid-cols-1 gap-4 md:grid-cols-4'>
 			<Card className='border-blue-200 bg-blue-50'>
@@ -11,7 +19,9 @@ export default function CardStats() {
 						<CardTitle className='text-sm'>Всего справок</CardTitle>
 						<FileText className='h-5 w-5 text-blue-600' />
 					</div>
-					<CardContent className='p-0 text-2xl font-bold'>1,234</CardContent>
+					<CardContent className='p-0 text-2xl font-bold'>
+						{dataLength}
+					</CardContent>
 				</CardHeader>
 			</Card>
 

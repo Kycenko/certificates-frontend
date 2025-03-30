@@ -5,7 +5,6 @@ import { useFormContext } from 'react-hook-form'
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
 import { DatePicker } from '@/components/date-picker'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
 import { studentColumns } from '@/components/table-columns/student-columns'
 import { TableSettings } from '@/components/table-settings'
@@ -56,8 +55,6 @@ export default function StudentsComponent() {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}
 
-	if (loading) return <GlobalSpinner />
-
 	return (
 		<div>
 			<div className='flex justify-end gap-3'>
@@ -69,11 +66,7 @@ export default function StudentsComponent() {
 						birthDate: new Date(),
 						isExpelled: false
 					}}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление студента',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление студента'
 					fields={
 						<StudentFields
 							isLoading={isLoading}
@@ -87,6 +80,7 @@ export default function StudentsComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				isLoading={loading}
 				filterable={true}
 				data={data?.getAllStudents || []}
 				columns={studentColumns}
@@ -121,8 +115,7 @@ function StudentFields({
 						<FormLabel>Имя</FormLabel>
 						<Input
 							placeholder='Введите имя...'
-							onChange={field.onChange}
-							value={field.value}
+							{...field}
 						/>
 
 						<FormMessage />
@@ -137,8 +130,7 @@ function StudentFields({
 						<FormLabel>Фамилия</FormLabel>
 						<Input
 							placeholder='Введите фамилию...'
-							onChange={field.onChange}
-							value={field.value}
+							{...field}
 						/>
 
 						<FormMessage />
@@ -152,9 +144,8 @@ function StudentFields({
 					<FormItem>
 						<FormLabel>Отчество</FormLabel>
 						<Input
+							{...field}
 							placeholder='Введите отчество...'
-							onChange={field.onChange}
-							value={field.value}
 						/>
 
 						<FormMessage />

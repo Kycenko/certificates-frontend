@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
 import { SelectData } from '@/components/select-data'
 import { courseColumns } from '@/components/table-columns/course-columns'
@@ -56,25 +55,18 @@ export default function CoursesComponent() {
 			variables: {
 				data: {
 					...data,
-					number: +data.number,
-					departmentId: data.departmentId
+					number: +data.number
 				}
 			}
 		})
 	}
-
-	if (loading) return <GlobalSpinner />
 
 	return (
 		<div>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
 					schema={courseSchema}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление отделения',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление курса'
 					defaultValues={{ departmentId: '', number: '' }}
 					fields={
 						<CourseFields
@@ -88,6 +80,7 @@ export default function CoursesComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				isLoading={loading}
 				data={data?.getAllCourses || []}
 				columns={courseColumns}
 				search={search}

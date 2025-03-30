@@ -6,7 +6,6 @@ import { toast } from 'sonner'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { departmentColumns } from '@/components/table-columns/department-columns'
 import { TableSettings } from '@/components/table-settings'
 import {
@@ -67,19 +66,13 @@ export default function DepartmentsComponent() {
 		}
 	}
 
-	if (loading) return <GlobalSpinner />
-
 	return (
-		<div>
+		<>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
 					schema={departmentSchema}
 					defaultValues={{ title: '' }}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление отделения',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление отделения'
 					fields={<DepartmentFields />}
 					onSubmit={handleCreate}
 				/>
@@ -87,6 +80,7 @@ export default function DepartmentsComponent() {
 			</div>
 
 			<DataTable
+				isLoading={loading}
 				data={data?.getAllDepartments || []}
 				columns={departmentColumns}
 				search={search}
@@ -97,7 +91,7 @@ export default function DepartmentsComponent() {
 				onInfo={handleInfo}
 				onRemoveMany={handleRemoveMany}
 			/>
-		</div>
+		</>
 	)
 }
 

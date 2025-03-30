@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
 import { groupColumns } from '@/components/table-columns/group-columns'
 import { TableSettings } from '@/components/table-settings'
@@ -55,8 +54,6 @@ export default function GroupsComponent() {
 		await create({ variables: { data } })
 	}
 
-	if (loading) return <GlobalSpinner />
-
 	return (
 		<div>
 			<div className='flex justify-end gap-3'>
@@ -66,11 +63,7 @@ export default function GroupsComponent() {
 						courseId: ''
 					}}
 					schema={groupSchema}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление группы',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление группы'
 					fields={
 						<GroupFields
 							isLoading={isLoading}
@@ -83,6 +76,7 @@ export default function GroupsComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				isLoading={loading}
 				data={data?.getAllGroups || []}
 				columns={groupColumns}
 				onRemoveMany={handleRemoveMany}

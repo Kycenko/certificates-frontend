@@ -62,11 +62,7 @@ export default function HealthGroupsComponent() {
 				<DataDialog
 					schema={healthGroupSchema}
 					defaultValues={{ title: '' }}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление группы здоровья',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление группы здоровья'
 					fields={<HealthGroupFields />}
 					onSubmit={handleCreate}
 				/>

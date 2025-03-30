@@ -15,7 +15,6 @@ import {
 import { ChevronDown, Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
-import { SkeletonField } from './skeleton-field'
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
 import {
@@ -36,13 +35,13 @@ import {
 
 interface TableProps {
 	data: any[]
-	columns: ColumnDef<any, any>[]
+	columns: ColumnDef<any>[]
 	search: boolean
 	searchParam: string
 	pagination: boolean
 	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
-	onInfo: (id: string) => void
+	onInfo?: (id: string) => void
 	isLoading?: boolean
 	filterable?: boolean
 }
@@ -85,37 +84,6 @@ export function DataTable({
 		enableSorting: false,
 		enableHiding: false
 	}
-
-	// const actionsColumn: ColumnDef<any, any> = {
-	// 	id: 'actions',
-	// 	enableHiding: false,
-	// 	cell: ({ row }) => {
-	// 		return (
-	// 			<DropdownMenu>
-	// 				<DropdownMenuTrigger asChild>
-	// 					<Button
-	// 						variant='ghost'
-	// 						className='h-8 w-8 p-0'
-	// 					>
-	// 						<MoreVertical />
-	// 					</Button>
-	// 				</DropdownMenuTrigger>
-	// 				<DropdownMenuContent align='end'>
-	// 					<DropdownMenuLabel>Опции</DropdownMenuLabel>
-	// 					<DropdownMenuSeparator />
-
-	// 					<DropdownMenuItem
-	// 						onClick={() => {
-	// 							row.original.id
-	// 						}}
-	// 					>
-	// 						Подробнее
-	// 					</DropdownMenuItem>
-	// 				</DropdownMenuContent>
-	// 			</DropdownMenu>
-	// 		)
-	// 	}
-	// }
 
 	const table = useReactTable({
 		data,
@@ -209,81 +177,62 @@ export function DataTable({
 					)}
 				</div>
 			</div>
-			{isLoading ? (
-				<div className='space-y-4'>
-					{[...Array(5)].map((_, i) => (
-						<div
-							key={i}
-							className='flex items-center space-x-4 rounded-lg border p-4'
-						>
-							{columns.map((_, colIndex) => (
-								<div
-									key={colIndex}
-									className='flex-1'
+
+			<div className='border-t border-b'>
+				<Table>
+					<TableHeader>
+						{table.getHeaderGroups().map(headerGroup => (
+							<TableRow key={headerGroup.id}>
+								{headerGroup.headers.map(header => (
+									<TableHead
+										key={header.id}
+										className='border-r last:border-r-0'
+									>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+												)}
+									</TableHead>
+								))}
+							</TableRow>
+						))}
+					</TableHeader>
+					<TableBody>
+						{table.getRowModel().rows?.length ? (
+							table.getRowModel().rows?.map(row => (
+								<TableRow
+									key={row.id}
+									data-state={row.getIsSelected() && 'selected'}
 								>
-									<SkeletonField />
-								</div>
-							))}
-						</div>
-					))}
-				</div>
-			) : (
-				<div className='border-t border-b'>
-					<Table>
-						<TableHeader>
-							{table.getHeaderGroups().map(headerGroup => (
-								<TableRow key={headerGroup.id}>
-									{headerGroup.headers.map(header => (
-										<TableHead
-											key={header.id}
-											className='border-r last:border-r-0'
+									{row.getVisibleCells().map(cell => (
+										<TableCell
+											key={cell.id}
+											className='cursor-pointer border-r last:border-r-0'
 										>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)}
-										</TableHead>
+											{flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext()
+											)}
+										</TableCell>
 									))}
 								</TableRow>
-							))}
-						</TableHeader>
-						<TableBody>
-							{table.getRowModel().rows?.length ? (
-								table.getRowModel().rows?.map(row => (
-									<TableRow
-										key={row.id}
-										data-state={row.getIsSelected() && 'selected'}
-									>
-										{row.getVisibleCells().map(cell => (
-											<TableCell
-												key={cell.id}
-												onClick={() => onInfo(row.original.id)}
-												className='cursor-pointer border-r last:border-r-0'
-											>
-												{flexRender(
-													cell.column.columnDef.cell,
-													cell.getContext()
-												)}
-											</TableCell>
-										))}
-									</TableRow>
-								))
-							) : (
-								<TableRow>
-									<TableCell
-										colSpan={columns.length}
-										className='h-24 border-r text-center last:border-r-0'
-									>
-										Ничего не найдено.
-									</TableCell>
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</div>
-			)}
+							))
+						) : (
+							<TableRow>
+								<TableCell
+									colSpan={columns.length}
+									className='h-24 border-r text-center last:border-r-0'
+								>
+									Ничего не найдено.
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+			</div>
+
 			{pagination && (
 				<div className='flex items-center justify-end space-x-2 py-4'>
 					<div className='text-muted-foreground flex-1 text-sm'>

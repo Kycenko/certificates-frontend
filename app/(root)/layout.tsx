@@ -39,8 +39,8 @@ export default function HomeLayout({
 				</div>
 
 				<div className='flex-1 space-y-4 overflow-auto p-6'>
-					<div className='bg-card h-full'>
-						<div className=''>{children}</div>
+					<div className='h-full'>
+						<div>{children}</div>
 					</div>
 				</div>
 			</div>

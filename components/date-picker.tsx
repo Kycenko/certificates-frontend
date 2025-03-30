@@ -36,8 +36,7 @@ export function DatePicker({
 
 		const parsedDate = parse(value, 'dd.MM.yyyy', new Date())
 
-		if (parsedDate.toString() !== 'Invalid Date' && parsedDate <= new Date())
-			onSelect(parsedDate)
+		if (parsedDate.toString() !== 'Invalid Date') onSelect(parsedDate)
 		else onSelect(undefined)
 	}
 

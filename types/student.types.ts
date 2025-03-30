@@ -1,3 +1,4 @@
+import { Certificate } from './certificate.types'
 import { Group } from './group.types'
 
 export type Student = {
@@ -8,5 +9,5 @@ export type Student = {
 	birthDate: Date
 	isExpelled: boolean
 	group: Group
-	certificates: any[]
+	certificates: Certificate[]
 }

@@ -60,11 +60,7 @@ export default function PhysicalEducationsComponent() {
 				<DataDialog
 					schema={physicalEducationSchema}
 					defaultValues={{ title: '' }}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление группы по физкультуре',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление группы по физкультуре'
 					fields={<PhysicalEducationFields />}
 					onSubmit={handleCreate}
 				/>

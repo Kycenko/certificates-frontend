@@ -28,7 +28,7 @@ export function SelectCombobox<T>({
 	data,
 	valueKey,
 	labelKey,
-	placeholder = 'Выберите...',
+	placeholder,
 	onValueChange,
 	value,
 	disabled,

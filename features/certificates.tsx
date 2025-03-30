@@ -1,11 +1,11 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
 import { DataDialog } from '@/components/data-dialog'
 import { DataTable } from '@/components/data-table'
 import { DatePicker } from '@/components/date-picker'
-import { GlobalSpinner } from '@/components/global-spinnner'
 import { SelectCombobox } from '@/components/select-combobox'
 import { certificateColumns } from '@/components/table-columns/certificate-columns'
 import { TableSettings } from '@/components/table-settings'
@@ -28,6 +28,7 @@ import {
 } from '@/app/graphql/generated'
 
 export default function CertificatesComponent() {
+	const router = useRouter()
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 
 	const [fetchStudents, { data: students }] = useGetAllStudentsLazyQuery({
@@ -50,30 +51,28 @@ export default function CertificatesComponent() {
 	const [create] = useCreateCertificateMutation({
 		refetchQueries: ['getAllCertificates']
 	})
-	const [remove] = useRemoveManyCertificatesMutation({
+	const [removeMany] = useRemoveManyCertificatesMutation({
 		refetchQueries: ['getAllCertificates']
 	})
 
 	async function handleRemoveMany(selectedIds: Set<string>) {
-		await remove({ variables: { ids: Array.from(selectedIds) } })
+		await removeMany({ variables: { ids: Array.from(selectedIds) } })
 	}
 
 	async function handleCreate(data: CertificateSchema) {
 		await create({ variables: { data } })
 	}
 
-	if (loading) return <GlobalSpinner />
+	function handleInfo(id: string) {
+		router.push(`/certificates/${id}`)
+	}
 
 	return (
 		<div>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
 					schema={certificateSchema}
-					headers={{
-						triggerTitle: 'Добавить',
-						dialogTitle: 'Добавление справки',
-						submitTitle: 'Добавить'
-					}}
+					title='Добавление справки'
 					onOpenChange={() => {
 						fetchStudents()
 						fetchHealthGroups()
@@ -93,12 +92,14 @@ export default function CertificatesComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				isLoading={loading}
 				data={data?.getAllCertificates || []}
 				columns={certificateColumns}
 				search={search}
 				searchParam='student.lastName'
 				pagination={pagination}
 				visibility={columnVisibility}
+				onInfo={handleInfo}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</div>
