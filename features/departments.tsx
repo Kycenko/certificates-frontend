@@ -26,6 +26,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import {
 	useCreateDepartmentMutation,
 	useGetAllDepartmentsQuery,
+	useRemoveDepartmentMutation,
 	useRemoveManyDepartmentsMutation
 } from '@/app/graphql/generated'
 
@@ -45,6 +46,10 @@ export default function DepartmentsComponent() {
 		refetchQueries: ['getAllDepartments']
 	})
 
+	const [remove] = useRemoveDepartmentMutation({
+		refetchQueries: ['getAllDepartments']
+	})
+
 	const handleInfo = (id: string) => {
 		router.push(`/departments/${id}`)
 	}
@@ -55,6 +60,15 @@ export default function DepartmentsComponent() {
 			toast.success('Отделение успешно добавлено')
 		} catch {
 			toast.error('Произошла ошибка при добавлении отделения')
+		}
+	}
+
+	async function handleRemove(id: string) {
+		try {
+			await remove({ variables: { id } })
+			toast.success('Отделение успешно удалено')
+		} catch {
+			toast.error('Произошла ошибка при удалении отделения')
 		}
 	}
 	async function handleRemoveMany(selectedIds: Set<string>) {
@@ -89,6 +103,7 @@ export default function DepartmentsComponent() {
 				filterable={true}
 				searchParam='title'
 				onInfo={handleInfo}
+				onRemove={handleRemove}
 				onRemoveMany={handleRemoveMany}
 			/>
 		</>

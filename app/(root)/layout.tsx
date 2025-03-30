@@ -38,7 +38,7 @@ export default function HomeLayout({
 					</nav>
 				</div>
 
-				<div className='flex-1 space-y-4 overflow-auto p-6'>
+				<div className='flex-1 overflow-auto p-10'>
 					<div className='h-full'>
 						<div>{children}</div>
 					</div>

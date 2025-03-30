@@ -716,7 +716,7 @@ export type CreateDepartmentMutationVariables = Exact<{
 export type CreateDepartmentMutation = { __typename?: 'Mutation', createDepartment: { __typename?: 'DepartmentModel', id: string, title: string } };
 
 export type RemoveDepartmentMutationVariables = Exact<{
-  removeDepartmentId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -1282,8 +1282,8 @@ export type CreateDepartmentMutationHookResult = ReturnType<typeof useCreateDepa
 export type CreateDepartmentMutationResult = Apollo.MutationResult<CreateDepartmentMutation>;
 export type CreateDepartmentMutationOptions = Apollo.BaseMutationOptions<CreateDepartmentMutation, CreateDepartmentMutationVariables>;
 export const RemoveDepartmentDocument = gql`
-    mutation removeDepartment($removeDepartmentId: String!) {
-  removeDepartment(id: $removeDepartmentId)
+    mutation removeDepartment($id: String!) {
+  removeDepartment(id: $id)
 }
     `;
 export type RemoveDepartmentMutationFn = Apollo.MutationFunction<RemoveDepartmentMutation, RemoveDepartmentMutationVariables>;
@@ -1301,7 +1301,7 @@ export type RemoveDepartmentMutationFn = Apollo.MutationFunction<RemoveDepartmen
  * @example
  * const [removeDepartmentMutation, { data, loading, error }] = useRemoveDepartmentMutation({
  *   variables: {
- *      removeDepartmentId: // value for 'removeDepartmentId'
+ *      id: // value for 'id'
  *   },
  * });
  */

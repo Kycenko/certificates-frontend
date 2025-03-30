@@ -12,7 +12,7 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
-import { ChevronDown, Search } from 'lucide-react'
+import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
 import { Button } from './ui/button'
@@ -21,6 +21,9 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from './ui/dropdown-menu'
 import { Input } from './ui/input'
@@ -41,7 +44,8 @@ interface TableProps {
 	pagination: boolean
 	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
-	onInfo?: (id: string) => void
+	onRemove: (id: string) => void
+	onInfo: (id: string) => void
 	isLoading?: boolean
 	filterable?: boolean
 }
@@ -50,11 +54,11 @@ export function DataTable({
 	data,
 	columns,
 	onRemoveMany,
+	onRemove,
 	onInfo,
 	searchParam,
 	search,
 	visibility,
-	isLoading,
 	pagination
 }: TableProps) {
 	const [sorting, setSorting] = useState<SortingState>([])
@@ -62,7 +66,7 @@ export function DataTable({
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
-	const selectColumn: ColumnDef<any, any> = {
+	const selectColumn: ColumnDef<any> = {
 		id: 'select',
 		header: ({ table }) => (
 			<Checkbox
@@ -85,9 +89,39 @@ export function DataTable({
 		enableHiding: false
 	}
 
+	const actionsColumns: ColumnDef<any> = {
+		id: 'actions',
+		enableHiding: false,
+		cell: ({ row }) => {
+			return (
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							variant='ghost'
+							className='h-8 w-8 p-0'
+						>
+							<MoreHorizontal />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align='end'>
+						<DropdownMenuLabel>Действия</DropdownMenuLabel>
+
+						<DropdownMenuSeparator />
+						<DropdownMenuItem onClick={() => onInfo(row.original.id)}>
+							Подробнее
+						</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => onRemove(row.original.id)}>
+							Удалить
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			)
+		}
+	}
+
 	const table = useReactTable({
 		data,
-		columns: [selectColumn, ...columns],
+		columns: [selectColumn, ...columns, actionsColumns],
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
 		getCoreRowModel: getCoreRowModel(),
@@ -209,7 +243,7 @@ export function DataTable({
 									{row.getVisibleCells().map(cell => (
 										<TableCell
 											key={cell.id}
-											className='cursor-pointer border-r last:border-r-0'
+											className='border-r last:border-r-0'
 										>
 											{flexRender(
 												cell.column.columnDef.cell,
