@@ -8,7 +8,6 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
 import { useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
@@ -55,31 +54,19 @@ export function DetailsDataTable({
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map(header => {
-									return (
-										<TableHead key={header.id}>
-											{header.isPlaceholder ? null : (
-												<div
-													className={
-														header.column.getCanSort()
-															? 'flex cursor-pointer items-center select-none'
-															: ''
-													}
-													onClick={header.column.getToggleSortingHandler()}
-												>
-													{flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)}
-													{{
-														asc: <ArrowUpDown className='ml-2 h-4 w-4' />,
-														desc: <ArrowUpDown className='ml-2 h-4 w-4' />
-													}[header.column.getIsSorted() as string] ?? null}
-												</div>
-											)}
-										</TableHead>
-									)
-								})}
+								{headerGroup.headers.map(header => (
+									<TableHead
+										key={header.id}
+										className='border-r last:border-r-0'
+									>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+												)}
+									</TableHead>
+								))}
 							</TableRow>
 						))}
 					</TableHeader>

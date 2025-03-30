@@ -1,10 +1,14 @@
-query getDepartmentById($getDepartmentById: String!) {
-    getDepartmentById(id: $getDepartmentById) {
-        id
-        title
-        courses {
-            id
-            number
-        }
-    }
+query getDepartmentById($id: String!) {
+	getDepartmentById(id: $id) {
+		id
+		title
+		courses {
+			id
+			number
+			groups {
+				id
+				title
+			}
+		}
+	}
 }

@@ -5,23 +5,38 @@ import { toast } from 'sonner'
 
 import {
 	useCreateDepartmentMutation,
+	useGetDepartmentByIdQuery,
 	useRemoveDepartmentMutation,
-	useRemoveManyDepartmentsMutation
+	useRemoveManyDepartmentsMutation,
+	useUpdateDepartmentMutation
 } from '@/app/graphql/generated'
 import { DepartmentSchema } from '@/modules/department/department.schema'
 
-export function useDepartmentsOperations() {
+export function useDepartmentOperations(id?: string) {
 	const router = useRouter()
+
+	const {
+		data: departmentData,
+		loading: departmentLoading,
+		refetch: refetchDepartment
+	} = useGetDepartmentByIdQuery({
+		variables: { id: id || '' },
+		skip: !id
+	})
 
 	const [create] = useCreateDepartmentMutation({
 		refetchQueries: ['getAllDepartments']
 	})
 
-	const [removeMany] = useRemoveManyDepartmentsMutation({
+	const [update] = useUpdateDepartmentMutation({
 		refetchQueries: ['getAllDepartments']
 	})
 
 	const [remove] = useRemoveDepartmentMutation({
+		refetchQueries: ['getAllDepartments']
+	})
+
+	const [removeMany] = useRemoveManyDepartmentsMutation({
 		refetchQueries: ['getAllDepartments']
 	})
 
@@ -35,6 +50,18 @@ export function useDepartmentsOperations() {
 			toast.success('Отделение успешно добавлено')
 		} catch {
 			toast.error('Произошла ошибка при создании отделения')
+		}
+	}
+
+	async function handleUpdate(id: string, data: DepartmentSchema) {
+		try {
+			await update({
+				variables: { id, data }
+			})
+
+			toast.success('Отделение успешно обновлено')
+		} catch {
+			toast.error('Произошла ошибка при обновлении отделения')
 		}
 	}
 
@@ -57,8 +84,14 @@ export function useDepartmentsOperations() {
 	}
 
 	return {
+		department: {
+			data: departmentData,
+			loading: departmentLoading,
+			refetch: refetchDepartment
+		},
 		handleInfo,
 		handleCreate,
+		handleUpdate,
 		handleRemove,
 		handleRemoveMany
 	}

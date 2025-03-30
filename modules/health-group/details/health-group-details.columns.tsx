@@ -1,5 +1,8 @@
 import { Certificate } from '@modules/certificate/certificate.types'
 import { ColumnDef } from '@tanstack/react-table'
+import { ArrowUpDown } from 'lucide-react'
+
+import { Button } from '@/shared/ui/button'
 
 export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 	{
@@ -12,7 +15,18 @@ export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 	},
 	{
 		accessorKey: 'startDate',
-		header: 'Дата выдачи',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Дата выдачи
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+
 		cell: ({ row }) => {
 			return new Date(row.original.startDate).toLocaleDateString()
 		}

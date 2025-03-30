@@ -46,7 +46,7 @@ export default function HealthGroupsComponent() {
 	}
 
 	function OnInfo(id: string) {
-		router.push(`/groups-management/hg/${id}`)
+		router.push(`/groups-management/health-groups/${id}`)
 	}
 
 	return (

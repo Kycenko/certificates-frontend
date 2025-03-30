@@ -19,7 +19,7 @@ import {
 
 interface EditSheetProps<T extends FieldValues> {
 	fields: React.ReactNode
-	onSubmit: (data: T) => void
+	onSubmit: (data: T) => Promise<void>
 	defaultValues: DefaultValues<T>
 	schema: z.ZodSchema<T>
 	title: string

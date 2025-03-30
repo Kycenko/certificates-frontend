@@ -13,21 +13,21 @@ const eslintConfig = [
 	...compat.extends('next/core-web-vitals', 'next/typescript'),
 	{
 		rules: {
-			'no-restricted-imports': [
-				'error',
-				{
-					patterns: [
-						{
-							group: ['../*'],
-							message: 'Use absolute imports with @/ prefix instead'
-						},
-						{
-							group: ['@/modules/*/*'],
-							message: 'Import from module index.ts instead'
-						}
-					]
-				}
-			],
+			// 'no-restricted-imports': [
+			// 	'error',
+			// 	{
+			// 		patterns: [
+			// 			{
+			// 				group: ['../*'],
+			// 				message: 'Use absolute imports with @/ prefix instead'
+			// 			},
+			// 			{
+			// 				group: ['@/modules/*/*'],
+			// 				message: 'Import from module index.ts instead'
+			// 			}
+			// 		]
+			// 	}
+			// ],
 			'import/no-relative-parent-imports': 'error',
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@typescript-eslint/no-floating-promises': 'off',

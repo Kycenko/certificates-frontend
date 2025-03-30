@@ -1,6 +1,5 @@
 'use client'
 
-import { healthGroupDetailsColumns } from '@modules/health-group/health-group-details.columns'
 import {
 	HealthGroupSchema,
 	healthGroupSchema
@@ -13,13 +12,14 @@ import {
 	useGetHealthGroupByIdQuery,
 	useUpdateHealthGroupMutation
 } from '@/app/graphql/generated'
+import { healthGroupDetailsColumns } from '@/modules/health-group/details/health-group-details.columns'
 import { DetailsDataTable } from '@/shared/components/details-data-table'
+import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
 import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
-import { Skeleton } from '@/shared/ui/skeleton'
 
-export default function HealthGroupDetailsPage() {
+export default function HealthGroupDetailsComponent() {
 	const { id } = useParams<{ id: string }>()
 	const { data, loading, refetch } = useGetHealthGroupByIdQuery({
 		variables: { id }
@@ -30,7 +30,7 @@ export default function HealthGroupDetailsPage() {
 
 	const [updateHealthGroup] = useUpdateHealthGroupMutation()
 
-	const handleSave = async (data: HealthGroupSchema) => {
+	const handleUpdate = async (data: HealthGroupSchema) => {
 		try {
 			await updateHealthGroup({
 				variables: {
@@ -45,15 +45,7 @@ export default function HealthGroupDetailsPage() {
 		}
 	}
 
-	if (loading)
-		return (
-			<div className='space-y-6 p-4'>
-				<Skeleton className='h-8 w-64' />
-				<div className='space-y-4'>
-					<Skeleton className='h-[300px] w-full' />
-				</div>
-			</div>
-		)
+	if (loading) return <DetailsTableSkeleton />
 
 	return (
 		<div className='space-y-6 p-4'>
@@ -63,7 +55,7 @@ export default function HealthGroupDetailsPage() {
 				<EditSheet
 					title='Редактирование группы здоровья'
 					fields={<HealthGroupFields />}
-					onSubmit={handleSave}
+					onSubmit={handleUpdate}
 					defaultValues={{
 						title
 					}}
