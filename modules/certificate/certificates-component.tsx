@@ -3,18 +3,13 @@
 import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { DatePicker } from '@/components/date-picker'
-import { SelectCombobox } from '@/components/select-combobox'
-import { certificateColumns } from '@/components/table-columns/certificate-columns'
-import { TableSettings } from '@/components/table-settings'
-import { FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { certificateColumns } from '@modules/certificate/certificate-columns'
+import { FormField, FormItem, FormMessage } from '@/shared/ui/form'
 
 import {
 	CertificateSchema,
 	certificateSchema
-} from '@/types/schemas/certficate.schema'
+} from '@modules/certificate/certficate.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -26,6 +21,11 @@ import {
 	useGetAllStudentsLazyQuery,
 	useRemoveManyCertificatesMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { DatePicker } from '@/shared/components/date-picker'
+import { SelectCombobox } from '@/shared/components/select-combobox'
+import { TableSettings } from '@/shared/components/table-settings'
 
 export default function CertificatesComponent() {
 	const router = useRouter()

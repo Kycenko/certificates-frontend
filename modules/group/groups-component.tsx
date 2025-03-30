@@ -2,20 +2,16 @@
 
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { SelectCombobox } from '@/components/select-combobox'
-import { groupColumns } from '@/components/table-columns/group-columns'
-import { TableSettings } from '@/components/table-settings'
+import { groupColumns } from '@modules/group/group-columns'
 import {
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 
-import { GroupSchema, groupSchema } from '@/types/schemas/group.schema'
+import { GroupSchema, groupSchema } from '@modules/group/group.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -25,6 +21,10 @@ import {
 	useGetAllGroupsQuery,
 	useRemoveManyGroupsMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { SelectCombobox } from '@/shared/components/select-combobox'
+import { TableSettings } from '@/shared/components/table-settings'
 
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()

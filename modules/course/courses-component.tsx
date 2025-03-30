@@ -2,12 +2,7 @@
 
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { SelectCombobox } from '@/components/select-combobox'
-import { SelectData } from '@/components/select-data'
 import { courseColumns } from '@/components/table-columns/course-columns'
-import { TableSettings } from '@/components/table-settings'
 import {
 	FormField,
 	FormItem,
@@ -26,6 +21,11 @@ import {
 	useGetAllDepartmentsLazyQuery,
 	useRemoveManyCoursesMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { SelectCombobox } from '@/shared/components/select-combobox'
+import { SelectData } from '@/shared/components/select-data'
+import { TableSettings } from '@/shared/components/table-settings'
 
 export default function CoursesComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()

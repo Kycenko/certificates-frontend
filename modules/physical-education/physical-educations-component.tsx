@@ -3,22 +3,19 @@
 import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { physicalEducationColumns } from '@/components/table-columns/physical-education.columns'
-import { TableSettings } from '@/components/table-settings'
+import { physicalEducationColumns } from '@modules/physical-education/physical-education.columns'
 import {
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 
 import {
 	PhysicalEducationSchema,
 	physicalEducationSchema
-} from '@/types/schemas/physical-education.schema'
+} from '@modules/physical-education/physical-education.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -27,6 +24,9 @@ import {
 	useGetAllPhysicalEducationsQuery,
 	useRemoveManyPhysicalEducationsMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { TableSettings } from '@/shared/components/table-settings'
 
 export default function PhysicalEducationsComponent() {
 	const router = useRouter()
@@ -46,6 +46,7 @@ export default function PhysicalEducationsComponent() {
 	async function handleCreate(data: PhysicalEducationSchema) {
 		await create({ variables: { data } })
 	}
+
 	async function handleRemoveMany(selectedIds: Set<string>) {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}

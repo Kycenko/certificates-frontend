@@ -4,7 +4,8 @@ import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { useGetAllStudentsQuery } from '@/app/graphql/generated'
+import { Button } from '@/shared/ui/button'
 import {
 	Command,
 	CommandEmpty,
@@ -12,11 +13,9 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList
-} from '@/components/ui/command'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { Skeleton } from '@/components/ui/skeleton'
-
-import { useGetAllStudentsQuery } from '@/app/graphql/generated'
+} from '@/shared/ui/command'
+import { Dialog, DialogContent, DialogTrigger } from '@/shared/ui/dialog'
+import { Skeleton } from '@/shared/ui/skeleton'
 
 export function StudentSearch() {
 	const [open, setOpen] = useState(false)

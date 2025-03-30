@@ -3,22 +3,19 @@
 import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { healthGroupColumns } from '@/components/table-columns/health-group.columns'
-import { TableSettings } from '@/components/table-settings'
+import { healthGroupColumns } from '@modules/health-group/health-group.columns'
 import {
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 
 import {
 	HealthGroupSchema,
 	healthGroupSchema
-} from '@/types/schemas/health-group.schema'
+} from '@modules/health-group/health-group.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -27,6 +24,9 @@ import {
 	useGetAllHealthGroupsQuery,
 	useRemoveManyHealthGroupsMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { TableSettings } from '@/shared/components/table-settings'
 
 export default function HealthGroupsComponent() {
 	const router = useRouter()
@@ -48,6 +48,7 @@ export default function HealthGroupsComponent() {
 			variables: { data }
 		})
 	}
+
 	async function handleRemoveMany(selectedIds: Set<string>) {
 		await remove({ variables: { ids: Array.from(selectedIds) } })
 	}

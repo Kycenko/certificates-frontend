@@ -2,9 +2,12 @@ import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
 
-import { Certificate } from '@/types/certificate.types'
 
-import { Button } from '../ui/button'
+import { Certificate } from '@modules/certificate/certificate.types'
+
+
+import { Button } from '@/shared/ui/button'
+
 
 export const certificateColumns: ColumnDef<Certificate>[] = [
 	{
@@ -13,7 +16,7 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					va"iant="ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					ФИО
@@ -33,7 +36,7 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					va"iant="ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Дата выдачи
@@ -50,7 +53,7 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					va"iant="ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Дата окончания
@@ -67,7 +70,7 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					va"iant="ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Группа здоровья
@@ -82,7 +85,7 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					va"iant="ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Группа по физкультуре

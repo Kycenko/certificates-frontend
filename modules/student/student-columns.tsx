@@ -1,10 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
 
-import { Student } from '@/types/student.types'
 
-import { Button } from '../ui/button'
+import { Student } from '@modules/student/student.types'
+
+
+import { Button } from '@/shared/ui/button'
+
 
 export const studentColumns: ColumnDef<Student>[] = [
 	{
@@ -43,7 +45,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отчество
@@ -58,7 +60,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Дата рождения
@@ -75,7 +77,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отчислен?
@@ -90,7 +92,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Группа
@@ -105,7 +107,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Курс
@@ -126,7 +128,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Отделение
@@ -143,7 +145,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					vari"nt='g"ost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Кол-во справок

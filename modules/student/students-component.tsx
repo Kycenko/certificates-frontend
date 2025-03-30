@@ -2,21 +2,9 @@
 
 import { useFormContext } from 'react-hook-form'
 
-import { DataDialog } from '@/components/data-dialog'
-import { DataTable } from '@/components/data-table'
-import { DatePicker } from '@/components/date-picker'
-import { SelectCombobox } from '@/components/select-combobox'
-import { studentColumns } from '@/components/table-columns/student-columns'
-import { TableSettings } from '@/components/table-settings'
-import {
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { studentColumns } from '@modules/student/student-columns'
 
-import { StudentSchema, studentSchema } from '@/types/schemas/student.schema'
+import { StudentSchema, studentSchema } from '@modules/student/student.schema'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
@@ -26,6 +14,13 @@ import {
 	useGetAllStudentsQuery,
 	useRemoveManyStudentsMutation
 } from '@/app/graphql/generated'
+import { DataDialog } from '@/shared/components/data-dialog'
+import { DataTable } from '@/shared/components/data-table'
+import { DatePicker } from '@/shared/components/date-picker'
+import { SelectCombobox } from '@/shared/components/select-combobox'
+import { TableSettings } from '@/shared/components/table-settings'
+import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 
 export default function StudentsComponent() {
 	const { search, pagination, columnVisibility } = useTableSettingsStore()
@@ -93,6 +88,7 @@ export default function StudentsComponent() {
 		</div>
 	)
 }
+
 function StudentFields({
 	data,
 	isLoading
