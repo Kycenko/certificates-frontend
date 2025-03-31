@@ -1,9 +1,6 @@
-mutation UpdatePhysicalEducation(
-    $data: PhysicalEducationInput!
-    $updatePhysicalEducationId: String!
-) {
-    updatePhysicalEducation(data: $data, id: $updatePhysicalEducationId) {
-        id
-        title
-    }
+mutation UpdatePhysicalEducation($data: PhysicalEducationInput!, $id: String!) {
+	updatePhysicalEducation(data: $data, id: $id) {
+		id
+		title
+	}
 }

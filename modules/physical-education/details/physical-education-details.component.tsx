@@ -1,26 +1,26 @@
 'use client'
 
-import { healthGroupSchema } from '@modules/health-group/health-group.schema'
 import { useParams } from 'next/navigation'
 
-import { HealthGroupFields } from '../health-group.fields'
-import { useHealthGroupOperations } from '../useHealthGroupOperations'
+import { PhysicalEducationFields } from '../physical-education.fields'
+import { physicalEducationSchema } from '../physical-education.schema'
+import { usePhysicalEducationOperations } from '../usePhysicalEducationOperations'
 
-import { healthGroupDetailsColumns } from '@/modules/health-group/details/health-group-details.columns'
+import { physicalEducationDetailsColumns } from './physical-education-details.columns'
 import { DetailsDataTable } from '@/shared/components/details-data-table'
 import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
 
-export default function HealthGroupDetailsComponent() {
+export default function PhysicalEducationDetailsComponent() {
 	const { id } = useParams<{ id: string }>()
 
 	const {
 		entity: { data, loading },
 		handleUpdate
-	} = useHealthGroupOperations(id)
+	} = usePhysicalEducationOperations(id)
 
-	const title = data?.getHealthGroupById.title as string
-	const certificates = data?.getHealthGroupById?.certificates || []
+	const title = data?.getPhysicalEducationById?.title as string
+	const certificates = data?.getPhysicalEducationById?.certificates || []
 
 	if (loading) return <DetailsTableSkeleton />
 
@@ -30,20 +30,20 @@ export default function HealthGroupDetailsComponent() {
 				<h1 className='text-3xl font-bold'>{title}</h1>
 
 				<EditSheet
-					title='Редактирование группы здоровья'
-					fields={<HealthGroupFields />}
+					title='Редактирование группы по физической культуре'
+					fields={<PhysicalEducationFields />}
 					onSubmit={data => handleUpdate(id, data)}
 					defaultValues={{
 						title
 					}}
-					schema={healthGroupSchema}
+					schema={physicalEducationSchema}
 				/>
 			</div>
 
 			<DetailsDataTable
 				title='Связанные справки'
 				data={certificates}
-				columns={healthGroupDetailsColumns}
+				columns={physicalEducationDetailsColumns}
 			/>
 		</div>
 	)

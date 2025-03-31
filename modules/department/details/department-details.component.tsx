@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation'
 
 import DepartmentFields from '../department-fields'
-import { DepartmentSchema, departmentSchema } from '../department.schema'
-import { useDepartmentOperations } from '../hooks/useDepartmentOperations'
+import { departmentSchema } from '../department.schema'
+import { useDepartmentOperations } from '../useDepartmentOperations'
 
 import { departmentDetailsColumns } from './department-details.columns'
 import { DetailsDataTable } from '@/shared/components/details-data-table'
@@ -14,16 +14,12 @@ import EditSheet from '@/shared/components/edit-sheet'
 export default function DepartmentDetailsComponent() {
 	const { id } = useParams<{ id: string }>()
 	const {
-		department: { data, loading, refetch },
+		entity: { data, loading },
 		handleUpdate
 	} = useDepartmentOperations(id)
 
 	const { title, courses } = data?.getDepartmentById || {}
 
-	async function handleSubmit(values: DepartmentSchema) {
-		await handleUpdate(id, values)
-		await refetch()
-	}
 	if (loading) return <DetailsTableSkeleton />
 
 	return (
@@ -34,7 +30,7 @@ export default function DepartmentDetailsComponent() {
 				<EditSheet
 					title='Редактирование отделения'
 					fields={<DepartmentFields />}
-					onSubmit={handleSubmit}
+					onSubmit={data => handleUpdate(id, data)}
 					defaultValues={{
 						title
 					}}

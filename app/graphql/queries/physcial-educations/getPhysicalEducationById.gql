@@ -1,6 +1,17 @@
-query GetPhysicalEducationByTitle($title: String!) {
-    getPhysicalEducationByTitle(title: $title) {
-        id
-        title
-    }
+query GetPhysicalEducationById($id: String!) {
+	getPhysicalEducationById(id: $id) {
+		id
+		title
+		certificates {
+			id
+			startDate
+			finishDate
+			student {
+				id
+				lastName
+				firstName
+				secondName
+			}
+		}
+	}
 }

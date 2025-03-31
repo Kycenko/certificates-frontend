@@ -1,23 +1,23 @@
 'use client'
 
-import { useGetAllHealthGroupsQuery } from '@app/graphql/generated'
-import { healthGroupColumns } from '@modules/health-group/health-group.columns'
-import { healthGroupSchema } from '@modules/health-group/health-group.schema'
+import { useGetAllPhysicalEducationsQuery } from '@app/graphql/generated'
+import { physicalEducationColumns } from '@modules/physical-education/physical-education.columns'
+import { physicalEducationSchema } from '@modules/physical-education/physical-education.schema'
 import { DataDialog } from '@shared/components/data-dialog'
 import { DataTable } from '@shared/components/data-table'
 import { TableSettings } from '@shared/components/table-settings'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
-import { HealthGroupFields } from './health-group.fields'
-import { useHealthGroupOperations } from './useHealthGroupOperations'
+import { PhysicalEducationFields } from './physical-education.fields'
+import { usePhysicalEducationOperations } from './usePhysicalEducationOperations'
 
-export default function HealthGroupsComponent() {
+export default function PhysicalEducationsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
 	const { handleCreate, handleRemove, handleInfo, handleRemoveMany } =
-		useHealthGroupOperations()
+		usePhysicalEducationOperations()
 
-	const { data, loading } = useGetAllHealthGroupsQuery({
+	const { data, loading } = useGetAllPhysicalEducationsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
 
@@ -25,18 +25,18 @@ export default function HealthGroupsComponent() {
 		<div>
 			<div className='flex justify-end gap-3'>
 				<DataDialog
-					schema={healthGroupSchema}
+					schema={physicalEducationSchema}
 					defaultValues={{ title: '' }}
-					title='Добавление группы здоровья'
-					fields={<HealthGroupFields />}
+					title='Добавление группы по физкультуре'
+					fields={<PhysicalEducationFields />}
 					onSubmit={handleCreate}
 				/>
 				<TableSettings />
 			</div>
 
 			<DataTable
-				data={data?.getAllHealthGroups || []}
-				columns={healthGroupColumns}
+				data={data?.getAllPhysicalEducations || []}
+				columns={physicalEducationColumns}
 				search={search}
 				pagination={pagination}
 				visibility={columnVisibility}

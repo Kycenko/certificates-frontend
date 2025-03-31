@@ -14,7 +14,7 @@ import EditSheet from '@/shared/components/edit-sheet'
 export default function CourseDetailsComponent() {
 	const { id } = useParams<{ id: string }>()
 	const {
-		course: { data, loading, refetch },
+		entity: { data, loading, refetch },
 		departments: { data: departments, loading: isLoading, fetchDepartments },
 		handleUpdate
 	} = useCourseOperations(id)
@@ -43,7 +43,7 @@ export default function CourseDetailsComponent() {
 					onOpenChange={fetchDepartments}
 					onSubmit={handleSubmit}
 					defaultValues={{
-						number: String(number),
+						number,
 						departmentId: department?.id
 					}}
 					schema={courseSchema}

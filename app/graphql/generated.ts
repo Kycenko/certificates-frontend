@@ -774,7 +774,7 @@ export type CreateHealthGroupMutationVariables = Exact<{
 export type CreateHealthGroupMutation = { __typename?: 'Mutation', createHealthGroup: { __typename?: 'HealthGroupModel', id: string, title: string } };
 
 export type RemoveHealthGroupMutationVariables = Exact<{
-  removeHealthGroupId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -810,7 +810,7 @@ export type RemoveManyPhysicalEducationsMutationVariables = Exact<{
 export type RemoveManyPhysicalEducationsMutation = { __typename?: 'Mutation', removeManyPhysicalEducations: boolean };
 
 export type RemovePhysicalEducationMutationVariables = Exact<{
-  removePhysicalEducationId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -818,7 +818,7 @@ export type RemovePhysicalEducationMutation = { __typename?: 'Mutation', removeP
 
 export type UpdatePhysicalEducationMutationVariables = Exact<{
   data: PhysicalEducationInput;
-  updatePhysicalEducationId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -923,12 +923,12 @@ export type GetAllPhysicalEducationsQueryVariables = Exact<{
 
 export type GetAllPhysicalEducationsQuery = { __typename?: 'Query', getAllPhysicalEducations: Array<{ __typename?: 'PhysicalEducationModel', id: string, title: string }> };
 
-export type GetPhysicalEducationByTitleQueryVariables = Exact<{
-  title: Scalars['String']['input'];
+export type GetPhysicalEducationByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
 }>;
 
 
-export type GetPhysicalEducationByTitleQuery = { __typename?: 'Query', getPhysicalEducationByTitle: { __typename?: 'PhysicalEducationModel', id: string, title: string } };
+export type GetPhysicalEducationByIdQuery = { __typename?: 'Query', getPhysicalEducationById: { __typename?: 'PhysicalEducationModel', id: string, title: string, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any, student: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null } }> | null } };
 
 export type GetAllStudentsQueryVariables = Exact<{
   params: StudentParamsInput;
@@ -1546,8 +1546,8 @@ export type CreateHealthGroupMutationHookResult = ReturnType<typeof useCreateHea
 export type CreateHealthGroupMutationResult = Apollo.MutationResult<CreateHealthGroupMutation>;
 export type CreateHealthGroupMutationOptions = Apollo.BaseMutationOptions<CreateHealthGroupMutation, CreateHealthGroupMutationVariables>;
 export const RemoveHealthGroupDocument = gql`
-    mutation RemoveHealthGroup($removeHealthGroupId: String!) {
-  removeHealthGroup(id: $removeHealthGroupId)
+    mutation RemoveHealthGroup($id: String!) {
+  removeHealthGroup(id: $id)
 }
     `;
 export type RemoveHealthGroupMutationFn = Apollo.MutationFunction<RemoveHealthGroupMutation, RemoveHealthGroupMutationVariables>;
@@ -1565,7 +1565,7 @@ export type RemoveHealthGroupMutationFn = Apollo.MutationFunction<RemoveHealthGr
  * @example
  * const [removeHealthGroupMutation, { data, loading, error }] = useRemoveHealthGroupMutation({
  *   variables: {
- *      removeHealthGroupId: // value for 'removeHealthGroupId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1708,8 +1708,8 @@ export type RemoveManyPhysicalEducationsMutationHookResult = ReturnType<typeof u
 export type RemoveManyPhysicalEducationsMutationResult = Apollo.MutationResult<RemoveManyPhysicalEducationsMutation>;
 export type RemoveManyPhysicalEducationsMutationOptions = Apollo.BaseMutationOptions<RemoveManyPhysicalEducationsMutation, RemoveManyPhysicalEducationsMutationVariables>;
 export const RemovePhysicalEducationDocument = gql`
-    mutation RemovePhysicalEducation($removePhysicalEducationId: String!) {
-  removePhysicalEducation(id: $removePhysicalEducationId)
+    mutation RemovePhysicalEducation($id: String!) {
+  removePhysicalEducation(id: $id)
 }
     `;
 export type RemovePhysicalEducationMutationFn = Apollo.MutationFunction<RemovePhysicalEducationMutation, RemovePhysicalEducationMutationVariables>;
@@ -1727,7 +1727,7 @@ export type RemovePhysicalEducationMutationFn = Apollo.MutationFunction<RemovePh
  * @example
  * const [removePhysicalEducationMutation, { data, loading, error }] = useRemovePhysicalEducationMutation({
  *   variables: {
- *      removePhysicalEducationId: // value for 'removePhysicalEducationId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1739,8 +1739,8 @@ export type RemovePhysicalEducationMutationHookResult = ReturnType<typeof useRem
 export type RemovePhysicalEducationMutationResult = Apollo.MutationResult<RemovePhysicalEducationMutation>;
 export type RemovePhysicalEducationMutationOptions = Apollo.BaseMutationOptions<RemovePhysicalEducationMutation, RemovePhysicalEducationMutationVariables>;
 export const UpdatePhysicalEducationDocument = gql`
-    mutation UpdatePhysicalEducation($data: PhysicalEducationInput!, $updatePhysicalEducationId: String!) {
-  updatePhysicalEducation(data: $data, id: $updatePhysicalEducationId) {
+    mutation UpdatePhysicalEducation($data: PhysicalEducationInput!, $id: String!) {
+  updatePhysicalEducation(data: $data, id: $id) {
     id
     title
   }
@@ -1762,7 +1762,7 @@ export type UpdatePhysicalEducationMutationFn = Apollo.MutationFunction<UpdatePh
  * const [updatePhysicalEducationMutation, { data, loading, error }] = useUpdatePhysicalEducationMutation({
  *   variables: {
  *      data: // value for 'data'
- *      updatePhysicalEducationId: // value for 'updatePhysicalEducationId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -2420,47 +2420,58 @@ export type GetAllPhysicalEducationsQueryHookResult = ReturnType<typeof useGetAl
 export type GetAllPhysicalEducationsLazyQueryHookResult = ReturnType<typeof useGetAllPhysicalEducationsLazyQuery>;
 export type GetAllPhysicalEducationsSuspenseQueryHookResult = ReturnType<typeof useGetAllPhysicalEducationsSuspenseQuery>;
 export type GetAllPhysicalEducationsQueryResult = Apollo.QueryResult<GetAllPhysicalEducationsQuery, GetAllPhysicalEducationsQueryVariables>;
-export const GetPhysicalEducationByTitleDocument = gql`
-    query GetPhysicalEducationByTitle($title: String!) {
-  getPhysicalEducationByTitle(title: $title) {
+export const GetPhysicalEducationByIdDocument = gql`
+    query GetPhysicalEducationById($id: String!) {
+  getPhysicalEducationById(id: $id) {
     id
     title
+    certificates {
+      id
+      startDate
+      finishDate
+      student {
+        id
+        lastName
+        firstName
+        secondName
+      }
+    }
   }
 }
     `;
 
 /**
- * __useGetPhysicalEducationByTitleQuery__
+ * __useGetPhysicalEducationByIdQuery__
  *
- * To run a query within a React component, call `useGetPhysicalEducationByTitleQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPhysicalEducationByTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetPhysicalEducationByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPhysicalEducationByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetPhysicalEducationByTitleQuery({
+ * const { data, loading, error } = useGetPhysicalEducationByIdQuery({
  *   variables: {
- *      title: // value for 'title'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetPhysicalEducationByTitleQuery(baseOptions: Apollo.QueryHookOptions<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables> & ({ variables: GetPhysicalEducationByTitleQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetPhysicalEducationByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables> & ({ variables: GetPhysicalEducationByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>(GetPhysicalEducationByTitleDocument, options);
+        return Apollo.useQuery<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>(GetPhysicalEducationByIdDocument, options);
       }
-export function useGetPhysicalEducationByTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>) {
+export function useGetPhysicalEducationByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>(GetPhysicalEducationByTitleDocument, options);
+          return Apollo.useLazyQuery<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>(GetPhysicalEducationByIdDocument, options);
         }
-export function useGetPhysicalEducationByTitleSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>) {
+export function useGetPhysicalEducationByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>(GetPhysicalEducationByTitleDocument, options);
+          return Apollo.useSuspenseQuery<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>(GetPhysicalEducationByIdDocument, options);
         }
-export type GetPhysicalEducationByTitleQueryHookResult = ReturnType<typeof useGetPhysicalEducationByTitleQuery>;
-export type GetPhysicalEducationByTitleLazyQueryHookResult = ReturnType<typeof useGetPhysicalEducationByTitleLazyQuery>;
-export type GetPhysicalEducationByTitleSuspenseQueryHookResult = ReturnType<typeof useGetPhysicalEducationByTitleSuspenseQuery>;
-export type GetPhysicalEducationByTitleQueryResult = Apollo.QueryResult<GetPhysicalEducationByTitleQuery, GetPhysicalEducationByTitleQueryVariables>;
+export type GetPhysicalEducationByIdQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdQuery>;
+export type GetPhysicalEducationByIdLazyQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdLazyQuery>;
+export type GetPhysicalEducationByIdSuspenseQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdSuspenseQuery>;
+export type GetPhysicalEducationByIdQueryResult = Apollo.QueryResult<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>;
 export const GetAllStudentsDocument = gql`
     query getAllStudents($params: StudentParamsInput!) {
   getAllStudents(params: $params) {

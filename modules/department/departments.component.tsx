@@ -3,7 +3,7 @@
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import DepartmentFields from './department-fields'
-import { useDepartmentOperations } from './hooks/useDepartmentOperations'
+import { useDepartmentOperations } from './useDepartmentOperations'
 import { useGetAllDepartmentsQuery } from '@/app/graphql/generated'
 import { departmentColumns } from '@/modules/department/department.columns'
 import { departmentSchema } from '@/modules/department/department.schema'
