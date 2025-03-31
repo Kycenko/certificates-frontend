@@ -85,7 +85,7 @@ export type CertificateParamsInput = {
 
 export type CourseInput = {
   departmentId: Scalars['String']['input'];
-  number: Scalars['Float']['input'];
+  number: Scalars['String']['input'];
 };
 
 export type CourseModel = {
@@ -95,7 +95,7 @@ export type CourseModel = {
   departmentId: Scalars['String']['output'];
   groups?: Maybe<Array<GroupModel>>;
   id: Scalars['String']['output'];
-  number: Scalars['Float']['output'];
+  number: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -601,7 +601,7 @@ export type StudentModel = {
 };
 
 export type StudentParamsInput = {
-  courseNumber?: InputMaybe<Scalars['Float']['input']>;
+  courseNumber?: InputMaybe<Scalars['String']['input']>;
   departmentTitle?: InputMaybe<Scalars['String']['input']>;
   groupId?: InputMaybe<Scalars['String']['input']>;
   groupTitle?: InputMaybe<Scalars['String']['input']>;
@@ -622,7 +622,7 @@ export type UpdateCertificateInput = {
 
 export type UpdateCourseInput = {
   departmentId?: InputMaybe<Scalars['String']['input']>;
-  number?: InputMaybe<Scalars['Float']['input']>;
+  number?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateStudentInput = {
@@ -684,7 +684,7 @@ export type CreateCourseMutationVariables = Exact<{
 }>;
 
 
-export type CreateCourseMutation = { __typename?: 'Mutation', createCourse: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } };
+export type CreateCourseMutation = { __typename?: 'Mutation', createCourse: { __typename?: 'CourseModel', id: string, number: string, departmentId: string } };
 
 export type RemoveCourseMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -706,7 +706,7 @@ export type UpdateCourseMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCourseMutation = { __typename?: 'Mutation', updateCourse: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } };
+export type UpdateCourseMutation = { __typename?: 'Mutation', updateCourse: { __typename?: 'CourseModel', id: string, number: string, departmentId: string } };
 
 export type CreateDepartmentMutationVariables = Exact<{
   data: DepartmentInput;
@@ -865,42 +865,42 @@ export type GetAllCoursesQueryVariables = Exact<{
 }>;
 
 
-export type GetAllCoursesQuery = { __typename?: 'Query', getAllCourses: Array<{ __typename?: 'CourseModel', id: string, number: number, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string }> | null, department: { __typename?: 'DepartmentModel', id: string, title: string } }> };
+export type GetAllCoursesQuery = { __typename?: 'Query', getAllCourses: Array<{ __typename?: 'CourseModel', id: string, number: string, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string }> | null, department: { __typename?: 'DepartmentModel', id: string, title: string } }> };
 
 export type GetCourseByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type GetCourseByIdQuery = { __typename?: 'Query', getCourseById: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string }, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string }> | null }> | null } };
+export type GetCourseByIdQuery = { __typename?: 'Query', getCourseById: { __typename?: 'CourseModel', id: string, number: string, department: { __typename?: 'DepartmentModel', id: string, title: string }, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string }> | null }> | null } };
 
 export type GetAllDepartmentsQueryVariables = Exact<{
   params: DepartmentParamsInput;
 }>;
 
 
-export type GetAllDepartmentsQuery = { __typename?: 'Query', getAllDepartments: Array<{ __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: number }> | null }> };
+export type GetAllDepartmentsQuery = { __typename?: 'Query', getAllDepartments: Array<{ __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: string }> | null }> };
 
 export type GetDepartmentByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type GetDepartmentByIdQuery = { __typename?: 'Query', getDepartmentById: { __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: number, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string }> | null }> | null } };
+export type GetDepartmentByIdQuery = { __typename?: 'Query', getDepartmentById: { __typename?: 'DepartmentModel', id: string, title: string, courses?: Array<{ __typename?: 'CourseModel', id: string, number: string, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string }> | null }> | null } };
 
 export type GetAllGroupsQueryVariables = Exact<{
   params: GroupParamsInput;
 }>;
 
 
-export type GetAllGroupsQuery = { __typename?: 'Query', getAllGroups: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean }> | null, course?: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null }> };
+export type GetAllGroupsQuery = { __typename?: 'Query', getAllGroups: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean }> | null, course?: { __typename?: 'CourseModel', id: string, number: string, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null }> };
 
 export type GetGroupByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null }> | null, course?: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } | null } };
+export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null }> | null, course?: { __typename?: 'CourseModel', id: string, number: string, departmentId: string } | null } };
 
 export type GetAllHealthGroupsQueryVariables = Exact<{
   params: HealthGroupParamsInput;
@@ -935,7 +935,7 @@ export type GetAllStudentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllStudentsQuery = { __typename?: 'Query', getAllStudents: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, group?: { __typename?: 'GroupModel', id: string, title: string, course?: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null } | null }> };
+export type GetAllStudentsQuery = { __typename?: 'Query', getAllStudents: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, group?: { __typename?: 'GroupModel', id: string, title: string, course?: { __typename?: 'CourseModel', id: string, number: string, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null } | null }> };
 
 
 export const LoginDocument = gql`

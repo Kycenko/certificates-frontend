@@ -3,7 +3,7 @@ import { Group } from '../group/group.types'
 
 export type Course = {
 	id: string
-	number: number
+	number: string
 	groups: Group[]
 	department: Department
 }
