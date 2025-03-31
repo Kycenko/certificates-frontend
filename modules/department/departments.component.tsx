@@ -4,7 +4,8 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import DepartmentFields from './department-fields'
 import { useDepartmentOperations } from './hooks/useDepartmentOperations'
-import { departmentColumns } from '@/modules/department/department-columns'
+import { useGetAllDepartmentsQuery } from '@/app/graphql/generated'
+import { departmentColumns } from '@/modules/department/department.columns'
 import { departmentSchema } from '@/modules/department/department.schema'
 import { DataDialog } from '@/shared/components/data-dialog'
 import { DataTable } from '@/shared/components/data-table'
@@ -12,13 +13,12 @@ import { TableSettings } from '@/shared/components/table-settings'
 
 export default function DepartmentsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
-	const {
-		departments: { data, loading },
-		handleInfo,
-		handleCreate,
-		handleRemove,
-		handleRemoveMany
-	} = useDepartmentOperations()
+	const { handleInfo, handleCreate, handleRemove, handleRemoveMany } =
+		useDepartmentOperations()
+
+	const { data, loading } = useGetAllDepartmentsQuery({
+		variables: { params: { orderBy: 'asc' } }
+	})
 
 	return (
 		<>

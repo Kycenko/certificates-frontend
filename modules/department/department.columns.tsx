@@ -13,26 +13,11 @@ export const departmentColumns: ColumnDef<Department>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Название
+					Название отделения
 					<ArrowUpDown />
 				</Button>
 			)
 		},
 		cell: ({ row }) => <div>{row.getValue('title')}</div>
-	},
-	{
-		accessorKey: 'courses',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-				>
-					Кол-во курсов
-					<ArrowUpDown />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div>{row.original.courses.length}</div>
 	}
 ]

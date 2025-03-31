@@ -1,7 +1,7 @@
-mutation updateCourse($data: UpdateCourseInput!, $updateCourseId: String!) {
-    updateCourse(data: $data, id: $updateCourseId) {
-        id
-        number
-        departmentId
-    }
+mutation updateCourse($id: String!, $data: UpdateCourseInput!) {
+	updateCourse(id: $id, data: $data) {
+		id
+		number
+		departmentId
+	}
 }

@@ -6,7 +6,7 @@ import DepartmentFields from '../department-fields'
 import { DepartmentSchema, departmentSchema } from '../department.schema'
 import { useDepartmentOperations } from '../hooks/useDepartmentOperations'
 
-import { departmentDetailsColumns } from './department-details-columns'
+import { departmentDetailsColumns } from './department-details.columns'
 import { DetailsDataTable } from '@/shared/components/details-data-table'
 import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
@@ -18,8 +18,7 @@ export default function DepartmentDetailsComponent() {
 		handleUpdate
 	} = useDepartmentOperations(id)
 
-	const title = data?.getDepartmentById.title as string
-	const courses = data?.getDepartmentById?.courses || []
+	const { title, courses } = data?.getDepartmentById || {}
 
 	async function handleSubmit(values: DepartmentSchema) {
 		await handleUpdate(id, values)

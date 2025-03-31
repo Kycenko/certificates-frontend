@@ -21,7 +21,7 @@ import {
 } from '@/shared/ui/table'
 
 interface DetailsDataTableProps {
-	data: any[]
+	data?: any[] | null
 	columns: ColumnDef<any>[]
 	title: string
 }
@@ -34,7 +34,7 @@ export function DetailsDataTable({
 	const [sorting, setSorting] = useState<SortingState>([])
 
 	const table = useReactTable({
-		data,
+		data: data || [],
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		onSortingChange: setSorting,

@@ -1,16 +1,15 @@
+import { Course } from '@modules/course/course.types'
+import { Button } from '@shared/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 
-import { Course } from '@/modules/course/course.types'
-import { Button } from '@/shared/ui/button'
-
-export const departmentDetailsColumns: ColumnDef<Course>[] = [
+export const courseColumns: ColumnDef<Course>[] = [
 	{
 		accessorKey: 'number',
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					Номер курса
@@ -18,23 +17,22 @@ export const departmentDetailsColumns: ColumnDef<Course>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div>{row.original.number}-й</div>
+		cell: ({ row }) => <div>{`${row.getValue('number')}-й`}</div>
 	},
 	{
-		accessorKey: 'courses',
+		accessorFn: row => row.department.title,
+		id: 'department.title',
 		header: ({ column }) => {
 			return (
 				<Button
-					variant='ghost'
+					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Кол-во групп
-					<ArrowUpDown />
+					Название отделения
+					<ArrowUpDown className='"-4 ml-2 h-4' />
 				</Button>
 			)
 		},
-		cell: ({ row }) => {
-			return <div>{row.original.groups?.length}</div>
-		}
+		cell: ({ row }) => <div>{row.getValue('department.title')}</div>
 	}
 ]

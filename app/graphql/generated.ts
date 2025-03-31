@@ -687,7 +687,7 @@ export type CreateCourseMutationVariables = Exact<{
 export type CreateCourseMutation = { __typename?: 'Mutation', createCourse: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } };
 
 export type RemoveCourseMutationVariables = Exact<{
-  removeCourseId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -701,8 +701,8 @@ export type RemoveManyCoursesMutationVariables = Exact<{
 export type RemoveManyCoursesMutation = { __typename?: 'Mutation', removeManyCourses: boolean };
 
 export type UpdateCourseMutationVariables = Exact<{
+  id: Scalars['String']['input'];
   data: UpdateCourseInput;
-  updateCourseId: Scalars['String']['input'];
 }>;
 
 
@@ -868,11 +868,11 @@ export type GetAllCoursesQueryVariables = Exact<{
 export type GetAllCoursesQuery = { __typename?: 'Query', getAllCourses: Array<{ __typename?: 'CourseModel', id: string, number: number, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string }> | null, department: { __typename?: 'DepartmentModel', id: string, title: string } }> };
 
 export type GetCourseByIdQueryVariables = Exact<{
-  getCourseById: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type GetCourseByIdQuery = { __typename?: 'Query', getCourseById: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } };
+export type GetCourseByIdQuery = { __typename?: 'Query', getCourseById: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string }, groups?: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string }> | null }> | null } };
 
 export type GetAllDepartmentsQueryVariables = Exact<{
   params: DepartmentParamsInput;
@@ -1150,8 +1150,8 @@ export type CreateCourseMutationHookResult = ReturnType<typeof useCreateCourseMu
 export type CreateCourseMutationResult = Apollo.MutationResult<CreateCourseMutation>;
 export type CreateCourseMutationOptions = Apollo.BaseMutationOptions<CreateCourseMutation, CreateCourseMutationVariables>;
 export const RemoveCourseDocument = gql`
-    mutation removeCourse($removeCourseId: String!) {
-  removeCourse(id: $removeCourseId)
+    mutation removeCourse($id: String!) {
+  removeCourse(id: $id)
 }
     `;
 export type RemoveCourseMutationFn = Apollo.MutationFunction<RemoveCourseMutation, RemoveCourseMutationVariables>;
@@ -1169,7 +1169,7 @@ export type RemoveCourseMutationFn = Apollo.MutationFunction<RemoveCourseMutatio
  * @example
  * const [removeCourseMutation, { data, loading, error }] = useRemoveCourseMutation({
  *   variables: {
- *      removeCourseId: // value for 'removeCourseId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1212,8 +1212,8 @@ export type RemoveManyCoursesMutationHookResult = ReturnType<typeof useRemoveMan
 export type RemoveManyCoursesMutationResult = Apollo.MutationResult<RemoveManyCoursesMutation>;
 export type RemoveManyCoursesMutationOptions = Apollo.BaseMutationOptions<RemoveManyCoursesMutation, RemoveManyCoursesMutationVariables>;
 export const UpdateCourseDocument = gql`
-    mutation updateCourse($data: UpdateCourseInput!, $updateCourseId: String!) {
-  updateCourse(data: $data, id: $updateCourseId) {
+    mutation updateCourse($id: String!, $data: UpdateCourseInput!) {
+  updateCourse(id: $id, data: $data) {
     id
     number
     departmentId
@@ -1235,8 +1235,8 @@ export type UpdateCourseMutationFn = Apollo.MutationFunction<UpdateCourseMutatio
  * @example
  * const [updateCourseMutation, { data, loading, error }] = useUpdateCourseMutation({
  *   variables: {
+ *      id: // value for 'id'
  *      data: // value for 'data'
- *      updateCourseId: // value for 'updateCourseId'
  *   },
  * });
  */
@@ -2020,13 +2020,20 @@ export type GetAllCoursesLazyQueryHookResult = ReturnType<typeof useGetAllCourse
 export type GetAllCoursesSuspenseQueryHookResult = ReturnType<typeof useGetAllCoursesSuspenseQuery>;
 export type GetAllCoursesQueryResult = Apollo.QueryResult<GetAllCoursesQuery, GetAllCoursesQueryVariables>;
 export const GetCourseByIdDocument = gql`
-    query getCourseById($getCourseById: String!) {
-  getCourseById(id: $getCourseById) {
+    query getCourseById($id: String!) {
+  getCourseById(id: $id) {
     id
     number
     department {
       id
       title
+    }
+    groups {
+      id
+      title
+      students {
+        id
+      }
     }
   }
 }
@@ -2044,7 +2051,7 @@ export const GetCourseByIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetCourseByIdQuery({
  *   variables: {
- *      getCourseById: // value for 'getCourseById'
+ *      id: // value for 'id'
  *   },
  * });
  */

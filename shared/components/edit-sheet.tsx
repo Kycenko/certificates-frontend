@@ -20,6 +20,7 @@ import {
 interface EditSheetProps<T extends FieldValues> {
 	fields: React.ReactNode
 	onSubmit: (data: T) => Promise<void>
+	onOpenChange?: () => void
 	defaultValues: DefaultValues<T>
 	schema: z.ZodSchema<T>
 	title: string
@@ -28,6 +29,7 @@ interface EditSheetProps<T extends FieldValues> {
 export default function EditSheet<T extends FieldValues>({
 	fields,
 	onSubmit,
+	onOpenChange,
 	defaultValues,
 	schema,
 	title
@@ -38,10 +40,14 @@ export default function EditSheet<T extends FieldValues>({
 		resolver: zodResolver(schema)
 	})
 
+	function handleOpenChange(open: boolean) {
+		if (open) onOpenChange?.()
+	}
+
 	const { handleSubmit } = methods
 
 	return (
-		<Sheet>
+		<Sheet onOpenChange={handleOpenChange}>
 			<SheetTrigger asChild>
 				<Button variant='outline'>
 					<Edit className='mr-2 h-4 w-4' />
