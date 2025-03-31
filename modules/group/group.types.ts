@@ -8,3 +8,13 @@ export type Group = {
 	course: Course
 	students: Student[]
 }
+
+export type GroupFieldsProps = {
+	data: {
+		id: string
+		number: number
+		department: { title: string }
+	}[]
+
+	isLoading: boolean
+}

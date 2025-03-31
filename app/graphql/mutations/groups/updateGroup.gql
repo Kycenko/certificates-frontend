@@ -1,7 +1,7 @@
-mutation updateGroup($data: GroupInput!, $updateGroupId: String!) {
-    updateGroup(data: $data, id: $updateGroupId) {
-        id
-        title
-        courseId
-    }
+mutation updateGroup($id: String!, $data: GroupInput!) {
+	updateGroup(id: $id, data: $data) {
+		id
+		title
+		courseId
+	}
 }

@@ -1,50 +1,30 @@
 'use client'
 
-import {
-	useCreateGroupMutation,
-	useGetAllCoursesLazyQuery,
-	useGetAllGroupsQuery,
-	useRemoveManyGroupsMutation
-} from '@app/graphql/generated'
+import { useGetAllGroupsQuery } from '@app/graphql/generated'
 import { groupColumns } from '@modules/group/group-columns'
-import { GroupSchema, groupSchema } from '@modules/group/group.schema'
+import { groupSchema } from '@modules/group/group.schema'
 import { DataDialog } from '@shared/components/data-dialog'
 import { DataTable } from '@shared/components/data-table'
-import { SelectCombobox } from '@shared/components/select-combobox'
 import { TableSettings } from '@shared/components/table-settings'
-import { FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/form'
-import { Input } from '@shared/ui/input'
-import { useFormContext } from 'react-hook-form'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
+import GroupFields from './group-fields'
+import { useGroupOperations } from './useGroupOperations'
+
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
+	const {
+		courses: { data: courses, loading: isLoading, fetchCourses },
+		handleInfo,
+		handleCreate,
+		handleRemove,
+		handleRemoveMany
+	} = useGroupOperations()
 
 	const { data, loading } = useGetAllGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
-
-	const [fetchCourses, { data: courses, loading: isLoading }] =
-		useGetAllCoursesLazyQuery({
-			variables: { params: { orderBy: 'asc' } }
-		})
-
-	const [create] = useCreateGroupMutation({
-		refetchQueries: ['getAllGroups']
-	})
-
-	const [remove] = useRemoveManyGroupsMutation({
-		refetchQueries: ['getAllGroups']
-	})
-
-	async function handleRemoveMany(selectedIds: Set<string>) {
-		await remove({ variables: { ids: Array.from(selectedIds) } })
-	}
-
-	async function handleCreate(data: GroupSchema) {
-		await create({ variables: { data } })
-	}
 
 	return (
 		<div>
@@ -68,6 +48,8 @@ export default function GroupsComponent() {
 				<TableSettings />
 			</div>
 			<DataTable
+				onInfo={handleInfo}
+				onRemove={handleRemove}
 				isLoading={loading}
 				data={data?.getAllGroups || []}
 				columns={groupColumns}
@@ -79,61 +61,5 @@ export default function GroupsComponent() {
 				searchParam='title'
 			/>
 		</div>
-	)
-}
-
-function GroupFields({
-	data,
-	isLoading
-}: {
-	data: {
-		id: string
-		number: number
-		department: { title: string }
-	}[]
-	isLoading: boolean
-}) {
-	const { control } = useFormContext<GroupSchema>()
-
-	return (
-		<>
-			<FormField
-				control={control}
-				name='title'
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>Группа</FormLabel>
-						<Input
-							placeholder='Название группы'
-							onChange={field.onChange}
-							value={field.value}
-						/>
-
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-
-			<FormField
-				name='courseId'
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<SelectCombobox
-							data={data}
-							disabled={isLoading}
-							valueKey={'id'}
-							labelKey={item =>
-								`${item.number}-й курс (${item.department.title})`
-							}
-							placeholder='Выберите курс'
-							value={field.value}
-							onValueChange={field.onChange}
-						/>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		</>
 	)
 }

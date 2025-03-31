@@ -745,7 +745,7 @@ export type CreateGroupMutationVariables = Exact<{
 export type CreateGroupMutation = { __typename?: 'Mutation', createGroup: { __typename?: 'GroupModel', id: string, title: string, courseId?: string | null } };
 
 export type RemoveGroupMutationVariables = Exact<{
-  removeGroupId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
@@ -759,8 +759,8 @@ export type RemoveManyGroupsMutationVariables = Exact<{
 export type RemoveManyGroupsMutation = { __typename?: 'Mutation', removeManyGroups: boolean };
 
 export type UpdateGroupMutationVariables = Exact<{
+  id: Scalars['String']['input'];
   data: GroupInput;
-  updateGroupId: Scalars['String']['input'];
 }>;
 
 
@@ -896,11 +896,11 @@ export type GetAllGroupsQueryVariables = Exact<{
 export type GetAllGroupsQuery = { __typename?: 'Query', getAllGroups: Array<{ __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, firstName: string, lastName: string, secondName?: string | null, birthDate: any, isExpelled: boolean }> | null, course?: { __typename?: 'CourseModel', id: string, number: number, department: { __typename?: 'DepartmentModel', id: string, title: string } } | null }> };
 
 export type GetGroupByIdQueryVariables = Exact<{
-  getGroupByIdId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, course?: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } | null } };
+export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, students?: Array<{ __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null }> | null, course?: { __typename?: 'CourseModel', id: string, number: number, departmentId: string } | null } };
 
 export type GetAllHealthGroupsQueryVariables = Exact<{
   params: HealthGroupParamsInput;
@@ -1414,8 +1414,8 @@ export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMuta
 export type CreateGroupMutationResult = Apollo.MutationResult<CreateGroupMutation>;
 export type CreateGroupMutationOptions = Apollo.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>;
 export const RemoveGroupDocument = gql`
-    mutation removeGroup($removeGroupId: String!) {
-  removeGroup(id: $removeGroupId)
+    mutation removeGroup($id: String!) {
+  removeGroup(id: $id)
 }
     `;
 export type RemoveGroupMutationFn = Apollo.MutationFunction<RemoveGroupMutation, RemoveGroupMutationVariables>;
@@ -1433,7 +1433,7 @@ export type RemoveGroupMutationFn = Apollo.MutationFunction<RemoveGroupMutation,
  * @example
  * const [removeGroupMutation, { data, loading, error }] = useRemoveGroupMutation({
  *   variables: {
- *      removeGroupId: // value for 'removeGroupId'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -1476,8 +1476,8 @@ export type RemoveManyGroupsMutationHookResult = ReturnType<typeof useRemoveMany
 export type RemoveManyGroupsMutationResult = Apollo.MutationResult<RemoveManyGroupsMutation>;
 export type RemoveManyGroupsMutationOptions = Apollo.BaseMutationOptions<RemoveManyGroupsMutation, RemoveManyGroupsMutationVariables>;
 export const UpdateGroupDocument = gql`
-    mutation updateGroup($data: GroupInput!, $updateGroupId: String!) {
-  updateGroup(data: $data, id: $updateGroupId) {
+    mutation updateGroup($id: String!, $data: GroupInput!) {
+  updateGroup(id: $id, data: $data) {
     id
     title
     courseId
@@ -1499,8 +1499,8 @@ export type UpdateGroupMutationFn = Apollo.MutationFunction<UpdateGroupMutation,
  * @example
  * const [updateGroupMutation, { data, loading, error }] = useUpdateGroupMutation({
  *   variables: {
+ *      id: // value for 'id'
  *      data: // value for 'data'
- *      updateGroupId: // value for 'updateGroupId'
  *   },
  * });
  */
@@ -2223,10 +2223,22 @@ export type GetAllGroupsLazyQueryHookResult = ReturnType<typeof useGetAllGroupsL
 export type GetAllGroupsSuspenseQueryHookResult = ReturnType<typeof useGetAllGroupsSuspenseQuery>;
 export type GetAllGroupsQueryResult = Apollo.QueryResult<GetAllGroupsQuery, GetAllGroupsQueryVariables>;
 export const GetGroupByIdDocument = gql`
-    query GetGroupById($getGroupByIdId: String!) {
-  getGroupById(id: $getGroupByIdId) {
+    query GetGroupById($id: String!) {
+  getGroupById(id: $id) {
     id
     title
+    students {
+      id
+      lastName
+      firstName
+      secondName
+      birthDate
+      certificates {
+        id
+        startDate
+        finishDate
+      }
+    }
     course {
       id
       number
@@ -2248,7 +2260,7 @@ export const GetGroupByIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetGroupByIdQuery({
  *   variables: {
- *      getGroupByIdId: // value for 'getGroupByIdId'
+ *      id: // value for 'id'
  *   },
  * });
  */

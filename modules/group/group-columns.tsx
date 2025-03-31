@@ -12,7 +12,7 @@ export const groupColumns: ColumnDef<Group>[] = [
 					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Название
+					Название группы
 					<ArrowUpDown />
 				</Button>
 			)
@@ -27,12 +27,12 @@ export const groupColumns: ColumnDef<Group>[] = [
 					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Курс
+					Номер курса
 					<ArrowUpDown />
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div>{`${row.original.course?.number}-й курс`}</div>
+		cell: ({ row }) => <div>{row.original.course?.number}-й</div>
 	},
 	{
 		accessorKey: 'department',
@@ -42,26 +42,11 @@ export const groupColumns: ColumnDef<Group>[] = [
 					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Отделение
+					Название отделения
 					<ArrowUpDown />
 				</Button>
 			)
 		},
 		cell: ({ row }) => <div>{row.original.course.department?.title}</div>
-	},
-	{
-		accessorKey: 'students',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant={'ghost'}
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-				>
-					Кол-во студентов
-					<ArrowUpDown />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div>{row.original.students?.length || '0'}</div>
 	}
 ]
