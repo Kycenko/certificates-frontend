@@ -1,10 +1,10 @@
-mutation UpdateStudent($data: UpdateStudentInput!, $updateStudentId: String!) {
-    updateStudent(data: $data, id: $updateStudentId) {
-        firstName
-        lastName
-        secondName
-        birthDate
-        isExpelled
-        groupId
-    }
+mutation UpdateStudent($data: UpdateStudentInput!, $id: String!) {
+	updateStudent(data: $data, id: $id) {
+		firstName
+		lastName
+		secondName
+		birthDate
+		isExpelled
+		groupId
+	}
 }

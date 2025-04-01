@@ -5,3 +5,8 @@ export type PhysicalEducation = {
 	title: string
 	certificates?: Certificate[]
 }
+
+export type PhysicalEducationFieldsProps = Omit<
+	PhysicalEducation,
+	'certificates'
+>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useGetAllGroupsQuery } from '@app/graphql/generated'
-import { groupColumns } from '@modules/group/group-columns'
 import { groupSchema } from '@modules/group/group.schema'
 import { DataDialog } from '@shared/components/data-dialog'
 import { DataTable } from '@shared/components/data-table'
@@ -9,8 +8,9 @@ import { TableSettings } from '@shared/components/table-settings'
 
 import { useTableSettingsStore } from '@/store/table-settings.store'
 
-import GroupFields from './group-fields'
+import GroupFields from './group.fields'
 import { useGroupOperations } from './useGroupOperations'
+import { groupColumns } from '@/modules/group/group.columns'
 
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()

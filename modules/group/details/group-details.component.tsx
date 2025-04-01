@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation'
 
-import GroupFields from '../group-fields'
+import GroupFields from '../group.fields'
 import { groupSchema } from '../group.schema'
 import { useGroupOperations } from '../useGroupOperations'
 

@@ -5,3 +5,5 @@ export type HealthGroup = {
 	title: string
 	certificates?: Certificate[]
 }
+
+export type HealthGroupFieldsProps = Omit<HealthGroup, 'certificates'>

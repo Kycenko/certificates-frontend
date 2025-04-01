@@ -23,7 +23,7 @@ import {
 interface DetailsDataTableProps {
 	data?: any[] | null
 	columns: ColumnDef<any>[]
-	title: string
+	title?: string
 }
 
 export function DetailsDataTable({

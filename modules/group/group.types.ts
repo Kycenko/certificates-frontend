@@ -12,9 +12,8 @@ export type Group = {
 export type GroupFieldsProps = {
 	data: {
 		id: string
-		number: number
+		number: string
 		department: { title: string }
 	}[]
-
 	isLoading: boolean
 }

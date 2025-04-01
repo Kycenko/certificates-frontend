@@ -1,0 +1,16 @@
+query getCertificateById($id: String!) {
+	getCertificateById(id: $id) {
+		id
+		startDate
+		finishDate
+
+		physicalEducation {
+			id
+			title
+		}
+		healthGroup {
+			id
+			title
+		}
+	}
+}

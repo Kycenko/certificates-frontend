@@ -58,7 +58,7 @@ export function DataDialog<T extends FieldValues>({
 			<DialogTrigger asChild>
 				<Button variant='outline'>Добавить</Button>
 			</DialogTrigger>
-			<DialogContent className='sm:max-w-[300px]'>
+			<DialogContent className='sm:max-w-sm'>
 				<Form {...methods}>
 					<form onSubmit={handleSubmit(data => onSubmitted(data))}>
 						<DialogHeader>

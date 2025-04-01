@@ -105,7 +105,6 @@ export function DataTable({
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Действия</DropdownMenuLabel>
-
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={() => onInfo(row.original.id)}>
 							Подробнее

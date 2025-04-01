@@ -1,12 +1,9 @@
-mutation UpdateCertificate(
-    $data: UpdateCertificateInput!
-    $updateCertificateId: String!
-) {
-    updateCertificate(data: $data, id: $updateCertificateId) {
-        startDate
-        finishDate
-        studentId
-        healthGroupId
-        physicalEducationId
-    }
+mutation UpdateCertificate($data: UpdateCertificateInput!, $id: String!) {
+	updateCertificate(data: $data, id: $id) {
+		startDate
+		finishDate
+		studentId
+		healthGroupId
+		physicalEducationId
+	}
 }

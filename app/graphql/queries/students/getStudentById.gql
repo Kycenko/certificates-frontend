@@ -1,0 +1,19 @@
+query getStudentById($id: String!) {
+	getStudentById(id: $id) {
+		id
+		lastName
+		firstName
+		secondName
+		birthDate
+		groupId
+		certificates {
+			id
+			startDate
+			finishDate
+		}
+		group {
+			id
+			title
+		}
+	}
+}

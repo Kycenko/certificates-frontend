@@ -12,3 +12,11 @@ export type Student = {
 	group: Group
 	certificates: Certificate[]
 }
+
+export type StudentFieldsProps = {
+	data: {
+		id: string
+		title: string
+	}[]
+	isLoading: boolean
+}

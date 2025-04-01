@@ -1,3 +1,3 @@
-mutation RemoveCertificate($removeCertificateId: String!) {
-    removeCertificate(id: $removeCertificateId)
+mutation RemoveCertificate($id: String!) {
+	removeCertificate(id: $id)
 }

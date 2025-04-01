@@ -1,7 +1,13 @@
 import { Student } from '@modules/student/student.types'
 
-import { HealthGroup } from '../health-group/health-group.types'
-import { PhysicalEducation } from '../physical-education/physical-education.types'
+import {
+	HealthGroup,
+	HealthGroupFieldsProps
+} from '../health-group/health-group.types'
+import {
+	PhysicalEducation,
+	PhysicalEducationFieldsProps
+} from '../physical-education/physical-education.types'
 
 export type Certificate = {
 	id: string
@@ -13,4 +19,10 @@ export type Certificate = {
 	student: Student
 	healthGroup: HealthGroup
 	physicalEducation: PhysicalEducation
+}
+
+export type CertificateFieldsProps = {
+	students: any[]
+	healthGroups: HealthGroupFieldsProps[]
+	physicalEducations: PhysicalEducationFieldsProps[]
 }
