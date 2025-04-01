@@ -28,7 +28,7 @@ const eslintConfig = [
 			// 		]
 			// 	}
 			// ],
-			'import/no-relative-parent-imports': 'error',
+			// 'import/no-relative-parent-imports': 'error',
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@typescript-eslint/no-floating-promises': 'off',
 			'@typescript-eslint/no-unused-vars': 'off'

@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react'
+import { Check, ChevronsUpDown } from 'lucide-react'
 import React from 'react'
 
 import { Button } from '@/shared/ui/button'
@@ -58,6 +58,7 @@ export function SelectCombobox<T>({
 					className={cn('w-full justify-between', className)}
 				>
 					{selectedItem ? getLabel(selectedItem) : placeholder}
+					<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className='w-full p-0'>
