@@ -1,5 +1,3 @@
-import { useRouter } from 'next/navigation'
-
 import { StudentSchema } from './student.schema'
 import {
 	useCreateStudentMutation,
@@ -12,7 +10,6 @@ import {
 import { useEntityOperations } from '@/shared/hooks/useEntityOperations'
 
 export function useStudentOperations(id?: string) {
-	const router = useRouter()
 	const students = useEntityOperations<StudentSchema>({
 		useGetByIdQuery: useGetStudentByIdQuery,
 		useCreateMutation: useCreateStudentMutation,

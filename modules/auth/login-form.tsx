@@ -37,7 +37,7 @@ export default function LoginForm() {
 		}).then(response => {
 			if (response.data?.login) {
 				Cookies.set('accessToken', response.data?.login.accessToken, {
-					expires: 7
+					expiresIn: '15m'
 				})
 				Cookies.set('refreshToken', response.data?.login.refreshToken, {
 					expires: 7

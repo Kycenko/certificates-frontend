@@ -3,7 +3,15 @@ import { useFormContext } from 'react-hook-form'
 import { StudentSchema } from './student.schema'
 import { StudentFieldsProps } from './student.types'
 import { DatePicker, SelectCombobox } from '@/shared/components'
-import { FormField, FormItem, FormLabel, FormMessage, Input } from '@/shared/ui'
+import {
+	Checkbox,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+	Input
+} from '@/shared/ui'
 
 export function StudentFields({ data, isLoading }: StudentFieldsProps) {
 	const { control } = useFormContext<StudentSchema>()
@@ -84,6 +92,24 @@ export function StudentFields({ data, isLoading }: StudentFieldsProps) {
 							value={field.value}
 							onValueChange={field.onChange}
 						/>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={control}
+				name='isExpelled'
+				render={({ field }) => (
+					<FormItem className='flex flex-row items-start space-y-0 space-x-3 p-4'>
+						<FormControl>
+							<Checkbox
+								checked={field.value}
+								onCheckedChange={field.onChange}
+							/>
+						</FormControl>
+						<div className='space-y-1 leading-none'>
+							<FormLabel>Студент отчислен?</FormLabel>
+						</div>
 						<FormMessage />
 					</FormItem>
 				)}

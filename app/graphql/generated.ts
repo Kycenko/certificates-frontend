@@ -824,13 +824,6 @@ export type UpdatePhysicalEducationMutationVariables = Exact<{
 
 export type UpdatePhysicalEducationMutation = { __typename?: 'Mutation', updatePhysicalEducation: { __typename?: 'PhysicalEducationModel', id: string, title: string } };
 
-export type CreateStudentHistoryMutationVariables = Exact<{
-  data: StudentHistoryInput;
-}>;
-
-
-export type CreateStudentHistoryMutation = { __typename?: 'Mutation', createStudentHistory: { __typename?: 'StudentHistoryModel', id: string, groupId?: string | null } };
-
 export type CreateStudentMutationVariables = Exact<{
   data: StudentInput;
 }>;
@@ -944,13 +937,6 @@ export type GetPhysicalEducationByIdQueryVariables = Exact<{
 
 export type GetPhysicalEducationByIdQuery = { __typename?: 'Query', getPhysicalEducationById: { __typename?: 'PhysicalEducationModel', id: string, title: string, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any, student: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null } }> | null } };
 
-export type GetAllStudentHistoriesQueryVariables = Exact<{
-  studentId: Scalars['String']['input'];
-}>;
-
-
-export type GetAllStudentHistoriesQuery = { __typename?: 'Query', getAllStudentHistories: Array<{ __typename?: 'StudentHistoryModel', id: string, student: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, isExpelled: boolean, groupId?: string | null }, group?: { __typename?: 'GroupModel', id: string, title: string } | null }> };
-
 export type GetAllStudentsQueryVariables = Exact<{
   params: StudentParamsInput;
 }>;
@@ -963,7 +949,7 @@ export type GetStudentByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStudentByIdQuery = { __typename?: 'Query', getStudentById: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, groupId?: string | null, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null, group?: { __typename?: 'GroupModel', id: string, title: string } | null } };
+export type GetStudentByIdQuery = { __typename?: 'Query', getStudentById: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, groupId?: string | null, isExpelled: boolean, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null, group?: { __typename?: 'GroupModel', id: string, title: string } | null } };
 
 
 export const LoginDocument = gql`
@@ -1801,40 +1787,6 @@ export function useUpdatePhysicalEducationMutation(baseOptions?: Apollo.Mutation
 export type UpdatePhysicalEducationMutationHookResult = ReturnType<typeof useUpdatePhysicalEducationMutation>;
 export type UpdatePhysicalEducationMutationResult = Apollo.MutationResult<UpdatePhysicalEducationMutation>;
 export type UpdatePhysicalEducationMutationOptions = Apollo.BaseMutationOptions<UpdatePhysicalEducationMutation, UpdatePhysicalEducationMutationVariables>;
-export const CreateStudentHistoryDocument = gql`
-    mutation createStudentHistory($data: StudentHistoryInput!) {
-  createStudentHistory(data: $data) {
-    id
-    groupId
-  }
-}
-    `;
-export type CreateStudentHistoryMutationFn = Apollo.MutationFunction<CreateStudentHistoryMutation, CreateStudentHistoryMutationVariables>;
-
-/**
- * __useCreateStudentHistoryMutation__
- *
- * To run a mutation, you first call `useCreateStudentHistoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateStudentHistoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createStudentHistoryMutation, { data, loading, error }] = useCreateStudentHistoryMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateStudentHistoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateStudentHistoryMutation, CreateStudentHistoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateStudentHistoryMutation, CreateStudentHistoryMutationVariables>(CreateStudentHistoryDocument, options);
-      }
-export type CreateStudentHistoryMutationHookResult = ReturnType<typeof useCreateStudentHistoryMutation>;
-export type CreateStudentHistoryMutationResult = Apollo.MutationResult<CreateStudentHistoryMutation>;
-export type CreateStudentHistoryMutationOptions = Apollo.BaseMutationOptions<CreateStudentHistoryMutation, CreateStudentHistoryMutationVariables>;
 export const CreateStudentDocument = gql`
     mutation createStudent($data: StudentInput!) {
   createStudent(data: $data) {
@@ -2584,59 +2536,6 @@ export type GetPhysicalEducationByIdQueryHookResult = ReturnType<typeof useGetPh
 export type GetPhysicalEducationByIdLazyQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdLazyQuery>;
 export type GetPhysicalEducationByIdSuspenseQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdSuspenseQuery>;
 export type GetPhysicalEducationByIdQueryResult = Apollo.QueryResult<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>;
-export const GetAllStudentHistoriesDocument = gql`
-    query getAllStudentHistories($studentId: String!) {
-  getAllStudentHistories(studentId: $studentId) {
-    id
-    student {
-      id
-      lastName
-      firstName
-      secondName
-      birthDate
-      isExpelled
-      groupId
-    }
-    group {
-      id
-      title
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllStudentHistoriesQuery__
- *
- * To run a query within a React component, call `useGetAllStudentHistoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllStudentHistoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllStudentHistoriesQuery({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useGetAllStudentHistoriesQuery(baseOptions: Apollo.QueryHookOptions<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables> & ({ variables: GetAllStudentHistoriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>(GetAllStudentHistoriesDocument, options);
-      }
-export function useGetAllStudentHistoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>(GetAllStudentHistoriesDocument, options);
-        }
-export function useGetAllStudentHistoriesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>(GetAllStudentHistoriesDocument, options);
-        }
-export type GetAllStudentHistoriesQueryHookResult = ReturnType<typeof useGetAllStudentHistoriesQuery>;
-export type GetAllStudentHistoriesLazyQueryHookResult = ReturnType<typeof useGetAllStudentHistoriesLazyQuery>;
-export type GetAllStudentHistoriesSuspenseQueryHookResult = ReturnType<typeof useGetAllStudentHistoriesSuspenseQuery>;
-export type GetAllStudentHistoriesQueryResult = Apollo.QueryResult<GetAllStudentHistoriesQuery, GetAllStudentHistoriesQueryVariables>;
 export const GetAllStudentsDocument = gql`
     query getAllStudents($params: StudentParamsInput!) {
   getAllStudents(params: $params) {
@@ -2703,6 +2602,7 @@ export const GetStudentByIdDocument = gql`
     secondName
     birthDate
     groupId
+    isExpelled
     certificates {
       id
       startDate

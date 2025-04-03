@@ -6,6 +6,7 @@ query getStudentById($id: String!) {
 		secondName
 		birthDate
 		groupId
+		isExpelled
 		certificates {
 			id
 			startDate
