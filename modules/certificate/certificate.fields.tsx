@@ -2,7 +2,8 @@ import { useFormContext } from 'react-hook-form'
 
 import { CertificateSchema } from './certficate.schema'
 import { CertificateFieldsProps } from './certificate.types'
-import { DatePicker, SelectCombobox } from '@/shared/components'
+import { SelectCombobox } from '@/shared/components'
+import { DatePicker } from '@/shared/components/date-picker'
 import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui'
 
 export function CertificateFields({
@@ -48,6 +49,7 @@ export function CertificateFields({
 				control={control}
 				render={({ field }) => (
 					<FormItem>
+						<FormLabel>Студент</FormLabel>
 						<SelectCombobox
 							data={students}
 							valueKey={'id'}
@@ -67,6 +69,7 @@ export function CertificateFields({
 				control={control}
 				render={({ field }) => (
 					<FormItem>
+						<FormLabel>Группа здоровья</FormLabel>
 						<SelectCombobox
 							data={healthGroups}
 							valueKey={'id'}
@@ -84,6 +87,7 @@ export function CertificateFields({
 				control={control}
 				render={({ field }) => (
 					<FormItem>
+						<FormLabel>Группа по физкультуре</FormLabel>
 						<SelectCombobox
 							data={physicalEducations}
 							valueKey={'id'}

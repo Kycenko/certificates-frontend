@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form'
 
 import { StudentSchema } from './student.schema'
 import { StudentFieldsProps } from './student.types'
-import { DatePicker, SelectCombobox } from '@/shared/components'
+import { BirthDatePicker, SelectCombobox } from '@/shared/components'
 import {
 	Checkbox,
 	FormControl,
@@ -69,9 +69,10 @@ export function StudentFields({ data, isLoading }: StudentFieldsProps) {
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Дата рождения</FormLabel>
-						<DatePicker
+						<BirthDatePicker
 							onSelect={field.onChange}
 							selected={field.value}
+							disabled={date => date > new Date()}
 						/>
 						<FormMessage />
 					</FormItem>
@@ -83,6 +84,7 @@ export function StudentFields({ data, isLoading }: StudentFieldsProps) {
 				control={control}
 				render={({ field }) => (
 					<FormItem>
+						<FormLabel>Группа</FormLabel>
 						<SelectCombobox
 							disabled={isLoading}
 							data={data}

@@ -11,6 +11,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import { StudentFields } from './student.fields'
 import { useStudentOperations } from './useStudentOperations'
 import { studentColumns } from '@/modules/student/student.columns'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function StudentsComponent() {
 	const { search, pagination, columnVisibility } = useTableSettingsStore()
@@ -24,6 +25,8 @@ export default function StudentsComponent() {
 	const { data, loading } = useGetAllStudentsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>

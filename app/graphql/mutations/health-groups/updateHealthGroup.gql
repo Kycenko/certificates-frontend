@@ -1,6 +1,6 @@
-mutation UpdateHealthGroup($data: HealthGroupInput!, $id: String!) {
-    updateHealthGroup(data: $data, id: $id) {
-        id
-        title
-    }
+mutation updateHealthGroup($data: HealthGroupInput!, $id: String!) {
+	updateHealthGroup(data: $data, id: $id) {
+		id
+		title
+	}
 }

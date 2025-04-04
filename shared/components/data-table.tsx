@@ -45,7 +45,8 @@ interface TableProps {
 	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
 	onRemove: (id: string) => void
-	onInfo: (id: string) => void
+	onUpdate?: (id: string, data: any) => void
+	onInfo?: (id: string) => void
 	isLoading?: boolean
 	filterable?: boolean
 }
@@ -55,6 +56,7 @@ export function DataTable({
 	columns,
 	onRemoveMany,
 	onRemove,
+	onUpdate,
 	onInfo,
 	searchParam,
 	search,
@@ -106,9 +108,18 @@ export function DataTable({
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Действия</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={() => onInfo(row.original.id)}>
-							Подробнее
-						</DropdownMenuItem>
+						{onInfo && (
+							<DropdownMenuItem onClick={() => onInfo(row.original.id)}>
+								Подробнее
+							</DropdownMenuItem>
+						)}
+						{onUpdate && (
+							<DropdownMenuItem
+								onClick={data => onUpdate(row.original.id, data)}
+							>
+								Изменить
+							</DropdownMenuItem>
+						)}
 						<DropdownMenuItem onClick={() => onRemove(row.original.id)}>
 							Удалить
 						</DropdownMenuItem>

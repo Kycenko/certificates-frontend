@@ -10,6 +10,7 @@ import { departmentSchema } from '@/modules/department/department.schema'
 import { DataDialog } from '@/shared/components/data-dialog'
 import { DataTable } from '@/shared/components/data-table'
 import { TableSettings } from '@/shared/components/table-settings'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function DepartmentsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -19,6 +20,8 @@ export default function DepartmentsComponent() {
 	const { data, loading } = useGetAllDepartmentsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<>

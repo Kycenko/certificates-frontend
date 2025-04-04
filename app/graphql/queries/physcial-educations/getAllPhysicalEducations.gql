@@ -1,6 +1,6 @@
-query GetAllPhysicalEducations($params: PhysicalEducationParamsInput!) {
-    getAllPhysicalEducations(params: $params) {
-        id
-        title
-    }
+query getAllPhysicalEducations($params: PhysicalEducationParamsInput!) {
+	getAllPhysicalEducations(params: $params) {
+		id
+		title
+	}
 }

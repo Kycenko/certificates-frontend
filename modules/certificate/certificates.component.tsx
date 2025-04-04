@@ -11,6 +11,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import { CertificateFields } from './certificate.fields'
 import { useCertificateOperations } from './useCertificateOperations'
 import { certificateColumns } from '@/modules/certificate/certificate.columns'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function CertificatesComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -19,7 +20,6 @@ export default function CertificatesComponent() {
 		healthGroups: { data: healthGroups, fetchHealthGroups },
 		physicalEducations: { data: physicalEducations, fetchPhysicalEducations },
 		handleCreate,
-		handleInfo,
 		handleRemove,
 		handleRemoveMany
 	} = useCertificateOperations()
@@ -33,6 +33,8 @@ export default function CertificatesComponent() {
 		fetchHealthGroups()
 		fetchPhysicalEducations()
 	}
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>
@@ -62,7 +64,6 @@ export default function CertificatesComponent() {
 				searchParam='student.lastName'
 				pagination={pagination}
 				visibility={columnVisibility}
-				onInfo={handleInfo}
 				onRemoveMany={handleRemoveMany}
 				onRemove={handleRemove}
 			/>

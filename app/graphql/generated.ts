@@ -992,7 +992,7 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const CreateCertificateDocument = gql`
-    mutation CreateCertificate($data: CertificateInput!) {
+    mutation createCertificate($data: CertificateInput!) {
   createCertificate(data: $data) {
     startDate
     finishDate
@@ -1029,7 +1029,7 @@ export type CreateCertificateMutationHookResult = ReturnType<typeof useCreateCer
 export type CreateCertificateMutationResult = Apollo.MutationResult<CreateCertificateMutation>;
 export type CreateCertificateMutationOptions = Apollo.BaseMutationOptions<CreateCertificateMutation, CreateCertificateMutationVariables>;
 export const RemoveCertificateDocument = gql`
-    mutation RemoveCertificate($id: String!) {
+    mutation removeCertificate($id: String!) {
   removeCertificate(id: $id)
 }
     `;
@@ -1091,7 +1091,7 @@ export type RemoveManyCertificatesMutationHookResult = ReturnType<typeof useRemo
 export type RemoveManyCertificatesMutationResult = Apollo.MutationResult<RemoveManyCertificatesMutation>;
 export type RemoveManyCertificatesMutationOptions = Apollo.BaseMutationOptions<RemoveManyCertificatesMutation, RemoveManyCertificatesMutationVariables>;
 export const UpdateCertificateDocument = gql`
-    mutation UpdateCertificate($data: UpdateCertificateInput!, $id: String!) {
+    mutation updateCertificate($data: UpdateCertificateInput!, $id: String!) {
   updateCertificate(data: $data, id: $id) {
     startDate
     finishDate
@@ -1526,7 +1526,7 @@ export type UpdateGroupMutationHookResult = ReturnType<typeof useUpdateGroupMuta
 export type UpdateGroupMutationResult = Apollo.MutationResult<UpdateGroupMutation>;
 export type UpdateGroupMutationOptions = Apollo.BaseMutationOptions<UpdateGroupMutation, UpdateGroupMutationVariables>;
 export const CreateHealthGroupDocument = gql`
-    mutation CreateHealthGroup($data: HealthGroupInput!) {
+    mutation createHealthGroup($data: HealthGroupInput!) {
   createHealthGroup(data: $data) {
     id
     title
@@ -1560,7 +1560,7 @@ export type CreateHealthGroupMutationHookResult = ReturnType<typeof useCreateHea
 export type CreateHealthGroupMutationResult = Apollo.MutationResult<CreateHealthGroupMutation>;
 export type CreateHealthGroupMutationOptions = Apollo.BaseMutationOptions<CreateHealthGroupMutation, CreateHealthGroupMutationVariables>;
 export const RemoveHealthGroupDocument = gql`
-    mutation RemoveHealthGroup($id: String!) {
+    mutation removeHealthGroup($id: String!) {
   removeHealthGroup(id: $id)
 }
     `;
@@ -1622,7 +1622,7 @@ export type RemoveManyHealthGroupsMutationHookResult = ReturnType<typeof useRemo
 export type RemoveManyHealthGroupsMutationResult = Apollo.MutationResult<RemoveManyHealthGroupsMutation>;
 export type RemoveManyHealthGroupsMutationOptions = Apollo.BaseMutationOptions<RemoveManyHealthGroupsMutation, RemoveManyHealthGroupsMutationVariables>;
 export const UpdateHealthGroupDocument = gql`
-    mutation UpdateHealthGroup($data: HealthGroupInput!, $id: String!) {
+    mutation updateHealthGroup($data: HealthGroupInput!, $id: String!) {
   updateHealthGroup(data: $data, id: $id) {
     id
     title
@@ -1657,7 +1657,7 @@ export type UpdateHealthGroupMutationHookResult = ReturnType<typeof useUpdateHea
 export type UpdateHealthGroupMutationResult = Apollo.MutationResult<UpdateHealthGroupMutation>;
 export type UpdateHealthGroupMutationOptions = Apollo.BaseMutationOptions<UpdateHealthGroupMutation, UpdateHealthGroupMutationVariables>;
 export const CreatePhysicalEducationDocument = gql`
-    mutation CreatePhysicalEducation($data: PhysicalEducationInput!) {
+    mutation createPhysicalEducation($data: PhysicalEducationInput!) {
   createPhysicalEducation(data: $data) {
     id
     title
@@ -1722,7 +1722,7 @@ export type RemoveManyPhysicalEducationsMutationHookResult = ReturnType<typeof u
 export type RemoveManyPhysicalEducationsMutationResult = Apollo.MutationResult<RemoveManyPhysicalEducationsMutation>;
 export type RemoveManyPhysicalEducationsMutationOptions = Apollo.BaseMutationOptions<RemoveManyPhysicalEducationsMutation, RemoveManyPhysicalEducationsMutationVariables>;
 export const RemovePhysicalEducationDocument = gql`
-    mutation RemovePhysicalEducation($id: String!) {
+    mutation removePhysicalEducation($id: String!) {
   removePhysicalEducation(id: $id)
 }
     `;
@@ -1753,7 +1753,7 @@ export type RemovePhysicalEducationMutationHookResult = ReturnType<typeof useRem
 export type RemovePhysicalEducationMutationResult = Apollo.MutationResult<RemovePhysicalEducationMutation>;
 export type RemovePhysicalEducationMutationOptions = Apollo.BaseMutationOptions<RemovePhysicalEducationMutation, RemovePhysicalEducationMutationVariables>;
 export const UpdatePhysicalEducationDocument = gql`
-    mutation UpdatePhysicalEducation($data: PhysicalEducationInput!, $id: String!) {
+    mutation updatePhysicalEducation($data: PhysicalEducationInput!, $id: String!) {
   updatePhysicalEducation(data: $data, id: $id) {
     id
     title
@@ -1857,7 +1857,7 @@ export type RemoveManyStudentsMutationHookResult = ReturnType<typeof useRemoveMa
 export type RemoveManyStudentsMutationResult = Apollo.MutationResult<RemoveManyStudentsMutation>;
 export type RemoveManyStudentsMutationOptions = Apollo.BaseMutationOptions<RemoveManyStudentsMutation, RemoveManyStudentsMutationVariables>;
 export const RemoveStudentDocument = gql`
-    mutation RemoveStudent($id: String!) {
+    mutation removeStudent($id: String!) {
   removeStudent(id: $id)
 }
     `;
@@ -1888,7 +1888,7 @@ export type RemoveStudentMutationHookResult = ReturnType<typeof useRemoveStudent
 export type RemoveStudentMutationResult = Apollo.MutationResult<RemoveStudentMutation>;
 export type RemoveStudentMutationOptions = Apollo.BaseMutationOptions<RemoveStudentMutation, RemoveStudentMutationVariables>;
 export const UpdateStudentDocument = gql`
-    mutation UpdateStudent($data: UpdateStudentInput!, $id: String!) {
+    mutation updateStudent($data: UpdateStudentInput!, $id: String!) {
   updateStudent(data: $data, id: $id) {
     firstName
     lastName
@@ -2230,7 +2230,7 @@ export type GetDepartmentByIdLazyQueryHookResult = ReturnType<typeof useGetDepar
 export type GetDepartmentByIdSuspenseQueryHookResult = ReturnType<typeof useGetDepartmentByIdSuspenseQuery>;
 export type GetDepartmentByIdQueryResult = Apollo.QueryResult<GetDepartmentByIdQuery, GetDepartmentByIdQueryVariables>;
 export const GetAllGroupsDocument = gql`
-    query GetAllGroups($params: GroupParamsInput!) {
+    query getAllGroups($params: GroupParamsInput!) {
   getAllGroups(params: $params) {
     id
     title
@@ -2287,7 +2287,7 @@ export type GetAllGroupsLazyQueryHookResult = ReturnType<typeof useGetAllGroupsL
 export type GetAllGroupsSuspenseQueryHookResult = ReturnType<typeof useGetAllGroupsSuspenseQuery>;
 export type GetAllGroupsQueryResult = Apollo.QueryResult<GetAllGroupsQuery, GetAllGroupsQueryVariables>;
 export const GetGroupByIdDocument = gql`
-    query GetGroupById($id: String!) {
+    query getGroupById($id: String!) {
   getGroupById(id: $id) {
     id
     title
@@ -2345,7 +2345,7 @@ export type GetGroupByIdLazyQueryHookResult = ReturnType<typeof useGetGroupByIdL
 export type GetGroupByIdSuspenseQueryHookResult = ReturnType<typeof useGetGroupByIdSuspenseQuery>;
 export type GetGroupByIdQueryResult = Apollo.QueryResult<GetGroupByIdQuery, GetGroupByIdQueryVariables>;
 export const GetAllHealthGroupsDocument = gql`
-    query GetAllHealthGroups($params: HealthGroupParamsInput!) {
+    query getAllHealthGroups($params: HealthGroupParamsInput!) {
   getAllHealthGroups(params: $params) {
     id
     title
@@ -2444,7 +2444,7 @@ export type GetHealthGroupByIdLazyQueryHookResult = ReturnType<typeof useGetHeal
 export type GetHealthGroupByIdSuspenseQueryHookResult = ReturnType<typeof useGetHealthGroupByIdSuspenseQuery>;
 export type GetHealthGroupByIdQueryResult = Apollo.QueryResult<GetHealthGroupByIdQuery, GetHealthGroupByIdQueryVariables>;
 export const GetAllPhysicalEducationsDocument = gql`
-    query GetAllPhysicalEducations($params: PhysicalEducationParamsInput!) {
+    query getAllPhysicalEducations($params: PhysicalEducationParamsInput!) {
   getAllPhysicalEducations(params: $params) {
     id
     title
@@ -2485,7 +2485,7 @@ export type GetAllPhysicalEducationsLazyQueryHookResult = ReturnType<typeof useG
 export type GetAllPhysicalEducationsSuspenseQueryHookResult = ReturnType<typeof useGetAllPhysicalEducationsSuspenseQuery>;
 export type GetAllPhysicalEducationsQueryResult = Apollo.QueryResult<GetAllPhysicalEducationsQuery, GetAllPhysicalEducationsQueryVariables>;
 export const GetPhysicalEducationByIdDocument = gql`
-    query GetPhysicalEducationById($id: String!) {
+    query getPhysicalEducationById($id: String!) {
   getPhysicalEducationById(id: $id) {
     id
     title

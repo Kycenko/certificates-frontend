@@ -11,6 +11,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import { PhysicalEducationFields } from './physical-education.fields'
 import { usePhysicalEducationOperations } from './usePhysicalEducationOperations'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function PhysicalEducationsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -20,6 +21,8 @@ export default function PhysicalEducationsComponent() {
 	const { data, loading } = useGetAllPhysicalEducationsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>

@@ -11,6 +11,7 @@ import CourseFields from './course.fields'
 import { useCourseOperations } from './useCourseOperations'
 import { useGetAllCoursesQuery } from '@/app/graphql/generated'
 import { courseColumns } from '@/modules/course/course.columns'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function CoursesComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -25,6 +26,8 @@ export default function CoursesComponent() {
 	const { data, loading } = useGetAllCoursesQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>

@@ -11,6 +11,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 import GroupFields from './group.fields'
 import { useGroupOperations } from './useGroupOperations'
 import { groupColumns } from '@/modules/group/group.columns'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function GroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -25,6 +26,8 @@ export default function GroupsComponent() {
 	const { data, loading } = useGetAllGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>

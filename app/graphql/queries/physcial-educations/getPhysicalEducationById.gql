@@ -1,4 +1,4 @@
-query GetPhysicalEducationById($id: String!) {
+query getPhysicalEducationById($id: String!) {
 	getPhysicalEducationById(id: $id) {
 		id
 		title

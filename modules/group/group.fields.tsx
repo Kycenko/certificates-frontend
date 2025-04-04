@@ -31,6 +31,7 @@ export default function GroupFields({ data, isLoading }: GroupFieldsProps) {
 				control={control}
 				render={({ field }) => (
 					<FormItem>
+						<FormLabel>Курс</FormLabel>
 						<SelectCombobox
 							data={data}
 							disabled={isLoading}

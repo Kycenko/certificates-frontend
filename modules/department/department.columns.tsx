@@ -5,8 +5,6 @@ import { Department } from './department.types'
 import { Button } from '@/shared/ui/button'
 
 export const departmentColumns: ColumnDef<Department>[] = [
-
-	
 	{
 		accessorKey: 'title',
 		header: ({ column }) => {

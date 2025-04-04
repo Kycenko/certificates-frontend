@@ -1,4 +1,4 @@
-mutation UpdateCertificate($data: UpdateCertificateInput!, $id: String!) {
+mutation updateCertificate($data: UpdateCertificateInput!, $id: String!) {
 	updateCertificate(data: $data, id: $id) {
 		startDate
 		finishDate

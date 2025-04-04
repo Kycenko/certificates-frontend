@@ -1,4 +1,4 @@
-query GetGroupById($id: String!) {
+query getGroupById($id: String!) {
 	getGroupById(id: $id) {
 		id
 		title

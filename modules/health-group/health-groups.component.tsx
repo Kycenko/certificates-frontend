@@ -11,6 +11,7 @@ import { useTableSettingsStore } from '@/store/table-settings.store'
 
 import { HealthGroupFields } from './health-group.fields'
 import { useHealthGroupOperations } from './useHealthGroupOperations'
+import { TableSkeleton } from '@/shared/components/table-skeleton'
 
 export default function HealthGroupsComponent() {
 	const { pagination, columnVisibility, search } = useTableSettingsStore()
@@ -20,6 +21,8 @@ export default function HealthGroupsComponent() {
 	const { data, loading } = useGetAllHealthGroupsQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
+
+	if (loading) return <TableSkeleton />
 
 	return (
 		<div>

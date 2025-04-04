@@ -1,4 +1,4 @@
-mutation UpdateStudent($data: UpdateStudentInput!, $id: String!) {
+mutation updateStudent($data: UpdateStudentInput!, $id: String!) {
 	updateStudent(data: $data, id: $id) {
 		firstName
 		lastName

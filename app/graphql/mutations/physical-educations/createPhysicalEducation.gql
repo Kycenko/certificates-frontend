@@ -1,6 +1,6 @@
-mutation CreatePhysicalEducation($data: PhysicalEducationInput!) {
-    createPhysicalEducation(data: $data) {
-        id
-        title
-    }
+mutation createPhysicalEducation($data: PhysicalEducationInput!) {
+	createPhysicalEducation(data: $data) {
+		id
+		title
+	}
 }

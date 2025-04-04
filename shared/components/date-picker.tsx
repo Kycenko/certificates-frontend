@@ -16,9 +16,10 @@ import { cn } from '../utils'
 interface DatePickerProps {
 	selected: Date
 	onSelect: (date: Date | undefined) => void
+	disabled?: (date: Date) => boolean
 }
 
-export function DatePicker({ selected, onSelect }: DatePickerProps) {
+export function DatePicker({ selected, onSelect, disabled }: DatePickerProps) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -42,6 +43,10 @@ export function DatePicker({ selected, onSelect }: DatePickerProps) {
 					mode='single'
 					selected={selected}
 					onSelect={onSelect}
+					disabled={disabled}
+					locale={ru}
+					lang='ru'
+					fixedWeeks
 					initialFocus
 				/>
 			</PopoverContent>
