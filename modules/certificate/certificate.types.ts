@@ -25,4 +25,5 @@ export type CertificateFieldsProps = {
 	students: any[]
 	healthGroups: HealthGroupFieldsProps[]
 	physicalEducations: PhysicalEducationFieldsProps[]
+	// isLoading: boolean
 }

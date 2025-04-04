@@ -21,6 +21,7 @@ export default function CertificatesComponent() {
 		physicalEducations: { data: physicalEducations, fetchPhysicalEducations },
 		handleCreate,
 		handleRemove,
+		handleInfo,
 		handleRemoveMany
 	} = useCertificateOperations()
 
@@ -64,6 +65,7 @@ export default function CertificatesComponent() {
 				searchParam='student.lastName'
 				pagination={pagination}
 				visibility={columnVisibility}
+				onInfo={handleInfo}
 				onRemoveMany={handleRemoveMany}
 				onRemove={handleRemove}
 			/>

@@ -3,7 +3,16 @@ query getCertificateById($id: String!) {
 		id
 		startDate
 		finishDate
-
+		studentId
+		healthGroupId
+		physicalEducationId
+		student {
+			lastName
+			firstName
+			secondName
+			birthDate
+			isExpelled
+		}
 		physicalEducation {
 			id
 			title

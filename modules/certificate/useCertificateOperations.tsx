@@ -44,12 +44,16 @@ export function useCertificateOperations(id?: string) {
 
 	return {
 		...certificates,
-		students: { data: students, loadingStudents, fetchStudents },
+		students: { data: students, loading: loadingStudents, fetchStudents },
 		physicalEducations: {
 			data: physicalEducations,
-			loadingPhysicalEducations,
+			loading: loadingPhysicalEducations,
 			fetchPhysicalEducations
 		},
-		healthGroups: { data: healthGroups, loadingHealthGroups, fetchHealthGroups }
+		healthGroups: {
+			data: healthGroups,
+			loading: loadingHealthGroups,
+			fetchHealthGroups
+		}
 	}
 }
