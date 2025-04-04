@@ -15,6 +15,14 @@ import {
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from '../ui'
+
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'
 import {
@@ -270,28 +278,55 @@ export function DataTable({
 			</div>
 
 			{pagination && (
-				<div className='flex items-center justify-end space-x-2 py-4'>
+				<div className='flex items-center justify-between py-4'>
 					<div className='text-muted-foreground flex-1 text-sm'>
 						{table.getFilteredSelectedRowModel().rows.length} из{' '}
 						{table.getFilteredRowModel().rows.length} строк выбрано.
 					</div>
-					<div className='space-x-2'>
-						<Button
-							variant='outline'
-							size='sm'
-							onClick={() => table.previousPage()}
-							disabled={!table.getCanPreviousPage()}
-						>
-							Назад
-						</Button>
-						<Button
-							variant='outline'
-							size='sm'
-							onClick={() => table.nextPage()}
-							disabled={!table.getCanNextPage()}
-						>
-							Далее
-						</Button>
+					<div className='flex items-center space-x-4'>
+						<div className='flex items-center space-x-2'>
+							<p className='text-sm font-medium'>Строк на странице:</p>
+							<Select
+								value={`${table.getState().pagination.pageSize}`}
+								onValueChange={value => {
+									table.setPageSize(Number(value))
+								}}
+							>
+								<SelectTrigger className='h-8 w-[70px]'>
+									<SelectValue
+										placeholder={table.getState().pagination.pageSize}
+									/>
+								</SelectTrigger>
+								<SelectContent side='top'>
+									{[10, 25, 50, 75, 100].map(pageSize => (
+										<SelectItem
+											key={pageSize}
+											value={`${pageSize}`}
+										>
+											{pageSize}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						</div>
+						<div className='space-x-2'>
+							<Button
+								variant='outline'
+								size='sm'
+								onClick={() => table.previousPage()}
+								disabled={!table.getCanPreviousPage()}
+							>
+								Назад
+							</Button>
+							<Button
+								variant='outline'
+								size='sm'
+								onClick={() => table.nextPage()}
+								disabled={!table.getCanNextPage()}
+							>
+								Далее
+							</Button>
+						</div>
 					</div>
 				</div>
 			)}

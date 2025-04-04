@@ -1,59 +1,36 @@
-import Link from 'next/link'
+import { LayoutDashboard } from 'lucide-react'
 
-import { Button } from '@/shared/ui/button'
-
-const navLinks = [
+export const navLinks = [
 	{
+		icon: <LayoutDashboard />,
 		href: '/',
 		title: 'Главная'
 	},
 	{
+		icon: <LayoutDashboard />,
 		href: '/groups-management',
 		title: 'Управление группами'
 	},
 
 	{
+		icon: <LayoutDashboard />,
 		href: '/departments',
 		title: 'Отделения'
 	},
 	{
+		icon: <LayoutDashboard />,
 		href: '/courses',
 		title: 'Курсы'
 	},
 	{
+		icon: <LayoutDashboard />,
 		href: '/groups',
 		title: 'Группы'
 	},
+	{ icon: <LayoutDashboard />, href: '/students', title: 'Студенты' },
 	{
-		href: '/students',
-		title: 'Студенты'
-	},
-	{
+		icon: <LayoutDashboard />,
 		href: '/certificates',
 		title: 'Справки'
 	}
 ]
-
-export default function NavLinks() {
-	return (
-		<nav className='flex h-full flex-col'>
-			<ul className='flex flex-col space-y-2'>
-				{navLinks.map(({ href, title }) => (
-					<li key={href}>
-						<Link
-							href={href}
-							passHref
-						>
-							<Button
-								variant='ghost'
-								className='text-foreground hover:bg-muted w-full cursor-pointer justify-start'
-							>
-								{title}
-							</Button>
-						</Link>
-					</li>
-				))}
-			</ul>
-		</nav>
-	)
-}
