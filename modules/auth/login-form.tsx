@@ -18,12 +18,18 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 export default function LoginForm() {
+	const router = useRouter()
+
 	const methods = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema)
 	})
 
-	const { handleSubmit, register } = methods
-	const router = useRouter()
+	const {
+		handleSubmit,
+		register,
+		formState: { isSubmitting }
+	} = methods
+
 	const [login] = useLoginMutation()
 
 	async function onSubmit(data: LoginSchema) {
@@ -35,15 +41,14 @@ export default function LoginForm() {
 				}
 			}
 		}).then(response => {
-			if (response.data?.login) {
-				Cookies.set('accessToken', response.data?.login.accessToken, {
-					expiresIn: '15m'
+			if (response.data?.login)
+				Cookies.set('accessToken', response.data.login.accessToken, {
+					httpOnly: true,
+					sameSite: 'strict',
+					maxAge: 15 * 60
 				})
-				Cookies.set('refreshToken', response.data?.login.refreshToken, {
-					expires: 7
-				})
-			}
-			router.push('/')
+
+			router.replace('/')
 		})
 	}
 
@@ -51,39 +56,37 @@ export default function LoginForm() {
 		<div className={'flex flex-col gap-6'}>
 			<Card>
 				<CardHeader>
-					<CardTitle className='text-2xl'>Login</CardTitle>
-					<CardDescription>
-						Enter your email below to login to your account
-					</CardDescription>
+					<CardTitle className='text-2xl'>Авторизация</CardTitle>
+					<CardDescription>Введите логин и пароль чтобы войти</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className='flex flex-col gap-6'>
 							<div className='grid gap-2'>
-								<Label htmlFor='email'>Login</Label>
+								<Label htmlFor='email'>Логин</Label>
 								<Input
 									{...register('login')}
 									id='login'
-									type='login'
-									placeholder='user'
+									type='text'
+									placeholder='Введите логин...'
 								/>
 							</div>
 							<div className='grid gap-2'>
 								<div className='flex items-center'>
-									<Label htmlFor='password'>Password</Label>
+									<Label htmlFor='password'>Пароль</Label>
 								</div>
 								<Input
 									{...register('password')}
 									id='password'
 									type='password'
-									placeholder='password'
+									placeholder='Введите пароль...'
 								/>
 							</div>
 							<Button
 								type='submit'
-								className='w-full'
+								disabled={isSubmitting}
 							>
-								Login
+								{isSubmitting ? 'Входим...' : 'Войти'}
 							</Button>
 						</div>
 					</form>

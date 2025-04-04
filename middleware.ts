@@ -3,19 +3,10 @@ import { NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
 	const accessToken = request.cookies.get('accessToken')?.value
-	const refreshToken = request.cookies.get('refreshToken')?.value
 
-	if (
-		!accessToken &&
-		!refreshToken &&
-		!request.nextUrl.pathname.startsWith('/auth')
-	)
+	if (!accessToken && !request.nextUrl.pathname.startsWith('/auth'))
 		return NextResponse.redirect(new URL('/auth/login', request.url))
-	if (
-		accessToken &&
-		refreshToken &&
-		request.nextUrl.pathname.startsWith('/auth')
-	)
+	if (accessToken && request.nextUrl.pathname.startsWith('/auth'))
 		return NextResponse.redirect(new URL('/', request.url))
 
 	return NextResponse.next()
