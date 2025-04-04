@@ -1,3 +1,4 @@
+import { StudentsSearch } from '@/modules/student/search-students'
 import NavLinks from '@/shared/components/nav-links'
 
 export default function HomeLayout({
@@ -8,7 +9,10 @@ export default function HomeLayout({
 	return (
 		<div className='flex h-screen'>
 			<div className='flex flex-1 overflow-hidden'>
-				<div className='bg-background w-64 overflow-y-auto border-r p-4'>
+				<div className='bg-background w-64 border-r p-4'>
+					<div className='pb-4'>
+						<StudentsSearch />
+					</div>
 					<NavLinks />
 				</div>
 
