@@ -1,35 +1,43 @@
-import { LayoutDashboard } from 'lucide-react'
+import {
+	BookOpen,
+	BookUser,
+	CalendarHeart,
+	GitBranch,
+	HeartPulse,
+	House,
+	Users
+} from 'lucide-react'
 
 export const navLinks = [
 	{
-		icon: <LayoutDashboard />,
+		icon: <House />,
 		href: '/',
 		title: 'Главная'
 	},
 	{
-		icon: <LayoutDashboard />,
+		icon: <HeartPulse />,
 		href: '/groups-management',
 		title: 'Управление группами'
 	},
 
 	{
-		icon: <LayoutDashboard />,
+		icon: <GitBranch />,
 		href: '/departments',
 		title: 'Отделения'
 	},
 	{
-		icon: <LayoutDashboard />,
+		icon: <BookOpen />,
 		href: '/courses',
 		title: 'Курсы'
 	},
 	{
-		icon: <LayoutDashboard />,
+		icon: <BookUser />,
 		href: '/groups',
 		title: 'Группы'
 	},
-	{ icon: <LayoutDashboard />, href: '/students', title: 'Студенты' },
+	{ icon: <Users />, href: '/students', title: 'Студенты' },
 	{
-		icon: <LayoutDashboard />,
+		icon: <CalendarHeart />,
 		href: '/certificates',
 		title: 'Справки'
 	}

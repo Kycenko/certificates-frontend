@@ -12,7 +12,6 @@ import {
 	CardTitle
 } from '@shared/ui/card'
 import { Input } from '@shared/ui/input'
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
@@ -24,6 +23,7 @@ import {
 	FormLabel,
 	FormMessage
 } from '@/shared/ui'
+import { setTokens } from '@/shared/utils/tokens'
 
 export default function LoginForm() {
 	const router = useRouter()
@@ -52,15 +52,8 @@ export default function LoginForm() {
 				}
 			}
 		}).then(response => {
-			if (response.data?.login) {
-				Cookies.set('accessToken', response.data?.login.accessToken, {
-					expiresIn: '15m',
-					sameSite: 'strict'
-				})
-				Cookies.set('refreshToken', response.data?.login.refreshToken, {
-					expires: 7
-				})
-			}
+			if (response.data?.login) setTokens(response.data.login)
+
 			router.replace('/')
 		})
 	}

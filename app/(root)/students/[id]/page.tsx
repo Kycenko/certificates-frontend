@@ -1,3 +1,5 @@
+'use client'
+
 import StudentDetailsComponent from '@/modules/student/details/student-details.component'
 
 export default function StudentDetailsPage() {

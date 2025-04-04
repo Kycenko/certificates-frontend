@@ -3,6 +3,7 @@ import { ArrowUpDown } from 'lucide-react'
 
 import { Student } from '@/modules/student/student.types'
 import { Button } from '@/shared/ui/button'
+import { getFullName } from '@/shared/utils'
 
 export const groupDetailsColumns: ColumnDef<Student>[] = [
 	{
@@ -18,11 +19,10 @@ export const groupDetailsColumns: ColumnDef<Student>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div>
-				{row.original.lastName} {row.original.firstName}
-			</div>
-		)
+		cell: ({ row }) => {
+			const { lastName, firstName, secondName } = row.original
+			return getFullName(lastName, firstName, secondName)
+		}
 	},
 	{
 		accessorKey: 'certificates',

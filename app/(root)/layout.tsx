@@ -1,7 +1,11 @@
 'use client'
 
+import { UserCircle } from 'lucide-react'
+import Link from 'next/link'
+
 import { ThemeToggle } from '@/shared/components'
 import NavBar from '@/shared/components/navbar'
+import { Button } from '@/shared/ui'
 
 export default function HomeLayout({
 	children
@@ -14,8 +18,16 @@ export default function HomeLayout({
 				<h1 className='text-1xl font-bold'>Медицинские справки</h1>
 
 				<div className='flex-1'></div>
-				<div className='flex items-center'>
+				<div className='flex items-center gap-2'>
 					<ThemeToggle />
+					<Link href='/profile'>
+						<Button
+							variant='outline'
+							size='icon'
+						>
+							<UserCircle className='h-5 w-5' />
+						</Button>
+					</Link>
 				</div>
 			</div>
 

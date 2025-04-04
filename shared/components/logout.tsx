@@ -1,21 +1,27 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { Button } from '../ui'
+import { removeTokens } from '../utils/tokens'
 
 import { useLogoutMutation } from '@/app/graphql/generated'
 
 export default function Logout() {
-	const [logout] = useLogoutMutation()
+	const router = useRouter()
 
-	async function handleLogout() {
-		await logout()
-	}
+	const [logout] = useLogoutMutation({
+		onCompleted: () => {
+			removeTokens()
+			router.replace('/auth/login')
+		}
+	})
 
 	return (
 		<Button
 			className='w-full'
 			variant={'outline'}
-			onClick={handleLogout}
+			onClick={() => logout()}
 		>
 			Выйти
 		</Button>

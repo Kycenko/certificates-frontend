@@ -1,8 +1,9 @@
 import { Student } from '@modules/student/student.types'
 import { Button } from '@shared/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
+
+import { formatDate } from '@/shared/utils'
 
 export const studentColumns: ColumnDef<Student>[] = [
 	{
@@ -64,9 +65,9 @@ export const studentColumns: ColumnDef<Student>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div>{format(row.getValue('birthDate'), 'dd.MM.yyyy')}</div>
-		)
+		cell: ({ row }) => {
+			return formatDate(row.original.birthDate)
+		}
 	},
 	{
 		accessorKey: 'isExpelled',

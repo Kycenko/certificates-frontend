@@ -1,8 +1,9 @@
 import { Certificate } from '@modules/certificate/certificate.types'
 import { Button } from '@shared/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-import { format } from 'date-fns'
 import { ArrowUpDown } from 'lucide-react'
+
+import { formatDate, getShortName } from '@/shared/utils'
 
 export const certificateColumns: ColumnDef<Certificate>[] = [
 	{
@@ -14,17 +15,15 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 					variant={'ghost'}
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					ФИО
+					ФИО Студента
 					<ArrowUpDown />
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div>
-				{row.original.student.lastName} {row.original.student.firstName}{' '}
-				{row.original.student.secondName}
-			</div>
-		)
+		cell: ({ row }) => {
+			const { lastName, firstName, secondName } = row.original.student
+			return getShortName(lastName, firstName, secondName)
+		}
 	},
 	{
 		accessorKey: 'startDate',
@@ -39,9 +38,9 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div>{format(row.getValue('startDate'), 'dd.MM.yyyy')}</div>
-		)
+		cell: ({ row }) => {
+			return formatDate(row.original.startDate)
+		}
 	},
 	{
 		accessorKey: 'finishDate',
@@ -56,9 +55,9 @@ export const certificateColumns: ColumnDef<Certificate>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div>{format(row.getValue('finishDate'), 'dd.MM.yyyy')}</div>
-		)
+		cell: ({ row }) => {
+			return formatDate(row.original.finishDate)
+		}
 	},
 	{
 		accessorKey: 'healthGroup',

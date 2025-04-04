@@ -1,3 +1,5 @@
+'use client'
+
 import CertificatesComponent from '@/modules/certificate/certificates.component'
 
 export default function CertificatesPage() {

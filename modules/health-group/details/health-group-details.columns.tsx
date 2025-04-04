@@ -3,14 +3,16 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 
 import { Button } from '@/shared/ui/button'
+import { formatDate, getFullName } from '@/shared/utils'
+import { isCertificateActive } from '@/shared/utils/isCertificateActive'
 
 export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 	{
 		accessorKey: 'student',
 		header: 'Студент',
 		cell: ({ row }) => {
-			const student = row.original.student
-			return `${student.lastName} ${student.firstName}`
+			const { lastName, firstName, secondName } = row.original.student
+			return getFullName(lastName, firstName, secondName)
 		}
 	},
 	{
@@ -28,26 +30,21 @@ export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 		},
 
 		cell: ({ row }) => {
-			return new Date(row.original.startDate).toLocaleDateString()
+			return formatDate(row.original.startDate)
 		}
 	},
 	{
 		accessorKey: 'finishDate',
 		header: 'Действует до',
 		cell: ({ row }) => {
-			return new Date(row.original.finishDate).toLocaleDateString()
+			return formatDate(row.original.finishDate)
 		}
 	},
 	{
 		accessorKey: 'status',
 		header: 'Статус',
 		cell: ({ row }) => {
-			const isActive = new Date(row.original.finishDate) > new Date()
-			return (
-				<span className={isActive ? 'text-green-600' : 'text-red-600'}>
-					{isActive ? 'Активен' : 'Истек'}
-				</span>
-			)
+			return isCertificateActive(row.original.finishDate)
 		}
 	}
 ]

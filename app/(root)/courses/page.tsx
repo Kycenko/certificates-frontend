@@ -1,3 +1,5 @@
+'use client'
+
 import CoursesComponent from '@/modules/course/courses.component'
 
 export default function CoursesPage() {
