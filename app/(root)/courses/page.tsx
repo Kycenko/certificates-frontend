@@ -1,6 +1,10 @@
 'use client'
 
-import CoursesComponent from '@/modules/course/courses.component'
+import dynamic from 'next/dynamic'
+
+const CoursesComponent = dynamic(
+	() => import('@/modules/course/courses.component')
+)
 
 export default function CoursesPage() {
 	return <CoursesComponent />

@@ -16,9 +16,10 @@ export default function RootLayout({
 	return (
 		<html
 			lang='en'
+			className={`${montserrat.variable}`}
 			suppressHydrationWarning
 		>
-			<body className={`${montserrat.variable} antialiased`}>
+			<body>
 				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>

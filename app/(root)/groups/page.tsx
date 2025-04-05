@@ -1,6 +1,10 @@
 'use client'
 
-import GroupsComponent from '@/modules/group/groups.component'
+import dynamic from 'next/dynamic'
+
+const GroupsComponent = dynamic(
+	() => import('@/modules/group/groups.component')
+)
 
 export default function GroupsPage() {
 	return <GroupsComponent />

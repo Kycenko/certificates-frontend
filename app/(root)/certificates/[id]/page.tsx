@@ -1,6 +1,10 @@
 'use client'
 
-import CertificateDetailsComponent from '@/modules/certificate/details/certificate-details.component'
+import dynamic from 'next/dynamic'
+
+const CertificateDetailsComponent = dynamic(
+	() => import('@/modules/certificate/details/certificate-details.component')
+)
 
 export default function CertificateDetailsPage() {
 	return <CertificateDetailsComponent />

@@ -32,7 +32,7 @@ import { Switch } from '@/shared/ui/switch'
 
 export default function EditProfileForm() {
 	const { data, loading } = useGetProfileQuery()
-	const [update] = useUpdateUserMutation()
+	const [update] = useUpdateUserMutation({})
 
 	const { id, login, isAdmin } = data?.getProfile || {}
 

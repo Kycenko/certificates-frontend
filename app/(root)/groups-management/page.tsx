@@ -1,9 +1,17 @@
 'use client'
 
-import HealthGroupsComponent from '@/modules/health-group/health-groups.component'
-import PhysicalEducationsComponent from '@/modules/physical-education/physical-educations.component'
+import dynamic from 'next/dynamic'
+
 import { Card, CardContent } from '@/shared/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
+
+const HealthGroupsComponent = dynamic(
+	() => import('@/modules/health-group/health-groups.component')
+)
+
+const PhysicalEducationsComponent = dynamic(
+	() => import('@/modules/physical-education/physical-educations.component')
+)
 
 export default function GroupsManagementPage() {
 	return (

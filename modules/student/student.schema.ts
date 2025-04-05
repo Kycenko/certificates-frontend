@@ -11,7 +11,7 @@ export const studentSchema = z.object({
 		.max(50, 'Максимум 50 символов'),
 	secondName: z.string().max(50, 'Максимум 50 символов').optional(),
 	birthDate: z.date({ message: 'Обязательное поле' }),
-	isExpelled: z.boolean().default(false),
+	isExpelled: z.boolean(),
 	groupId: z.string().optional()
 })
 

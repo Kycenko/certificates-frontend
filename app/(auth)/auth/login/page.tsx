@@ -1,7 +1,17 @@
 'use client'
 
-import LoginForm from '@modules/auth/login-form'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+
+const LoginForm = dynamic(() => import('@modules/auth/login-form'))
 
 export default function Login() {
-	return <LoginForm />
+	return (
+		<>
+			<Head>
+				<title>Авторизация</title>
+			</Head>
+			<LoginForm />
+		</>
+	)
 }

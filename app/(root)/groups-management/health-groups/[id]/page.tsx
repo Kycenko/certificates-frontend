@@ -1,6 +1,10 @@
 'use client'
 
-import HealthGroupDetailsComponent from '@/modules/health-group/details/health-group-details.component'
+import dynamic from 'next/dynamic'
+
+const HealthGroupDetailsComponent = dynamic(
+	() => import('@/modules/health-group/details/health-group-details.component')
+)
 
 export default function HealthGroupDetailsPage() {
 	return <HealthGroupDetailsComponent />
