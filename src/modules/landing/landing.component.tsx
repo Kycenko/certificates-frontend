@@ -12,7 +12,7 @@ function LandingComponent() {
 		setSearchTerm,
 		handleSearch,
 		handleKeyPress,
-		students,
+		students: { data: students, loading },
 		isEmpty
 	} = useStudentSearch()
 
@@ -40,7 +40,10 @@ function LandingComponent() {
 					</div>
 
 					{searchTerm && students.length > 0 && (
-						<SearchResults students={students} />
+						<SearchResults
+							students={students}
+							isLoading={loading}
+						/>
 					)}
 
 					{searchTerm && isEmpty && <SearchEmpty />}

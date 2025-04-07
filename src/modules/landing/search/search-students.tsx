@@ -25,6 +25,7 @@ function SearchStudents({
 					className='h-14 rounded-r-none text-base focus-visible:ring-2'
 				/>
 				<Button
+					disabled={!searchTerm}
 					onClick={onSearch}
 					className='h-14 rounded-l-none px-6 text-base'
 				>

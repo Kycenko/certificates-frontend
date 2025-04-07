@@ -1,14 +1,21 @@
 import { useRouter } from '@tanstack/react-router'
 
 import { GetAllStudentsQuery } from '@/app/graphql/generated'
+import { Skeleton } from '@/shared/ui'
 import { Button } from '@/shared/ui/button'
 
 interface LandingSearchResultsProps {
 	students: GetAllStudentsQuery['getAllStudents']
+	isLoading: boolean
 }
 
-function LandingSearchResults({ students }: LandingSearchResultsProps) {
+function LandingSearchResults({
+	students,
+	isLoading
+}: LandingSearchResultsProps) {
 	const router = useRouter()
+
+	if (isLoading) return <Skeleton className='h-[300px] w-full' />
 
 	return (
 		<div className='space-y-4'>
