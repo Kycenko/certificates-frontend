@@ -2,12 +2,14 @@ import { SearchIcon } from 'lucide-react'
 
 function SearchEmpty() {
 	return (
-		<div className='rounded-lg border border-gray-200 bg-gray-50 p-6 text-center'>
-			<SearchIcon className='mx-auto h-10 w-10 text-gray-400' />
-			<h3 className='mt-2 text-lg font-medium text-gray-900'>
+		<div className='bg-accent rounded-lg border p-6 text-center'>
+			<SearchIcon className='text-muted-foreground mx-auto h-10 w-10' />
+			<h3 className='text-foreground mt-2 text-lg font-medium'>
 				Студенты не найдены
 			</h3>
-			<p className='mt-1 text-gray-500'>Попробуйте изменить параметры поиска</p>
+			<p className='text-muted-foreground mt-1'>
+				Попробуйте изменить параметры поиска
+			</p>
 		</div>
 	)
 }

@@ -12,29 +12,28 @@ function LandingSearchResults({ students }: LandingSearchResultsProps) {
 
 	return (
 		<div className='space-y-4'>
-			<h2 className='text-xl font-semibold text-gray-800'>
-				Найденные студенты:
+			<h2 className='text-foreground text-xl font-semibold'>
+				Результаты поиска:
 			</h2>
-			<div className='overflow-hidden rounded-lg border border-gray-200 shadow-sm'>
-				<ul className='max-h-60 divide-y divide-gray-200 overflow-y-auto'>
+			<div className='overflow-hidden rounded-lg border shadow-sm'>
+				<ul className='divide-border max-h-60 divide-y overflow-y-auto'>
 					{students.map(student => (
 						<li
 							key={student.id}
-							className='p-4 transition-colors duration-150 hover:bg-gray-50'
+							className='hover:bg-accent p-4 transition-colors duration-150'
 						>
 							<div className='flex items-center justify-between'>
 								<div>
-									<p className='text-lg font-medium text-gray-900'>
+									<p className='text-foreground text-lg font-medium'>
 										{student.lastName} {student.firstName}{' '}
 										{student.secondName || ''}
 									</p>
-									<p className='text-sm text-gray-500'>
+									<p className='text-muted-foreground text-sm'>
 										Группа: {student.group?.title || 'Не указана'}
 									</p>
 								</div>
 								<Button
 									variant='outline'
-									className='border-blue-500 text-blue-600 hover:bg-blue-50'
 									onClick={() =>
 										router.navigate({ to: `/students/${student.id}` })
 									}

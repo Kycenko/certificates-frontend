@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
 
 function LandingInfoCard() {
 	return (
-		<Card className='border border-gray-200 bg-white shadow-sm'>
+		<Card className='bg-card border shadow-sm'>
 			<CardHeader>
 				<CardTitle className='flex items-center gap-2 text-xl'>
 					<CalendarCheckIcon className='h-5 w-5 text-green-600' />
@@ -18,7 +18,7 @@ function LandingInfoCard() {
 							<CheckIcon className='h-3 w-3 text-green-600' />
 						</div>
 					</div>
-					<p className='text-gray-700'>
+					<p>
 						Все студенты обязаны проходить медосмотр{' '}
 						<strong>1 раз в год</strong>
 					</p>
@@ -29,7 +29,7 @@ function LandingInfoCard() {
 							<XIcon className='h-3 w-3 text-red-600' />
 						</div>
 					</div>
-					<p className='text-gray-700'>
+					<p>
 						Допуск к занятиям по физкультуре запрещен при просрочке медицинской
 						справки
 					</p>
@@ -40,9 +40,7 @@ function LandingInfoCard() {
 							<CalendarIcon className='h-3 w-3 text-blue-600' />
 						</div>
 					</div>
-					<p className='text-gray-700'>
-						Данные обновляются медсестрой в течение трех рабочих дней
-					</p>
+					<p>Данные обновляются медсестрой в течение трех рабочих дней</p>
 				</div>
 			</CardContent>
 		</Card>
