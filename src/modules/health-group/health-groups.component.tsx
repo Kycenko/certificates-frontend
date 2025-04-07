@@ -10,10 +10,6 @@ function HealthGroupsComponent() {
 				<div className='flex justify-end gap-3'>
 					<CreateHealthGroupForm />
 
-					{/* <PdfExportButton
-					element={<PdfTableExporter />}
-					fileName={'departments'}
-				/> */}
 					<TableSettings />
 				</div>
 

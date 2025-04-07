@@ -61,7 +61,6 @@ export function DataTable({
 	columns,
 	onRemoveMany,
 	onRemove,
-
 	onInfo,
 	searchParam,
 	search,
@@ -157,7 +156,7 @@ export function DataTable({
 	return (
 		<div className='w-full'>
 			<div className='flex items-center justify-between py-4'>
-				<div>
+				<div className='flex items-center gap-5'>
 					{search && (
 						<div className='relative'>
 							<Search className='text-muted-foreground absolute top-2.5 left-2 h-4 w-4' />
@@ -178,6 +177,7 @@ export function DataTable({
 						</div>
 					)}
 				</div>
+
 				<div className='flex gap-5'>
 					<Button
 						variant='destructive'

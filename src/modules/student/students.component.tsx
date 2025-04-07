@@ -10,10 +10,6 @@ function StudentsComponent() {
 				<div className='flex justify-end gap-3'>
 					<CreateStudentForm />
 
-					{/* <PdfExportButton
-					element={<PdfTableExporter />}
-					fileName={'departments'}
-				/> */}
 					<TableSettings />
 				</div>
 

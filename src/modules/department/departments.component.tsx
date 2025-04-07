@@ -10,10 +10,6 @@ function DepartmentsComponent() {
 				<div className='flex justify-end gap-3'>
 					<CreateDepartmentForm />
 
-					{/* <PdfExportButton
-						element={<PdfTableExporter />}
-						fileName={'departments'}
-					/> */}
 					<TableSettings />
 				</div>
 

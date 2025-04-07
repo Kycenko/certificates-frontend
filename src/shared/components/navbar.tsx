@@ -2,7 +2,6 @@ import { Link } from '@tanstack/react-router'
 
 import Logout from './logout'
 import { navLinks } from './nav-links'
-import StudentsSearch from '@/modules/student/search-students'
 import { Button } from '@/shared/ui/button'
 
 export default function NavBar() {
@@ -10,9 +9,7 @@ export default function NavBar() {
 		<div className='flex h-full flex-col justify-between'>
 			<div className='flex-1'>
 				<nav className='flex h-full flex-col'>
-					<div className='pb-4'>
-						<StudentsSearch />
-					</div>
+					<div className='pb-4'></div>
 					<ul className='flex flex-1 flex-col space-y-2'>
 						{navLinks.map(({ href, title, icon }) => (
 							<li key={href}>
