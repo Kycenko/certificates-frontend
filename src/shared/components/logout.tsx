@@ -1,9 +1,9 @@
 import { useRouter } from '@tanstack/react-router'
 
+import { useLogoutMutation } from '@/app/graphql/generated'
+
 import { removeTokens } from '../lib/tokens'
 import { Button } from '../ui/button'
-
-import { useLogoutMutation } from '@/app/graphql/generated'
 
 export default function Logout() {
 	const router = useRouter()

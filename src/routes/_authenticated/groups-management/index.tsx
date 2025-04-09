@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import HealthGroupsComponent from '@/modules/health-group/health-groups.component'
-import PhysicalEducationsComponent from '@/modules/physical-education/physical-educations.component'
 import { Card, CardContent } from '@/shared/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
+
+import HealthGroupsComponent from '@/modules/admin/health-group/health-groups.component'
+import PhysicalEducationsComponent from '@/modules/admin/physical-education/physical-educations.component'
 
 export const Route = createFileRoute('/_authenticated/groups-management/')({
 	component: () => (

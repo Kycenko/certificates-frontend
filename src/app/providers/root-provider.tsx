@@ -1,21 +1,24 @@
 import { ApolloProvider } from '@apollo/client'
 
-import client from '../graphql/apollo-client.config'
-
-import { ThemeProvider } from './theme-provider'
 import { Toaster } from '@/shared/ui/sonner'
+
+import client from '../graphql/apollo-client.config'
+import { AuthProvider } from './auth-provider'
+import { ThemeProvider } from './theme-provider'
 
 export function RootProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<ApolloProvider client={client}>
-			<ThemeProvider
-				defaultTheme='dark'
-				storageKey='vite-ui-theme'
-			>
-				{children}
+			<AuthProvider>
+				<ThemeProvider
+					defaultTheme='dark'
+					storageKey='vite-ui-theme'
+				>
+					{children}
 
-				<Toaster />
-			</ThemeProvider>
+					<Toaster />
+				</ThemeProvider>
+			</AuthProvider>
 		</ApolloProvider>
 	)
 }

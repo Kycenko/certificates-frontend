@@ -13,14 +13,6 @@ import {
 import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from '../ui/select'
-
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'
 import {
@@ -41,6 +33,14 @@ import {
 	TableHeader,
 	TableRow
 } from '@/shared/ui/table'
+
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from '../ui/select'
 
 interface TableProps {
 	data: any[]

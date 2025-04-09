@@ -115,8 +115,14 @@ export type CourseModel = {
 
 export type CourseParamsInput = {
 	departmentTitle?: InputMaybe<Scalars['String']['input']>
-	number?: InputMaybe<Scalars['String']['input']>
 	orderBy?: Scalars['String']['input']
+}
+
+export type CuratorModel = {
+	__typename?: 'CuratorModel'
+	fullName: Scalars['String']['output']
+	group: GroupModel
+	groupId: Scalars['String']['output']
 }
 
 export type DepartmentInput = {
@@ -147,6 +153,7 @@ export type GroupModel = {
 	course?: Maybe<CourseModel>
 	courseId?: Maybe<Scalars['String']['output']>
 	createdAt: Scalars['DateTime']['output']
+	curator?: Maybe<CuratorModel>
 	id: Scalars['String']['output']
 	students?: Maybe<Array<StudentModel>>
 	title: Scalars['String']['output']
@@ -197,7 +204,8 @@ export type Mutation = {
 	getNewTokens: AuthModel
 	login: AuthModel
 	logout: Scalars['Boolean']['output']
-	register: AuthModel
+	registerAdmin: AuthModel
+	registerCurator: AuthModel
 	removeAllCertificateHistories: Scalars['Boolean']['output']
 	removeAllCertificates: Scalars['Boolean']['output']
 	removeAllCourses: Scalars['Boolean']['output']
@@ -222,14 +230,16 @@ export type Mutation = {
 	removePhysicalEducation: Scalars['Boolean']['output']
 	removeStudent: Scalars['Boolean']['output']
 	removeUser: Scalars['Boolean']['output']
+	updateAdmin: UserModel
 	updateCertificate: CertificateModel
 	updateCourse: CourseModel
+	updateCurator: UserModel
+	updateCuratorFullName: UserModel
 	updateDepartment: DepartmentModel
 	updateGroup: GroupModel
 	updateHealthGroup: HealthGroupModel
 	updatePhysicalEducation: PhysicalEducationModel
 	updateStudent: StudentModel
-	updateUser: UserModel
 }
 
 export type MutationCreateCertificateArgs = {
@@ -277,8 +287,12 @@ export type MutationLoginArgs = {
 	data: LoginInput
 }
 
-export type MutationRegisterArgs = {
-	data: RegisterInput
+export type MutationRegisterAdminArgs = {
+	data: RegisterAdminInput
+}
+
+export type MutationRegisterCuratorArgs = {
+	data: RegisterCuratorInput
 }
 
 export type MutationRemoveAllCertificateHistoriesArgs = {
@@ -349,6 +363,11 @@ export type MutationRemoveUserArgs = {
 	id: Scalars['String']['input']
 }
 
+export type MutationUpdateAdminArgs = {
+	id: Scalars['String']['input']
+	updateDto: UpdateAdminInput
+}
+
 export type MutationUpdateCertificateArgs = {
 	data: UpdateCertificateInput
 	id: Scalars['String']['input']
@@ -356,6 +375,16 @@ export type MutationUpdateCertificateArgs = {
 
 export type MutationUpdateCourseArgs = {
 	data: UpdateCourseInput
+	id: Scalars['String']['input']
+}
+
+export type MutationUpdateCuratorArgs = {
+	id: Scalars['String']['input']
+	updateDto: UpdateCuratorInput
+}
+
+export type MutationUpdateCuratorFullNameArgs = {
+	fullName: Scalars['String']['input']
 	id: Scalars['String']['input']
 }
 
@@ -382,11 +411,6 @@ export type MutationUpdatePhysicalEducationArgs = {
 export type MutationUpdateStudentArgs = {
 	data: UpdateStudentInput
 	id: Scalars['String']['input']
-}
-
-export type MutationUpdateUserArgs = {
-	id: Scalars['String']['input']
-	updateDto: UpdateUserInput
 }
 
 export type PhysicalEducationInput = {
@@ -517,10 +541,18 @@ export type QueryGetUserByLoginArgs = {
 	login: Scalars['String']['input']
 }
 
-export type RegisterInput = {
-	isAdmin: Scalars['Boolean']['input']
+export type RegisterAdminInput = {
 	login: Scalars['String']['input']
 	password: Scalars['String']['input']
+	role?: Scalars['String']['input']
+}
+
+export type RegisterCuratorInput = {
+	fullName: Scalars['String']['input']
+	groupId: Scalars['String']['input']
+	login: Scalars['String']['input']
+	password: Scalars['String']['input']
+	role?: Scalars['String']['input']
 }
 
 export type StudentHistoryInput = {
@@ -576,6 +608,12 @@ export type StudentParamsInput = {
 	page?: Scalars['Float']['input']
 }
 
+export type UpdateAdminInput = {
+	login?: InputMaybe<Scalars['String']['input']>
+	password?: InputMaybe<Scalars['String']['input']>
+	role?: Scalars['String']['input']
+}
+
 export type UpdateCertificateInput = {
 	finishDate?: InputMaybe<Scalars['DateTime']['input']>
 	healthGroupId?: InputMaybe<Scalars['String']['input']>
@@ -589,6 +627,14 @@ export type UpdateCourseInput = {
 	number?: InputMaybe<Scalars['String']['input']>
 }
 
+export type UpdateCuratorInput = {
+	fullName?: InputMaybe<Scalars['String']['input']>
+	groupId?: InputMaybe<Scalars['String']['input']>
+	login?: InputMaybe<Scalars['String']['input']>
+	password?: InputMaybe<Scalars['String']['input']>
+	role?: Scalars['String']['input']
+}
+
 export type UpdateStudentInput = {
 	birthDate?: InputMaybe<Scalars['DateTime']['input']>
 	firstName?: InputMaybe<Scalars['String']['input']>
@@ -598,18 +644,13 @@ export type UpdateStudentInput = {
 	secondName?: InputMaybe<Scalars['String']['input']>
 }
 
-export type UpdateUserInput = {
-	isAdmin?: InputMaybe<Scalars['Boolean']['input']>
-	login?: InputMaybe<Scalars['String']['input']>
-	password?: InputMaybe<Scalars['String']['input']>
-}
-
 export type UserModel = {
 	__typename?: 'UserModel'
 	createdAt: Scalars['DateTime']['output']
+	curator?: Maybe<CuratorModel>
 	id: Scalars['String']['output']
-	isAdmin: Scalars['Boolean']['output']
 	login: Scalars['String']['output']
+	role: Scalars['String']['output']
 	updatedAt: Scalars['DateTime']['output']
 }
 
@@ -627,7 +668,13 @@ export type LoginMutation = {
 			__typename?: 'UserModel'
 			id: string
 			login: string
-			isAdmin: boolean
+			role: string
+			curator?: {
+				__typename?: 'CuratorModel'
+				groupId: string
+				fullName: string
+				group: { __typename?: 'GroupModel'; title: string }
+			} | null
 		}
 	}
 }
@@ -969,18 +1016,33 @@ export type UpdateStudentMutation = {
 	}
 }
 
-export type UpdateUserMutationVariables = Exact<{
+export type UpdateAdminMutationVariables = Exact<{
 	id: Scalars['String']['input']
-	data: UpdateUserInput
+	data: UpdateAdminInput
 }>
 
-export type UpdateUserMutation = {
+export type UpdateAdminMutation = {
 	__typename?: 'Mutation'
-	updateUser: {
+	updateAdmin: {
 		__typename?: 'UserModel'
 		id: string
 		login: string
-		isAdmin: boolean
+		role: string
+	}
+}
+
+export type UpdateCuratorMutationVariables = Exact<{
+	id: Scalars['String']['input']
+	data: UpdateCuratorInput
+}>
+
+export type UpdateCuratorMutation = {
+	__typename?: 'Mutation'
+	updateCurator: {
+		__typename?: 'UserModel'
+		id: string
+		login: string
+		role: string
 	}
 }
 
@@ -1335,7 +1397,7 @@ export type GetProfileQuery = {
 		__typename?: 'UserModel'
 		id: string
 		login: string
-		isAdmin: boolean
+		role: string
 	}
 }
 
@@ -1347,7 +1409,14 @@ export const LoginDocument = gql`
 			user {
 				id
 				login
-				isAdmin
+				role
+				curator {
+					groupId
+					fullName
+					group {
+						title
+					}
+				}
 			}
 		}
 	}
@@ -2851,57 +2920,111 @@ export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
 	UpdateStudentMutation,
 	UpdateStudentMutationVariables
 >
-export const UpdateUserDocument = gql`
-	mutation updateUser($id: String!, $data: UpdateUserInput!) {
-		updateUser(id: $id, updateDto: $data) {
+export const UpdateAdminDocument = gql`
+	mutation updateAdmin($id: String!, $data: UpdateAdminInput!) {
+		updateAdmin(id: $id, updateDto: $data) {
 			id
 			login
-			isAdmin
+			role
 		}
 	}
 `
-export type UpdateUserMutationFn = Apollo.MutationFunction<
-	UpdateUserMutation,
-	UpdateUserMutationVariables
+export type UpdateAdminMutationFn = Apollo.MutationFunction<
+	UpdateAdminMutation,
+	UpdateAdminMutationVariables
 >
 
 /**
- * __useUpdateUserMutation__
+ * __useUpdateAdminMutation__
  *
- * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAdminMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ * const [updateAdminMutation, { data, loading, error }] = useUpdateAdminMutation({
  *   variables: {
  *      id: // value for 'id'
  *      data: // value for 'data'
  *   },
  * });
  */
-export function useUpdateUserMutation(
+export function useUpdateAdminMutation(
 	baseOptions?: Apollo.MutationHookOptions<
-		UpdateUserMutation,
-		UpdateUserMutationVariables
+		UpdateAdminMutation,
+		UpdateAdminMutationVariables
 	>
 ) {
 	const options = { ...defaultOptions, ...baseOptions }
-	return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
-		UpdateUserDocument,
+	return Apollo.useMutation<UpdateAdminMutation, UpdateAdminMutationVariables>(
+		UpdateAdminDocument,
 		options
 	)
 }
-export type UpdateUserMutationHookResult = ReturnType<
-	typeof useUpdateUserMutation
+export type UpdateAdminMutationHookResult = ReturnType<
+	typeof useUpdateAdminMutation
 >
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
-	UpdateUserMutation,
-	UpdateUserMutationVariables
+export type UpdateAdminMutationResult =
+	Apollo.MutationResult<UpdateAdminMutation>
+export type UpdateAdminMutationOptions = Apollo.BaseMutationOptions<
+	UpdateAdminMutation,
+	UpdateAdminMutationVariables
+>
+export const UpdateCuratorDocument = gql`
+	mutation updateCurator($id: String!, $data: UpdateCuratorInput!) {
+		updateCurator(id: $id, updateDto: $data) {
+			id
+			login
+			role
+		}
+	}
+`
+export type UpdateCuratorMutationFn = Apollo.MutationFunction<
+	UpdateCuratorMutation,
+	UpdateCuratorMutationVariables
+>
+
+/**
+ * __useUpdateCuratorMutation__
+ *
+ * To run a mutation, you first call `useUpdateCuratorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCuratorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCuratorMutation, { data, loading, error }] = useUpdateCuratorMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateCuratorMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		UpdateCuratorMutation,
+		UpdateCuratorMutationVariables
+	>
+) {
+	const options = { ...defaultOptions, ...baseOptions }
+	return Apollo.useMutation<
+		UpdateCuratorMutation,
+		UpdateCuratorMutationVariables
+	>(UpdateCuratorDocument, options)
+}
+export type UpdateCuratorMutationHookResult = ReturnType<
+	typeof useUpdateCuratorMutation
+>
+export type UpdateCuratorMutationResult =
+	Apollo.MutationResult<UpdateCuratorMutation>
+export type UpdateCuratorMutationOptions = Apollo.BaseMutationOptions<
+	UpdateCuratorMutation,
+	UpdateCuratorMutationVariables
 >
 export const GetAllCertificatesDocument = gql`
 	query getAllCertificates($params: CertificateParamsInput!) {
@@ -4228,7 +4351,7 @@ export const GetProfileDocument = gql`
 		getProfile {
 			id
 			login
-			isAdmin
+			role
 		}
 	}
 `

@@ -1,8 +1,5 @@
-'use client'
-
-import { Settings } from 'lucide-react'
-
 import { useTableSettingsStore } from '@/store/table-settings.store'
+import { Settings } from 'lucide-react'
 
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'

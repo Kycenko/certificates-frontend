@@ -1,8 +1,6 @@
 import { Check, ChevronsUpDown } from 'lucide-react'
 import React from 'react'
 
-import { cn } from '../lib/utils'
-
 import { Button } from '@/shared/ui/button'
 import {
 	Command,
@@ -13,6 +11,8 @@ import {
 	CommandList
 } from '@/shared/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover'
+
+import { cn } from '../lib/utils'
 
 interface SelectComboboxProps<T> {
 	data: T[]

@@ -8,8 +8,6 @@ import {
 } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Button } from '../ui/button'
-
 import {
 	Sheet,
 	SheetContent,
@@ -17,6 +15,8 @@ import {
 	SheetTitle,
 	SheetTrigger
 } from '@/shared/ui/sheet'
+
+import { Button } from '../ui/button'
 
 interface EditSheetProps<T extends FieldValues> {
 	fields: React.ReactNode

@@ -1,5 +1,3 @@
-'use client'
-
 import { format } from 'date-fns/format'
 import { ru } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'

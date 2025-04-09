@@ -1,0 +1,7 @@
+export * from './create-physical-education.form'
+export * from './physical-education.columns'
+export * from './physical-education.fields'
+export * from './physical-education.schema'
+export * from './physical-educations.component'
+export * from './physical-educations.table'
+export * from './usePhysicalEducationOperations'

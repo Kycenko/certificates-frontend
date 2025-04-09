@@ -1,8 +1,9 @@
 import { Link } from '@tanstack/react-router'
 
+import { Button } from '@/shared/ui/button'
+
 import Logout from './logout'
 import { navLinks } from './nav-links'
-import { Button } from '@/shared/ui/button'
 
 export default function NavBar() {
 	return (
