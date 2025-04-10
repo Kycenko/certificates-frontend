@@ -12,7 +12,7 @@ import { useHealthGroupOperations } from '../useHealthGroupOperations'
 
 export default function HealthGroupDetailsComponent() {
 	const { id } = useParams({
-		from: '/_authenticated/groups-management/health-groups/$id'
+		from: '/_authenticated/admin/_layout/groups-management/health-groups/$id'
 	})
 
 	const {

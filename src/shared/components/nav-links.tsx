@@ -4,6 +4,7 @@ import {
 	CalendarHeart,
 	ChartArea,
 	GitBranch,
+	GraduationCap,
 	HeartPulse,
 	Users
 } from 'lucide-react'
@@ -11,34 +12,39 @@ import {
 export const navLinks = [
 	{
 		icon: <HeartPulse />,
-		href: '/groups-management',
+		href: '/admin/groups-management',
 		title: 'Группы здоровья'
 	},
 
 	{
 		icon: <GitBranch />,
-		href: '/departments',
+		href: '/admin/departments',
 		title: 'Отделения'
 	},
 	{
 		icon: <BookOpen />,
-		href: '/courses',
+		href: '/admin/courses',
 		title: 'Курсы'
 	},
 	{
 		icon: <BookUser />,
-		href: '/groups',
+		href: '/admin/groups',
 		title: 'Группы'
 	},
-	{ icon: <Users />, href: '/students', title: 'Студенты' },
+	{ icon: <Users />, href: '/admin/students', title: 'Студенты' },
 	{
 		icon: <CalendarHeart />,
-		href: '/certificates',
+		href: '/admin/certificates',
 		title: 'Справки'
 	},
 	{
 		icon: <ChartArea />,
-		href: '/statistics',
+		href: '/admin/statistics',
 		title: 'Cтатистика'
+	},
+	{
+		icon: <GraduationCap />,
+		href: '/admin/curators',
+		title: 'Кураторы'
 	}
 ]

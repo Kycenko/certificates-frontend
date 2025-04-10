@@ -9,17 +9,15 @@ function AdminLayout() {
 	return (
 		<div className='flex h-screen flex-col'>
 			<div className='bg-background flex h-16 items-center border-b px-4'>
-				<div className='flex items-center gap-2'>
-					<ClipboardListIcon className='h-5 w-5 text-blue-600' />
-					<Link to='/'>
-						<h1 className='text-1xl font-bold'>Медицинские справки</h1>
-					</Link>
+				<div className='flex items-center gap-2 font-medium'>
+					<ClipboardListIcon className='text-primary h-5 w-5' />
+					<span className='text-card-foreground text-lg'>МедКонтроль</span>
 				</div>
 
 				<div className='flex-1'></div>
 				<div className='flex items-center gap-2'>
 					<ThemeToggle />
-					<Link to='/profile'>
+					<Link to='/admin/profile'>
 						<Button
 							variant='outline'
 							size='icon'

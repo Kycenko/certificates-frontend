@@ -2,7 +2,7 @@ import { useRouter } from '@tanstack/react-router'
 
 import { useLogoutMutation } from '@/app/graphql/generated'
 
-import { removeTokens } from '../lib/tokens'
+import { removeAuthData } from '../lib'
 import { Button } from '../ui/button'
 
 export default function Logout() {
@@ -10,8 +10,8 @@ export default function Logout() {
 
 	const [logout] = useLogoutMutation({
 		onCompleted: () => {
-			removeTokens()
-			router.navigate({ to: '/auth/login' })
+			removeAuthData()
+			router.navigate({ to: '/auth/login', replace: true })
 		}
 	})
 

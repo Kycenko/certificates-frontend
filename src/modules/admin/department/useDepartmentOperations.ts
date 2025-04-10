@@ -18,7 +18,7 @@ export function useDepartmentOperations(id?: string) {
 		useRemoveMutation: useRemoveDepartmentMutation,
 		useRemoveManyMutation: useRemoveManyDepartmentsMutation,
 		refetchKeys: ['getAllDepartments'],
-		infoHref: '/departments',
+		infoHref: '/admin/departments',
 		id
 	})
 }

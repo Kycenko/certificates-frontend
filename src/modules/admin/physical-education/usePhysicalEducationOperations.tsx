@@ -18,7 +18,7 @@ export function usePhysicalEducationOperations(id?: string) {
 		useRemoveMutation: useRemovePhysicalEducationMutation,
 		useRemoveManyMutation: useRemoveManyPhysicalEducationsMutation,
 		refetchKeys: ['getAllPhysicalEducations'],
-		infoHref: '/groups-management/physical-educations',
+		infoHref: '/admin/groups-management/physical-educations',
 		id
 	})
 }

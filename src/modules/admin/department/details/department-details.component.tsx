@@ -10,7 +10,9 @@ import { useDepartmentOperations } from '../useDepartmentOperations'
 import { departmentDetailsColumns } from './department-details.columns'
 
 function DepartmentDetailsComponent() {
-	const { id } = useParams({ from: '/_authenticated/departments/$id' })
+	const { id } = useParams({
+		from: '/_authenticated/admin/_layout/departments/$id'
+	})
 	const {
 		entity: { data, loading },
 		handleUpdate

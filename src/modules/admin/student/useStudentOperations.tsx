@@ -19,7 +19,7 @@ export function useStudentOperations(id?: string) {
 		useRemoveMutation: useRemoveStudentMutation,
 		useRemoveManyMutation: useRemoveManyStudentsMutation,
 		refetchKeys: ['getAllStudents'],
-		infoHref: '/students',
+		infoHref: '/admin/students',
 		id
 	})
 

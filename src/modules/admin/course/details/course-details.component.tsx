@@ -10,7 +10,9 @@ import { useCourseOperations } from '../useCourseOperations'
 import { courseDetailsColumns } from './course-details.columns'
 
 function CourseDetailsComponent() {
-	const { id } = useParams({ from: '/_authenticated/courses/$id' })
+	const { id } = useParams({
+		from: '/_authenticated/admin/_layout/courses/$id'
+	})
 	const {
 		entity: { data, loading, refetch },
 		departments: { data: departments, loading: isLoading, fetchDepartments },

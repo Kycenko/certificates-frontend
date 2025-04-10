@@ -2,6 +2,9 @@ query getGroupById($id: String!) {
 	getGroupById(id: $id) {
 		id
 		title
+		curator {
+			fullName
+		}
 		students {
 			id
 			lastName

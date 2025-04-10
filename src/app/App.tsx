@@ -2,6 +2,7 @@ import { routeTree } from '@/routeTree.gen'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import NotFound from '@/shared/components/not-found'
+import { Spinner } from '@/shared/components/spinner'
 
 import { useAuth } from './providers/auth-provider'
 
@@ -10,7 +11,9 @@ const router = createRouter({
 	context: {
 		auth: undefined!
 	},
-	defaultNotFoundComponent: () => <NotFound />
+	defaultNotFoundComponent: () => <NotFound />,
+	// defaultErrorComponent: () => <NotFound />,
+	defaultPendingComponent: () => <Spinner />
 	// defaultPreload: 'intent'
 })
 

@@ -21,7 +21,12 @@ export default function NotFound() {
 
 				<Button asChild>
 					<Link
-						to='/statistics'
+						to='/'
+						// to={
+						// 	user?.role === UserRole.ADMIN
+						// 		? '/admin/statistics'
+						// 		: `/curator/group/${user?.curator?.groupId}`
+						// }
 						replace={true}
 					>
 						Вернуться на главную

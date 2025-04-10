@@ -19,7 +19,8 @@ export function setTokens(tokens: {
 	})
 }
 
-export function removeTokens() {
+export function removeAuthData() {
 	Cookies.remove('refreshToken')
 	Cookies.remove('accessToken')
+	localStorage.removeItem('user')
 }

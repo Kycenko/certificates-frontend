@@ -3,6 +3,7 @@ import { useRouter } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 
 import { setTokens } from '@/shared/lib/tokens'
+import { UserRole } from '@/shared/types'
 import { Button } from '@/shared/ui/button'
 import {
 	Card,
@@ -60,11 +61,11 @@ export default function LoginForm() {
 				setTokens(login)
 				setUser(login.user)
 			}
-			if (login?.user.role === 'ADMIN')
-				router.navigate({ to: '/statistics', replace: true })
-			else
+			if (login?.user.role === UserRole.ADMIN)
+				router.navigate({ to: '/admin/statistics', replace: true })
+			if (login?.user.role === UserRole.CURATOR)
 				router.navigate({
-					to: `/groups/${response.data?.login.user.curator?.groupId}`,
+					to: `/curator/group/${login.user.curator?.groupId}`,
 					replace: true
 				})
 		})

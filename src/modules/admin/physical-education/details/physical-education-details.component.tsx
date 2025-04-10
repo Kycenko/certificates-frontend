@@ -11,7 +11,7 @@ import { physicalEducationDetailsColumns } from './physical-education-details.co
 
 function PhysicalEducationDetailsComponent() {
 	const { id } = useParams({
-		from: '/_authenticated/groups-management/physical-educations/$id'
+		from: '/_authenticated/admin/_layout/groups-management/physical-educations/$id'
 	})
 
 	const {

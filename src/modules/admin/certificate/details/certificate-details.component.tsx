@@ -10,7 +10,9 @@ import { useCertificateOperations } from '../useCertificateOperations'
 import { certificateDetailsColumns } from './certificate-details.columns'
 
 function CertificateDetailsComponent() {
-	const { id } = useParams({ from: '/_authenticated/certificates/$id' })
+	const { id } = useParams({
+		from: '/_authenticated/admin/_layout/certificates/$id'
+	})
 	const {
 		entity: { data, loading },
 		students: { data: students, fetchStudents },

@@ -21,7 +21,7 @@ export function useCertificateOperations(id?: string) {
 		useRemoveMutation: useRemoveCertificateMutation,
 		useRemoveManyMutation: useRemoveManyCertificatesMutation,
 		refetchKeys: ['getAllCertificates'],
-		infoHref: '/certificates',
+		infoHref: '/admin/certificates',
 		id
 	})
 

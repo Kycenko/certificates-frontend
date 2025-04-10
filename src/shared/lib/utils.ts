@@ -7,6 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: Date) {
+	if (!date) return
 	return format(date, 'dd.MM.yyyy')
 }
 

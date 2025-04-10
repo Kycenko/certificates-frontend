@@ -10,7 +10,9 @@ import { useStudentOperations } from '../useStudentOperations'
 import { studentDetailsColumns } from './student-details.columns'
 
 function StudentDetailsComponent() {
-	const { id } = useParams({ from: '/_authenticated/students/$id' })
+	const { id } = useParams({
+		from: '/_authenticated/admin/_layout/students/$id'
+	})
 	const {
 		entity: { data, loading },
 		groups: { data: groups, loading: loadingGroups, fetchGroups },

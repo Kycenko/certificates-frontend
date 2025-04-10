@@ -19,7 +19,7 @@ export function useCourseOperations(id?: string) {
 		useRemoveMutation: useRemoveCourseMutation,
 		useRemoveManyMutation: useRemoveManyCoursesMutation,
 		refetchKeys: ['getAllCourses'],
-		infoHref: '/courses',
+		infoHref: '/admin/courses',
 		id
 	})
 

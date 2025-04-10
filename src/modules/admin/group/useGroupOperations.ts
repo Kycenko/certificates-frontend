@@ -19,7 +19,7 @@ export function useGroupOperations(id?: string) {
 		useRemoveMutation: useRemoveGroupMutation,
 		useRemoveManyMutation: useRemoveManyGroupsMutation,
 		refetchKeys: ['getAllGroups'],
-		infoHref: '/groups',
+		infoHref: '/admin/groups',
 		id
 	})
 

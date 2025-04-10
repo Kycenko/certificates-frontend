@@ -10,7 +10,7 @@ import { useGroupOperations } from '../useGroupOperations'
 import { groupDetailsColumns } from './group-details.columns'
 
 function GroupDetailsComponent() {
-	const { id } = useParams({ from: '/_authenticated/groups/$id' })
+	const { id } = useParams({ from: '/_authenticated/admin/_layout/groups/$id' })
 	const {
 		entity: { data, loading },
 		courses: { data: courses, loading: loadingCourses, fetchCourses },

@@ -1,0 +1,3 @@
+mutation removeManyCurators($ids: [String!]!) {
+	removeManyCurators(ids: $ids)
+}

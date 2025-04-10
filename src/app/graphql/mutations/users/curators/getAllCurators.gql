@@ -1,0 +1,14 @@
+query getAllCurators {
+	getAllCurators {
+		id
+		login
+		role
+		curator {
+			fullName
+			groupId
+			group {
+				title
+			}
+		}
+	}
+}

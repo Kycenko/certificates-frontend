@@ -18,7 +18,7 @@ export function useHealthGroupOperations(id?: string) {
 		useRemoveMutation: useRemoveHealthGroupMutation,
 		useRemoveManyMutation: useRemoveManyHealthGroupsMutation,
 		refetchKeys: ['getAllHealthGroups'],
-		infoHref: '/groups-management/health-groups',
+		infoHref: '/admin/groups-management/health-groups',
 		id
 	})
 }

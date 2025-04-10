@@ -8,7 +8,8 @@ import { Button } from '@/shared/ui/button'
 
 export const healthGroupDetailsColumns: ColumnDef<Certificate>[] = [
 	{
-		accessorKey: 'student',
+		accessorFn: row => row.student.lastName,
+		id: 'student.lastName',
 		header: 'Студент',
 		cell: ({ row }) => {
 			const { lastName, firstName, secondName } = row.original.student

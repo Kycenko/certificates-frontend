@@ -6,6 +6,7 @@ import { Button } from '@/shared/ui/button'
 
 function LandingHeader() {
 	const router = useRouter()
+
 	return (
 		<header className='bg-card border-b'>
 			<div className='flex h-16 items-center justify-between px-4'>
@@ -15,7 +16,11 @@ function LandingHeader() {
 				</div>
 				<div className='flex items-center gap-5'>
 					<ThemeToggle />
-					<Button onClick={() => router.navigate({ to: '/auth/login' })}>
+					<Button
+						onClick={() => {
+							router.navigate({ to: '/auth/login' })
+						}}
+					>
 						Войти
 					</Button>
 				</div>
