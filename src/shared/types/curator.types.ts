@@ -4,6 +4,6 @@ export type Curator = {
 	id: string
 	userId: string
 	groupId: string
-	fullName: string
+	displayedName: string
 	group: Group
 }

@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { Card, CardContent } from '@/shared/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 
 import HealthGroupsComponent from '@/modules/admin/health-group/health-groups.component'
@@ -23,19 +22,11 @@ export const Route = createFileRoute(
 				</div>
 
 				<TabsContent value='health'>
-					<Card>
-						<CardContent className='p-4 md:p-6'>
-							<HealthGroupsComponent />
-						</CardContent>
-					</Card>
+					<HealthGroupsComponent />
 				</TabsContent>
 
 				<TabsContent value='physical'>
-					<Card>
-						<CardContent className='p-4 md:p-6'>
-							<PhysicalEducationsComponent />
-						</CardContent>
-					</Card>
+					<PhysicalEducationsComponent />
 				</TabsContent>
 			</Tabs>
 		</div>

@@ -3,7 +3,7 @@ import { useRouter } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 
 import { setTokens } from '@/shared/lib/tokens'
-import { UserRole } from '@/shared/types'
+import { User, UserRole } from '@/shared/types'
 import { Button } from '@/shared/ui/button'
 import {
 	Card,
@@ -59,7 +59,7 @@ export default function LoginForm() {
 
 			if (login) {
 				setTokens(login)
-				setUser(login.user)
+				setUser(login.user as User)
 			}
 			if (login?.user.role === UserRole.ADMIN)
 				router.navigate({ to: '/admin/statistics', replace: true })

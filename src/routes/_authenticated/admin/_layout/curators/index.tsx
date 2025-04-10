@@ -1,11 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
+import CuratorsComponent from '@/modules/admin/curator/curators.component'
+
 export const Route = createFileRoute('/_authenticated/admin/_layout/curators/')(
 	{
-		component: RouteComponent
+		component: CuratorsComponent
 	}
 )
-
-function RouteComponent() {
-	return <div>Hello "/_authenticated/admin/_layout/curators/"!</div>
-}

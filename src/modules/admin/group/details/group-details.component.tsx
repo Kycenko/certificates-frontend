@@ -1,8 +1,10 @@
 import { useParams } from '@tanstack/react-router'
+import { User, Users } from 'lucide-react'
 
 import { DetailsDataTable } from '@/shared/components/details-data-table'
 import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
+import { Badge } from '@/shared/ui/badge'
 
 import GroupFields from '../group.fields'
 import { groupSchema } from '../group.schema'
@@ -17,14 +19,34 @@ function GroupDetailsComponent() {
 		handleUpdate
 	} = useGroupOperations(id)
 
-	const { title, course, students } = data?.getGroupById || {}
+	const { title, course, students, curator } = data?.getGroupById || {}
 
 	if (loading) return <DetailsTableSkeleton />
 
 	return (
 		<div className='space-y-6 p-4'>
 			<div className='flex items-center justify-between'>
-				<h1 className='text-3xl font-bold'>{title}</h1>
+				<div className='flex items-center gap-4'>
+					<div>
+						<h1 className='text-3xl font-bold tracking-tight'>{title}</h1>
+						<div className='mt-1 flex items-center gap-3'>
+							<div className='text-muted-foreground flex items-center gap-2 text-sm'>
+								<User className='h-4 w-4' />
+								<span>Куратор: {curator?.displayedName || 'Не назначен'}</span>
+							</div>
+
+							<div className='flex items-center gap-2 text-sm'>
+								<Users className='text-muted-foreground h-4 w-4' />
+								<Badge
+									variant='outline'
+									className='font-medium'
+								>
+									{students?.length || 0} студентов
+								</Badge>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<EditSheet
 					title='Редактирование группы'
@@ -45,7 +67,7 @@ function GroupDetailsComponent() {
 			</div>
 
 			<DetailsDataTable
-				title='Связанные группы'
+				title='Связанные студенты'
 				data={students}
 				columns={groupDetailsColumns}
 			/>

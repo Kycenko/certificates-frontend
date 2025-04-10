@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Separator } from '@radix-ui/react-select'
 import { Lock, UserCircle } from 'lucide-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -132,8 +131,6 @@ function EditAdminProfileForm() {
 									</FormItem>
 								)}
 							/>
-
-							<Separator />
 
 							<Button
 								type='submit'

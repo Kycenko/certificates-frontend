@@ -83,6 +83,15 @@ export type CertificateParamsInput = {
   studentLastName?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type CountStatisticsModel = {
+  __typename?: 'CountStatisticsModel';
+  courses: Scalars['Float']['output'];
+  curators: Scalars['Float']['output'];
+  departments: Scalars['Float']['output'];
+  groups: Scalars['Float']['output'];
+  students: Scalars['Float']['output'];
+};
+
 export type CourseInput = {
   departmentId: Scalars['String']['input'];
   number: Scalars['String']['input'];
@@ -106,7 +115,7 @@ export type CourseParamsInput = {
 
 export type CuratorModel = {
   __typename?: 'CuratorModel';
-  fullName: Scalars['String']['output'];
+  displayedName: Scalars['String']['output'];
   group: GroupModel;
   groupId: Scalars['String']['output'];
 };
@@ -222,7 +231,7 @@ export type Mutation = {
   updateCertificate: CertificateModel;
   updateCourse: CourseModel;
   updateCurator: UserModel;
-  updateCuratorFullName: UserModel;
+  updateCuratorDisplayedName: UserModel;
   updateDepartment: DepartmentModel;
   updateGroup: GroupModel;
   updateHealthGroup: HealthGroupModel;
@@ -411,8 +420,8 @@ export type MutationUpdateCuratorArgs = {
 };
 
 
-export type MutationUpdateCuratorFullNameArgs = {
-  fullName: Scalars['String']['input'];
+export type MutationUpdateCuratorDisplayedNameArgs = {
+  displayedName: Scalars['String']['input'];
   id: Scalars['String']['input'];
 };
 
@@ -477,6 +486,7 @@ export type Query = {
   getAllStudentHistories: Array<StudentHistoryModel>;
   getAllStudents: Array<StudentModel>;
   getCertificateById: CertificateModel;
+  getCountStatistics: CountStatisticsModel;
   getCourseById: CourseModel;
   getDepartmentById: DepartmentModel;
   getDepartmentByTitle: DepartmentModel;
@@ -603,7 +613,7 @@ export type RegisterAdminInput = {
 };
 
 export type RegisterCuratorInput = {
-  fullName: Scalars['String']['input'];
+  displayedName: Scalars['String']['input'];
   groupId: Scalars['String']['input'];
   login: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -683,7 +693,7 @@ export type UpdateCourseInput = {
 };
 
 export type UpdateCuratorInput = {
-  fullName?: InputMaybe<Scalars['String']['input']>;
+  displayedName?: InputMaybe<Scalars['String']['input']>;
   groupId?: InputMaybe<Scalars['String']['input']>;
   login?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -714,7 +724,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthModel', accessToken: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, login: string, role: string, curator?: { __typename?: 'CuratorModel', groupId: string, fullName: string, group: { __typename?: 'GroupModel', title: string } } | null } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthModel', accessToken: string, refreshToken: string, user: { __typename?: 'UserModel', id: string, login: string, role: string, curator?: { __typename?: 'CuratorModel', groupId: string, displayedName: string, group: { __typename?: 'GroupModel', title: string } } | null } } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -939,11 +949,6 @@ export type UpdateAdminMutationVariables = Exact<{
 
 export type UpdateAdminMutation = { __typename?: 'Mutation', updateAdmin: { __typename?: 'UserModel', id: string, login: string, role: string } };
 
-export type GetAllCuratorsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllCuratorsQuery = { __typename?: 'Query', getAllCurators: Array<{ __typename?: 'UserModel', id: string, login: string, role: string, curator?: { __typename?: 'CuratorModel', fullName: string, groupId: string, group: { __typename?: 'GroupModel', title: string } } | null }> };
-
 export type RemoveCuratorMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -1020,7 +1025,7 @@ export type GetGroupByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, curator?: { __typename?: 'CuratorModel', fullName: string } | null, students?: Array<{ __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null }> | null, course?: { __typename?: 'CourseModel', id: string, number: string, departmentId: string } | null } };
+export type GetGroupByIdQuery = { __typename?: 'Query', getGroupById: { __typename?: 'GroupModel', id: string, title: string, curator?: { __typename?: 'CuratorModel', displayedName: string } | null, students?: Array<{ __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null }> | null, course?: { __typename?: 'CourseModel', id: string, number: string, departmentId: string } | null } };
 
 export type GetAllHealthGroupsQueryVariables = Exact<{
   params: HealthGroupParamsInput;
@@ -1050,6 +1055,11 @@ export type GetPhysicalEducationByIdQueryVariables = Exact<{
 
 export type GetPhysicalEducationByIdQuery = { __typename?: 'Query', getPhysicalEducationById: { __typename?: 'PhysicalEducationModel', id: string, title: string, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any, student: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null } }> | null } };
 
+export type GetCountStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCountStatisticsQuery = { __typename?: 'Query', getCountStatistics: { __typename?: 'CountStatisticsModel', departments: number, courses: number, groups: number, curators: number, students: number } };
+
 export type GetAllStudentsQueryVariables = Exact<{
   params: StudentParamsInput;
 }>;
@@ -1063,6 +1073,11 @@ export type GetStudentByIdQueryVariables = Exact<{
 
 
 export type GetStudentByIdQuery = { __typename?: 'Query', getStudentById: { __typename?: 'StudentModel', id: string, lastName: string, firstName: string, secondName?: string | null, birthDate: any, groupId?: string | null, isExpelled: boolean, certificates?: Array<{ __typename?: 'CertificateModel', id: string, startDate: any, finishDate: any }> | null, group?: { __typename?: 'GroupModel', id: string, title: string } | null } };
+
+export type GetAllCuratorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCuratorsQuery = { __typename?: 'Query', getAllCurators: Array<{ __typename?: 'UserModel', id: string, login: string, role: string, curator?: { __typename?: 'CuratorModel', displayedName: string, groupId: string, group: { __typename?: 'GroupModel', title: string } } | null }> };
 
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1081,7 +1096,7 @@ export const LoginDocument = gql`
       role
       curator {
         groupId
-        fullName
+        displayedName
         group {
           title
         }
@@ -2155,54 +2170,6 @@ export function useUpdateAdminMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateAdminMutationHookResult = ReturnType<typeof useUpdateAdminMutation>;
 export type UpdateAdminMutationResult = Apollo.MutationResult<UpdateAdminMutation>;
 export type UpdateAdminMutationOptions = Apollo.BaseMutationOptions<UpdateAdminMutation, UpdateAdminMutationVariables>;
-export const GetAllCuratorsDocument = gql`
-    query getAllCurators {
-  getAllCurators {
-    id
-    login
-    role
-    curator {
-      fullName
-      groupId
-      group {
-        title
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllCuratorsQuery__
- *
- * To run a query within a React component, call `useGetAllCuratorsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllCuratorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllCuratorsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllCuratorsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
-      }
-export function useGetAllCuratorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
-        }
-export function useGetAllCuratorsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
-        }
-export type GetAllCuratorsQueryHookResult = ReturnType<typeof useGetAllCuratorsQuery>;
-export type GetAllCuratorsLazyQueryHookResult = ReturnType<typeof useGetAllCuratorsLazyQuery>;
-export type GetAllCuratorsSuspenseQueryHookResult = ReturnType<typeof useGetAllCuratorsSuspenseQuery>;
-export type GetAllCuratorsQueryResult = Apollo.QueryResult<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>;
 export const RemoveCuratorDocument = gql`
     mutation removeCurator($id: String!) {
   removeCurator(id: $id)
@@ -2677,7 +2644,7 @@ export const GetGroupByIdDocument = gql`
     id
     title
     curator {
-      fullName
+      displayedName
     }
     students {
       id
@@ -2924,6 +2891,49 @@ export type GetPhysicalEducationByIdQueryHookResult = ReturnType<typeof useGetPh
 export type GetPhysicalEducationByIdLazyQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdLazyQuery>;
 export type GetPhysicalEducationByIdSuspenseQueryHookResult = ReturnType<typeof useGetPhysicalEducationByIdSuspenseQuery>;
 export type GetPhysicalEducationByIdQueryResult = Apollo.QueryResult<GetPhysicalEducationByIdQuery, GetPhysicalEducationByIdQueryVariables>;
+export const GetCountStatisticsDocument = gql`
+    query GetCountStatistics {
+  getCountStatistics {
+    departments
+    courses
+    groups
+    curators
+    students
+  }
+}
+    `;
+
+/**
+ * __useGetCountStatisticsQuery__
+ *
+ * To run a query within a React component, call `useGetCountStatisticsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCountStatisticsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCountStatisticsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCountStatisticsQuery(baseOptions?: Apollo.QueryHookOptions<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>(GetCountStatisticsDocument, options);
+      }
+export function useGetCountStatisticsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>(GetCountStatisticsDocument, options);
+        }
+export function useGetCountStatisticsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>(GetCountStatisticsDocument, options);
+        }
+export type GetCountStatisticsQueryHookResult = ReturnType<typeof useGetCountStatisticsQuery>;
+export type GetCountStatisticsLazyQueryHookResult = ReturnType<typeof useGetCountStatisticsLazyQuery>;
+export type GetCountStatisticsSuspenseQueryHookResult = ReturnType<typeof useGetCountStatisticsSuspenseQuery>;
+export type GetCountStatisticsQueryResult = Apollo.QueryResult<GetCountStatisticsQuery, GetCountStatisticsQueryVariables>;
 export const GetAllStudentsDocument = gql`
     query getAllStudents($params: StudentParamsInput!) {
   getAllStudents(params: $params) {
@@ -3036,6 +3046,54 @@ export type GetStudentByIdQueryHookResult = ReturnType<typeof useGetStudentByIdQ
 export type GetStudentByIdLazyQueryHookResult = ReturnType<typeof useGetStudentByIdLazyQuery>;
 export type GetStudentByIdSuspenseQueryHookResult = ReturnType<typeof useGetStudentByIdSuspenseQuery>;
 export type GetStudentByIdQueryResult = Apollo.QueryResult<GetStudentByIdQuery, GetStudentByIdQueryVariables>;
+export const GetAllCuratorsDocument = gql`
+    query getAllCurators {
+  getAllCurators {
+    id
+    login
+    role
+    curator {
+      displayedName
+      groupId
+      group {
+        title
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllCuratorsQuery__
+ *
+ * To run a query within a React component, call `useGetAllCuratorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCuratorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCuratorsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCuratorsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
+      }
+export function useGetAllCuratorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
+        }
+export function useGetAllCuratorsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>(GetAllCuratorsDocument, options);
+        }
+export type GetAllCuratorsQueryHookResult = ReturnType<typeof useGetAllCuratorsQuery>;
+export type GetAllCuratorsLazyQueryHookResult = ReturnType<typeof useGetAllCuratorsLazyQuery>;
+export type GetAllCuratorsSuspenseQueryHookResult = ReturnType<typeof useGetAllCuratorsSuspenseQuery>;
+export type GetAllCuratorsQueryResult = Apollo.QueryResult<GetAllCuratorsQuery, GetAllCuratorsQueryVariables>;
 export const GetProfileDocument = gql`
     query getProfile {
   getProfile {

@@ -12,9 +12,8 @@ const router = createRouter({
 		auth: undefined!
 	},
 	defaultNotFoundComponent: () => <NotFound />,
-	// defaultErrorComponent: () => <NotFound />,
-	defaultPendingComponent: () => <Spinner />
-	// defaultPreload: 'intent'
+	defaultPendingComponent: () => <Spinner />,
+	defaultPreload: 'intent'
 })
 
 declare module '@tanstack/react-router' {

@@ -3,7 +3,7 @@ query getGroupById($id: String!) {
 		id
 		title
 		curator {
-			fullName
+			displayedName
 		}
 		students {
 			id

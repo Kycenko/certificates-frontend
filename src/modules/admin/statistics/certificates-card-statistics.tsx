@@ -10,90 +10,123 @@ function CertificatesCardStatistics() {
 		variables: { params: { orderBy: 'asc' } }
 	})
 
-	if (loading)
-		return (
-			<div className='flex items-center justify-center gap-3'>
-				<Skeleton className='h-[140px] w-[400px]' />
-				<Skeleton className='h-[140px] w-[400px]' />
-				<Skeleton className='h-[140px] w-[400px]' />
-				<Skeleton className='h-[140px] w-[400px]' />
-			</div>
-		)
-
 	const certificates = data?.getAllCertificates || []
-	const activeCertificates = certificates.filter(
+
+	const total = certificates.length
+	const active = certificates.filter(
 		({ startDate, finishDate }) =>
 			new Date(startDate) <= new Date() && new Date(finishDate) >= new Date()
-	)
-
-	const expiredCertificates = certificates.filter(
+	).length
+	const expired = certificates.filter(
 		({ finishDate }) => new Date(finishDate) < new Date()
-	)
-
-	const soonExpiringCertificates = certificates.filter(({ finishDate }) => {
-		const now = new Date()
-		const expiryDate = new Date(finishDate)
-		const daysDifference = Math.floor(
-			(expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+	).length
+	const expiringSoon = certificates.filter(({ finishDate }) => {
+		const daysLeft = Math.floor(
+			(new Date(finishDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
 		)
-		return daysDifference > 0 && daysDifference <= 30
-	})
+		return daysLeft > 0 && daysLeft <= 30
+	}).length
+
+	const stats = [
+		{
+			title: 'Всего справок',
+			value: total,
+			icon: <FileText className='h-6 w-6' />,
+			color: 'bg-blue-100 text-blue-600',
+			trend: null
+		},
+		{
+			title: 'Активные',
+			value: active,
+			icon: <CheckCircle2 className='h-6 w-6' />,
+			color: 'bg-green-100 text-green-600',
+			trend: total > 0 ? ((active / total) * 100).toFixed(0) + '%' : '0%'
+		},
+		{
+			title: 'Скоро истекут',
+			value: expiringSoon,
+			icon: <Clock className='h-6 w-6' />,
+			color: 'bg-amber-100 text-amber-600',
+			trend: `${expiringSoon} (${total > 0 ? ((expiringSoon / total) * 100).toFixed(0) : 0}%)`
+		},
+		{
+			title: 'Просроченные',
+			value: expired,
+			icon: <AlertTriangle className='h-6 w-6' />,
+			color: 'bg-red-100 text-red-600',
+			trend: expired > 0 ? 'Требуют внимания' : null
+		}
+	]
+
+	if (loading) {
+		return (
+			<div className='space-y-6'>
+				<Skeleton className='h-8 w-64' />
+				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4'>
+					{[...Array(4)].map((_, i) => (
+						<Skeleton
+							key={i}
+							className='h-32 rounded-xl'
+						/>
+					))}
+				</div>
+			</div>
+		)
+	}
 
 	return (
-		<div>
-			<h1 className='mb-6 text-2xl font-bold'>
+		<div className='mt-4 space-y-6'>
+			<h2 className='text-3xl font-bold tracking-tight'>
 				Статистика медицинских справок
-			</h1>
-			<div className='mb-6 grid grid-cols-1 gap-4 md:grid-cols-4'>
-				<Card>
-					<CardHeader className='p-4'>
-						<div className='flex items-center justify-between'>
-							<CardTitle className='text-sm'>Всего справок</CardTitle>
-							<FileText className='h-5 w-5 text-blue-600' />
-						</div>
-						<CardContent className='p-0 text-2xl font-bold'>
-							{certificates.length}
-						</CardContent>
-					</CardHeader>
-				</Card>
+			</h2>
 
-				<Card>
-					<CardHeader className='p-4'>
-						<div className='flex items-center justify-between'>
-							<CardTitle className='text-sm'>Активные</CardTitle>
-							<CheckCircle2 className='h-5 w-5 text-green-600' />
-						</div>
-						<CardContent className='p-0 text-2xl font-bold'>
-							{activeCertificates.length}
-						</CardContent>
-					</CardHeader>
-				</Card>
+			<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4'>
+				{stats.map(stat => (
+					<Card
+						key={stat.title}
+						className='relative overflow-hidden'
+					>
+						<CardHeader className='pb-2'>
+							<div className='flex items-center justify-between'>
+								<CardTitle className='text-muted-foreground text-sm font-medium'>
+									{stat.title}
+								</CardTitle>
+								<div className={`rounded-lg p-2 ${stat.color}`}>
+									{stat.icon}
+								</div>
+							</div>
+						</CardHeader>
 
-				<Card>
-					<CardHeader className='p-4'>
-						<div className='flex items-center justify-between'>
-							<CardTitle className='text-sm'>Скоро истекут</CardTitle>
-							<Clock className='h-5 w-5 text-amber-600' />
-						</div>
-						<CardContent className='p-0 text-2xl font-bold'>
-							{soonExpiringCertificates.length}
-						</CardContent>
-					</CardHeader>
-				</Card>
+						<CardContent>
+							<div className='flex items-baseline justify-between'>
+								<span className='text-3xl font-bold'>{stat.value}</span>
+								{stat.trend && (
+									<span
+										className={`text-sm ${
+											stat.title === 'Просроченные'
+												? 'text-red-600'
+												: 'text-muted-foreground'
+										}`}
+									>
+										{stat.trend}
+									</span>
+								)}
+							</div>
 
-				<Card>
-					<CardHeader className='p-4'>
-						<div className='flex items-center justify-between'>
-							<CardTitle className='text-sm'>Просроченные</CardTitle>
-							<AlertTriangle className='h-5 w-5 text-red-600' />
-						</div>
-						<CardContent className='p-0 text-2xl font-bold'>
-							{expiredCertificates.length}
+							{stat.title === 'Скоро истекут' && expiringSoon > 0 && (
+								<div className='mt-2 h-1.5 w-full rounded-full bg-gray-200'>
+									<div
+										className='h-1.5 rounded-full bg-amber-500'
+										style={{ width: `${(expiringSoon / total) * 100}%` }}
+									/>
+								</div>
+							)}
 						</CardContent>
-					</CardHeader>
-				</Card>
+					</Card>
+				))}
 			</div>
 		</div>
 	)
 }
+
 export default CertificatesCardStatistics

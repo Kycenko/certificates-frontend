@@ -1,4 +1,5 @@
 export * from './create-student.form'
+export * from './search-students'
 export * from './student.columns'
 export * from './student.fields'
 export * from './student.schema'

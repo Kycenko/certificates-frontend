@@ -4,7 +4,7 @@ query getAllCurators {
 		login
 		role
 		curator {
-			fullName
+			displayedName
 			groupId
 			group {
 				title

@@ -1,0 +1,9 @@
+query GetCountStatistics {
+	getCountStatistics {
+		departments
+		courses
+		groups
+		curators
+		students
+	}
+}
