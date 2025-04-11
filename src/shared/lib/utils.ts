@@ -16,7 +16,7 @@ export function getFullName(
 	firstName: string,
 	secondName?: string
 ) {
-	return `${lastName} ${firstName} ${secondName ? secondName : 'Не указано'}`
+	return `${lastName} ${firstName} ${secondName ? secondName : ''}`
 }
 
 export function getShortName(

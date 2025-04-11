@@ -1,3 +1,3 @@
-export * from './certificates-statistics'
-export * from './count-statistics'
-export * from './statistics.component'
+export * from './CertificatesStatistics'
+export * from './CountStatistics'
+export * from './StatisticsComponent'

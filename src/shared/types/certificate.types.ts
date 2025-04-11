@@ -1,8 +1,8 @@
-import { HealthGroup, HealthGroupFieldsProps } from './health-group.types'
+import { HealthGroup, HealthGroupFieldsProps } from './healthGroup.types'
 import {
 	PhysicalEducation,
 	PhysicalEducationFieldsProps
-} from './physical-education.types'
+} from './physicalEducation.types'
 import { Student } from './student.types'
 
 export type Certificate = {

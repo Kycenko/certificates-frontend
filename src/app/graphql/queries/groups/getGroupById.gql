@@ -11,6 +11,7 @@ query getGroupById($id: String!) {
 			firstName
 			secondName
 			birthDate
+			isExpelled
 
 			certificates {
 				id

@@ -6,5 +6,5 @@ export const Route = createFileRoute('/_authenticated')({
 	beforeLoad: async ({ context }) => {
 		await checkAuth(context.auth)
 	},
-	component: () => <Outlet />
+	component: Outlet
 })

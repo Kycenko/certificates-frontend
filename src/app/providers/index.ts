@@ -1,3 +1,3 @@
-export * from './auth-provider'
-export * from './root-provider'
-export * from './theme-provider'
+export * from './AuthProvider'
+export * from './RootProvider'
+export * from './ThemeProvider'

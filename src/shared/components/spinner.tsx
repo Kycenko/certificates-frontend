@@ -1,13 +1,13 @@
-export function Spinner() {
+function Spinner() {
 	return (
-		<div className='bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-black'>
+		<div className='bg-opacity-50 bg-background dark:bg-background fixed inset-0 z-50 flex items-center justify-center'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				width='24'
 				height='24'
 				viewBox='0 0 24 24'
 				fill='none'
-				stroke='currentColor'
+				stroke='var(--primary)'
 				strokeWidth='2'
 				strokeLinecap='round'
 				strokeLinejoin='round'
@@ -18,3 +18,5 @@ export function Spinner() {
 		</div>
 	)
 }
+
+export default Spinner

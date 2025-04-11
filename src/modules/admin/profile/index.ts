@@ -1,2 +1,2 @@
-export * from './admin-profile.schema'
-export * from './edit-admin-profile-form'
+export * from './adminProfile.schema'
+export * from './EditAdminProfileForm'

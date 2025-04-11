@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import CuratorLayout from '@/shared/components/layouts/curator-layout'
+import CuratorLayout from '@/shared/components/layouts/CuratorLayout'
 import { checkRole } from '@/shared/lib/auth'
 import { UserRole } from '@/shared/types/user.types'
 

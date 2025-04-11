@@ -1,2 +1,2 @@
-export * from './details-table-skeleton'
-export * from './table-skeleton'
+export * from './DataTableSkeleton'
+export * from './DetailsTableSkeleton'

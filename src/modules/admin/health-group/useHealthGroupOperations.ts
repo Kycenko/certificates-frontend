@@ -8,7 +8,7 @@ import {
 	useUpdateHealthGroupMutation
 } from '@/app/graphql/generated'
 
-import { HealthGroupSchema } from './health-group.schema'
+import { HealthGroupSchema } from './healthGroupSchema'
 
 export function useHealthGroupOperations(id?: string) {
 	return useEntityOperations<HealthGroupSchema>({

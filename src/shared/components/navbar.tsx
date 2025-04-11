@@ -2,9 +2,9 @@ import { Link } from '@tanstack/react-router'
 
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
-import { navLinks } from './nav-links'
+import { navLinks } from './navLinks'
 
-export default function NavBar() {
+function NavBar() {
 	return (
 		<div className='flex h-full flex-col'>
 			<div className='flex-1 overflow-y-auto'>
@@ -41,3 +41,4 @@ export default function NavBar() {
 		</div>
 	)
 }
+export default NavBar

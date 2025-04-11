@@ -1,7 +1,7 @@
 import { redirect } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
 
-import { AuthContextType } from '@/app/providers/auth-provider'
+import { AuthContextType } from '@/app/providers/AuthProvider'
 
 import { User, UserRole } from '../types/user.types'
 

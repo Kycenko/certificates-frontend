@@ -6,7 +6,7 @@ export function isCertificateActive(finishDate: Date | null) {
 	if (!finishDate) {
 		return (
 			<Badge variant={'outline'}>
-				<span className='text-gray-600'>Справка отсутствует</span>
+				<span className='text-gray-400'>Справка отсутствует</span>
 			</Badge>
 		)
 	}
@@ -28,7 +28,7 @@ export function isCertificateActive(finishDate: Date | null) {
 						: 'text-red-600'
 				}
 			>
-				{isActive ? (isExpiringSoon ? 'Остался месяц' : 'Активен') : 'Истек'}
+				{isActive ? (isExpiringSoon ? 'Остался месяц' : 'Активна') : 'Истекла'}
 			</span>
 		</Badge>
 	)

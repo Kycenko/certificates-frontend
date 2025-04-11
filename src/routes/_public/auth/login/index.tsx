@@ -1,7 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import LoginComponent from '@/modules/public/auth/login.component'
+import PageTransition from '@/shared/components/motions/PageTransition'
+
+import LoginComponent from '@/modules/public/auth/LoginComponent'
 
 export const Route = createFileRoute('/_public/auth/login/')({
-	component: LoginComponent
+	component: () => (
+		<PageTransition>
+			<LoginComponent />
+		</PageTransition>
+	)
 })

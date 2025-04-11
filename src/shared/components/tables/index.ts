@@ -1,3 +1,3 @@
-export * from './data-table'
-export * from './details-data-table'
-export * from './table-search'
+export * from './DataTable'
+export * from './DetailsDataTable'
+export * from './TableSearch'

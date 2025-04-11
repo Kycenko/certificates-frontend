@@ -6,7 +6,7 @@ import { useLogoutMutation } from '@/app/graphql/generated'
 import { cn, removeAuthData } from '../lib'
 import { Button } from '../ui/button'
 
-export default function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
+function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
 	const router = useRouter()
 
 	const [logout] = useLogoutMutation({
@@ -20,11 +20,10 @@ export default function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
 		<Button
 			variant='ghost'
 			className={cn(
-				'gap-2 hover:text-red-600',
+				'hover:text-destructive gap-2',
 				variant === 'sidebar' && 'w-full justify-start',
 				variant === 'header' && 'flex items-center'
 			)}
-			// }
 			onClick={() => logout()}
 		>
 			<LogOut className='h-4 w-4' />
@@ -32,3 +31,5 @@ export default function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
 		</Button>
 	)
 }
+
+export default Logout

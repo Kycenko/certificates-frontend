@@ -1,0 +1,11 @@
+query getAllStudentsByLastName($lastName: String!) {
+	getAllStudentsByLastName(lastName: $lastName) {
+		id
+		lastName
+		firstName
+		secondName
+		group {
+			title
+		}
+	}
+}

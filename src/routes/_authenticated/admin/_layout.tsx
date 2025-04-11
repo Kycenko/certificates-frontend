@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import AdminLayout from '@/shared/components/layouts/admin-layout'
+import AdminLayout from '@/shared/components/layouts/AdminLayout'
 import { checkRole } from '@/shared/lib'
 import { UserRole } from '@/shared/types'
 

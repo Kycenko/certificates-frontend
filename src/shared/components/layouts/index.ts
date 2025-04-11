@@ -1,2 +1,2 @@
-export * from './admin-layout'
-export * from './curator-layout'
+export * from './AdminLayout'
+export * from './CuratorLayout'

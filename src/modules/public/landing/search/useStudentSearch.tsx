@@ -1,18 +1,21 @@
 import { useState } from 'react'
 
-import { useGetAllStudentsLazyQuery } from '@/app/graphql/generated'
+import { useGetAllStudentsByLastNameLazyQuery } from '@/app/graphql/generated'
 
 export const useStudentSearch = () => {
 	const [inputValue, setInputValue] = useState('')
 
-	const [fetchStudents, { data, loading }] = useGetAllStudentsLazyQuery()
+	const [fetchStudents, { data, loading }] =
+		useGetAllStudentsByLastNameLazyQuery()
+
+	const students = data?.getAllStudentsByLastName || []
 
 	const [hasSearched, setHasSearched] = useState(false)
 
 	const handleSearch = () => {
 		if (!inputValue.trim()) return
 		fetchStudents({
-			variables: { params: { orderBy: 'asc', lastName: inputValue.trim() } }
+			variables: { lastName: inputValue.trim() }
 		})
 		setHasSearched(true)
 	}
@@ -36,10 +39,9 @@ export const useStudentSearch = () => {
 		handleSearch,
 		handleKeyPress,
 		students: {
-			data: data?.getAllStudents || [],
+			data: students,
 			loading
 		},
-		isEmpty:
-			hasSearched && !loading && (data?.getAllStudents?.length ?? 0) === 0
+		isEmpty: hasSearched && !loading && (students.length ?? 0) === 0
 	}
 }

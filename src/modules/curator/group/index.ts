@@ -1,3 +1,3 @@
-export * from './curator-group.columns'
-export * from './curator-group.component'
-export * from './curator-group.table'
+export * from './CuratorGroupComponent'
+export * from './CuratorGroupTable'
+export * from './CuratorGroupTableColumns'

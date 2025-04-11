@@ -8,7 +8,7 @@ import {
 	useUpdatePhysicalEducationMutation
 } from '@/app/graphql/generated'
 
-import { PhysicalEducationSchema } from './physical-education.schema'
+import { PhysicalEducationSchema } from './physicalEducation.schema'
 
 export function usePhysicalEducationOperations(id?: string) {
 	return useEntityOperations<PhysicalEducationSchema>({

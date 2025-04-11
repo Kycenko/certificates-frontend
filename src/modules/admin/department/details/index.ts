@@ -1,2 +1,2 @@
-export * from './department-details.columns'
-export * from './department-details.component'
+export * from './DepartmentDetailsComponent'
+export * from './departmentDetailsTableColumns'

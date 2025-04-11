@@ -1,10 +1,10 @@
 import { routeTree } from '@/routeTree.gen'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
-import NotFound from '@/shared/components/not-found'
-import { Spinner } from '@/shared/components/spinner'
+import NotFound from '@/shared/components/NotFound'
+import Spinner from '@/shared/components/Spinner'
 
-import { useAuth } from './providers/auth-provider'
+import { useAuth } from './providers/AuthProvider'
 
 const router = createRouter({
 	routeTree,
