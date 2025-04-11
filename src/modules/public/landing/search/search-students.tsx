@@ -15,19 +15,19 @@ function SearchStudents({
 	onKeyDown
 }: SearchStudentsProps) {
 	return (
-		<div className='bg-card relative mx-auto max-w-xl'>
-			<div className='relative flex rounded-lg shadow-sm'>
+		<div className='mx-auto max-w-2xl px-4'>
+			<div className='bg-background flex overflow-hidden rounded-xl border shadow-sm'>
 				<Input
 					value={searchTerm}
 					onChange={e => onSearchTermChange(e.target.value)}
 					onKeyDown={onKeyDown}
 					placeholder='Введите фамилию...'
-					className='h-14 rounded-r-none text-base focus-visible:ring-2'
+					className='h-14 flex-1 border-0 px-4 text-base focus-visible:ring-0 focus-visible:outline-none'
 				/>
 				<Button
 					disabled={!searchTerm}
 					onClick={onSearch}
-					className='h-14 rounded-l-none px-6 text-base'
+					className='h-14 rounded-none px-6 text-base'
 				>
 					Найти
 				</Button>

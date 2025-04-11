@@ -70,7 +70,7 @@ export const curatorGroupColumns: ColumnDef<Student>[] = [
 		},
 		cell: ({ row }) => {
 			const certs = row.original.certificates
-			return formatDate(certs[0]?.startDate)
+			return formatDate(certs[0]?.startDate) || '-'
 		}
 	},
 	{
@@ -88,7 +88,7 @@ export const curatorGroupColumns: ColumnDef<Student>[] = [
 		},
 		cell: ({ row }) => {
 			const certs = row.original.certificates
-			return formatDate(certs[0]?.finishDate)
+			return formatDate(certs[0]?.finishDate) || '-'
 		}
 	},
 

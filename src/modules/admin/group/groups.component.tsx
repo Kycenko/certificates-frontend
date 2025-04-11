@@ -1,4 +1,3 @@
-import { TableSettings } from '@/shared/components/table-settings'
 import { Card, CardContent } from '@/shared/ui/card'
 
 import CreateGroupForm from './create-group.form'
@@ -15,7 +14,6 @@ function GroupsComponent() {
 					element={<PdfTableExporter />}
 					fileName={'departments'}
 				/> */}
-					<TableSettings />
 				</div>
 
 				<GroupsTable />

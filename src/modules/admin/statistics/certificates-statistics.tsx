@@ -5,7 +5,7 @@ import { Skeleton } from '@/shared/ui/skeleton'
 
 import { useGetAllCertificatesQuery } from '@/app/graphql/generated'
 
-function CertificatesCardStatistics() {
+function CertificatesStatistics() {
 	const { data, loading } = useGetAllCertificatesQuery({
 		variables: { params: { orderBy: 'asc' } }
 	})
@@ -129,4 +129,4 @@ function CertificatesCardStatistics() {
 	)
 }
 
-export default CertificatesCardStatistics
+export default CertificatesStatistics

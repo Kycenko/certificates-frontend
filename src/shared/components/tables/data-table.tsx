@@ -2,7 +2,6 @@ import {
 	ColumnDef,
 	ColumnFiltersState,
 	SortingState,
-	VisibilityState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -10,21 +9,33 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
-import { ChevronDown, MoreHorizontal, Search } from 'lucide-react'
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	InfoIcon,
+	MoreHorizontal,
+	Trash2Icon,
+	TrashIcon
+} from 'lucide-react'
 import { useCallback, useState } from 'react'
 
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'
 import {
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from '@/shared/ui/dropdown-menu'
-import { Input } from '@/shared/ui/input'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from '@/shared/ui/select'
 import {
 	Table,
 	TableBody,
@@ -34,26 +45,16 @@ import {
 	TableRow
 } from '@/shared/ui/table'
 
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from '../ui/select'
+import TableSearch from './table-search'
 
 interface TableProps {
 	data: any[]
 	columns: ColumnDef<any>[]
-	search: boolean
 	searchParam: string
-	pagination: boolean
-	visibility: boolean
 	onRemoveMany: (selectedIds: Set<string>) => void
 	onRemove: (id: string) => void
 	onInfo?: (id: string) => void
 	isLoading?: boolean
-	filterable?: boolean
 }
 
 export function DataTable({
@@ -62,14 +63,10 @@ export function DataTable({
 	onRemoveMany,
 	onRemove,
 	onInfo,
-	searchParam,
-	search,
-	visibility,
-	pagination
+	searchParam
 }: TableProps) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
 	const selectColumn: ColumnDef<any> = {
@@ -112,14 +109,15 @@ export function DataTable({
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Действия</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-
 						{onInfo && (
 							<DropdownMenuItem onClick={() => onInfo(row.original.id)}>
+								<InfoIcon className='h-4 w-4' />
 								Подробнее
 							</DropdownMenuItem>
 						)}
 
 						<DropdownMenuItem onClick={() => onRemove(row.original.id)}>
+							<TrashIcon className='h-4 w-4' />
 							Удалить
 						</DropdownMenuItem>
 					</DropdownMenuContent>
@@ -137,12 +135,10 @@ export function DataTable({
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
-		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: setRowSelection,
 		state: {
 			sorting,
 			columnFilters,
-			columnVisibility,
 			rowSelection
 		}
 	})
@@ -157,68 +153,24 @@ export function DataTable({
 
 	return (
 		<div className='w-full'>
-			<div className='flex items-center justify-between py-4'>
+			<div className='flex flex-col items-center justify-between py-4 sm:flex-row'>
 				<div className='flex items-center gap-5'>
-					{search && (
-						<div className='relative'>
-							<Search className='text-muted-foreground absolute top-2.5 left-2 h-4 w-4' />
-							<Input
-								placeholder='Поиск...'
-								value={
-									(table
-										.getColumn(`${searchParam}`)
-										?.getFilterValue() as string) ?? ''
-								}
-								onChange={event =>
-									table
-										.getColumn(`${searchParam}`)
-										?.setFilterValue(event.target.value)
-								}
-								className='max-w-lg pl-8'
-							/>
-						</div>
-					)}
+					<TableSearch
+						table={table}
+						searchParam={searchParam}
+					/>
 				</div>
 
-				<div className='flex gap-5'>
+				<div className='mt-4 flex items-center gap-4 sm:mt-0'>
 					<Button
 						variant='destructive'
 						onClick={handleDeleteSelected}
 						disabled={table.getSelectedRowModel().rows.length === 0}
+						className='flex items-center gap-2'
 					>
+						<Trash2Icon className='h-4 w-4' />
 						Удалить выбранные
 					</Button>
-					{visibility && (
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<Button
-									variant='outline'
-									className='ml-auto'
-								>
-									Столбцы <ChevronDown />
-								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent align='end'>
-								{table
-									.getAllColumns()
-									.filter(column => column.getCanHide())
-									.map(column => {
-										return (
-											<DropdownMenuCheckboxItem
-												key={column.id}
-												className='capitalize'
-												checked={column.getIsVisible()}
-												onCheckedChange={value =>
-													column.toggleVisibility(!!value)
-												}
-											>
-												{column.id}
-											</DropdownMenuCheckboxItem>
-										)
-									})}
-							</DropdownMenuContent>
-						</DropdownMenu>
-					)}
 				</div>
 			</div>
 
@@ -266,7 +218,7 @@ export function DataTable({
 						) : (
 							<TableRow>
 								<TableCell
-									colSpan={columns.length}
+									colSpan={table.getAllColumns().length}
 									className='h-24 border-r text-center last:border-r-0'
 								>
 									Ничего не найдено.
@@ -277,59 +229,61 @@ export function DataTable({
 				</Table>
 			</div>
 
-			{pagination && (
-				<div className='flex items-center justify-between py-4'>
-					<div className='text-muted-foreground flex-1 text-sm'>
-						{table.getFilteredSelectedRowModel().rows.length} из{' '}
-						{table.getFilteredRowModel().rows.length} строк выбрано.
+			<div className='flex items-center justify-between py-4'>
+				<div className='text-muted-foreground flex-1 text-sm'>
+					{table.getFilteredSelectedRowModel().rows.length} из{' '}
+					{table.getFilteredRowModel().rows.length} строк выбрано.
+				</div>
+				<div className='flex items-center space-x-4'>
+					<div className='flex items-center space-x-2'>
+						<p className='text-sm font-medium'>Строк на странице:</p>
+						<Select
+							value={table.getState().pagination.pageSize.toString()}
+							onValueChange={value => {
+								table.setPageSize(Number(value))
+							}}
+						>
+							<SelectTrigger className='h-8 w-[75px]'>
+								<SelectValue
+									placeholder={table.getState().pagination.pageSize.toString()}
+								/>
+							</SelectTrigger>
+							<SelectContent side='top'>
+								{[10, 25, 50, 75, 100].map(pageSize => (
+									<SelectItem
+										key={pageSize}
+										value={pageSize.toString()}
+									>
+										{pageSize}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 					</div>
-					<div className='flex items-center space-x-4'>
-						<div className='flex items-center space-x-2'>
-							<p className='text-sm font-medium'>Строк на странице:</p>
-							<Select
-								value={`${table.getState().pagination.pageSize}`}
-								onValueChange={value => {
-									table.setPageSize(Number(value))
-								}}
-							>
-								<SelectTrigger className='h-8 w-[75px]'>
-									<SelectValue
-										placeholder={table.getState().pagination.pageSize}
-									/>
-								</SelectTrigger>
-								<SelectContent side='top'>
-									{[10, 25, 50, 75, 100].map(pageSize => (
-										<SelectItem
-											key={pageSize}
-											value={`${pageSize}`}
-										>
-											{pageSize}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-						</div>
-						<div className='space-x-2'>
-							<Button
-								variant='outline'
-								size='sm'
-								onClick={() => table.previousPage()}
-								disabled={!table.getCanPreviousPage()}
-							>
-								Назад
-							</Button>
-							<Button
-								variant='outline'
-								size='sm'
-								onClick={() => table.nextPage()}
-								disabled={!table.getCanNextPage()}
-							>
-								Далее
-							</Button>
-						</div>
+					<div className='flex space-x-2'>
+						<Button
+							title='Предыдущая страница'
+							variant='outline'
+							size='sm'
+							onClick={() => table.previousPage()}
+							disabled={!table.getCanPreviousPage()}
+							className='flex items-center'
+						>
+							<ChevronLeftIcon className='h-4 w-4' />
+						</Button>
+						<Button
+							title='Следующая страница'
+							variant='outline'
+							size='sm'
+							onClick={() => table.nextPage()}
+							disabled={!table.getCanNextPage()}
+							className='flex items-center'
+						>
+							<ChevronRightIcon className='h-4 w-4' />
+						</Button>
 					</div>
 				</div>
-			)}
+			</div>
 		</div>
 	)
 }

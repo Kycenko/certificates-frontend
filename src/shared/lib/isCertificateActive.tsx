@@ -1,12 +1,34 @@
-import { Badge } from '../ui'
+import { differenceInDays } from 'date-fns'
 
-export function isCertificateActive(finishDate: Date) {
-	const isActive = new Date(finishDate) > new Date()
+import { Badge } from '@/shared/ui/badge'
+
+export function isCertificateActive(finishDate: Date | null) {
+	if (!finishDate) {
+		return (
+			<Badge variant={'outline'}>
+				<span className='text-gray-600'>Справка отсутствует</span>
+			</Badge>
+		)
+	}
+
+	const now = new Date()
+	const endDate = new Date(finishDate)
+	const isActive = endDate > now
+	const daysRemaining = differenceInDays(endDate, now)
+	const isExpiringSoon = daysRemaining <= 30 && daysRemaining > 0
 
 	return (
 		<Badge variant={'outline'}>
-			<span className={isActive ? 'text-green-600' : 'text-red-600'}>
-				{isActive ? 'Активен' : 'Истек'}
+			<span
+				className={
+					isActive
+						? isExpiringSoon
+							? 'text-yellow-600'
+							: 'text-green-600'
+						: 'text-red-600'
+				}
+			>
+				{isActive ? (isExpiringSoon ? 'Остался месяц' : 'Активен') : 'Истек'}
 			</span>
 		</Badge>
 	)

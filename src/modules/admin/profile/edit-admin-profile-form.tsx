@@ -23,7 +23,7 @@ import {
 	useUpdateAdminMutation
 } from '@/app/graphql/generated'
 
-import { AdminProfileSchema, adminProfileSchema } from './profile.schema'
+import { AdminProfileSchema, adminProfileSchema } from './admin-profile.schema'
 
 function EditAdminProfileForm() {
 	const { data, loading } = useGetProfileQuery()
@@ -79,7 +79,7 @@ function EditAdminProfileForm() {
 		<div className='flex justify-center'>
 			<Card className='w-5xl'>
 				<CardHeader>
-					<CardTitle className='text-2xl'>Профиль пользователя</CardTitle>
+					<CardTitle className='text-2xl'>Профиль администратора</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<Form {...methods}>
@@ -103,7 +103,7 @@ function EditAdminProfileForm() {
 											/>
 										</FormControl>
 										<FormDescription>
-											Это имя будет отображаться в системе
+											Этот логин будет отображаться в системе
 										</FormDescription>
 										<FormMessage />
 									</FormItem>

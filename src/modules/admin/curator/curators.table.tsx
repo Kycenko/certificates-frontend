@@ -1,6 +1,4 @@
-import { useTableSettingsStore } from '@/store'
-
-import { DataTable } from '@/shared/components'
+import { DataTable } from '@/shared/components/tables/data-table'
 
 import {
 	useGetAllCuratorsQuery,
@@ -11,7 +9,6 @@ import {
 import { curatorColumns } from './curator.columns'
 
 function CuratorsTable() {
-	const { search, columnVisibility, pagination } = useTableSettingsStore()
 	const { data, loading } = useGetAllCuratorsQuery()
 
 	const [remove] = useRemoveCuratorMutation()
@@ -31,10 +28,7 @@ function CuratorsTable() {
 				isLoading={loading}
 				data={data?.getAllCurators || []}
 				columns={curatorColumns}
-				search={search}
 				searchParam={'login'}
-				pagination={pagination}
-				visibility={columnVisibility}
 				onRemoveMany={handleRemoveMany}
 				onRemove={handleRemove}
 			/>

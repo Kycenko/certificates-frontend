@@ -9,8 +9,8 @@ import {
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
+import TableSearch from '@/shared/components/tables/table-search'
 import { Student } from '@/shared/types'
-import { Input } from '@/shared/ui/input'
 import {
 	Table,
 	TableBody,
@@ -21,12 +21,14 @@ import {
 } from '@/shared/ui/table'
 
 interface TableProps {
-	data: any[]
+	data: Student[]
 	columns: ColumnDef<Student>[]
 }
 
 function CuratorGroupTable({ data, columns }: TableProps) {
 	const [sorting, setSorting] = useState<SortingState>([])
+
+	const filterColumn = 'lastName'
 
 	const table = useReactTable({
 		data,
@@ -35,49 +37,48 @@ function CuratorGroupTable({ data, columns }: TableProps) {
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
-
 		state: {
 			sorting
 		}
 	})
 
+	const rows = table.getRowModel().rows
+
 	return (
-		<div className='w-full'>
-			<div className='flex items-center py-4'>
-				<Input
-					placeholder='Поиск по фамилии...'
-					value={
-						(table.getColumn('lastName')?.getFilterValue() as string) ?? ''
-					}
-					onChange={event =>
-						table.getColumn('lastName')?.setFilterValue(event.target.value)
-					}
-					className='max-w-sm'
+		<div className='w-full space-y-4'>
+			<div className='flex items-center justify-between'>
+				<TableSearch
+					table={table}
+					searchParam={filterColumn}
+					placeholder='Введите фамилию...'
 				/>
 			</div>
+
 			<div className='rounded-md border'>
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map(header => {
-									return (
-										<TableHead key={header.id}>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)}
-										</TableHead>
-									)
-								})}
+								{headerGroup.headers.map(header => (
+									<TableHead
+										key={header.id}
+										className='text-muted-foreground text-sm font-medium'
+									>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext()
+												)}
+									</TableHead>
+								))}
 							</TableRow>
 						))}
 					</TableHeader>
+
 					<TableBody>
-						{table.getRowModel().rows?.length ? (
-							table.getRowModel().rows.map(row => (
+						{rows.length > 0 ? (
+							rows.map(row => (
 								<TableRow
 									key={row.id}
 									data-state={row.getIsSelected() && 'selected'}

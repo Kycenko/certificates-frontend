@@ -1,11 +1,12 @@
 import { useRouter } from '@tanstack/react-router'
+import { LogOut } from 'lucide-react'
 
 import { useLogoutMutation } from '@/app/graphql/generated'
 
-import { removeAuthData } from '../lib'
+import { cn, removeAuthData } from '../lib'
 import { Button } from '../ui/button'
 
-export default function Logout() {
+export default function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
 	const router = useRouter()
 
 	const [logout] = useLogoutMutation({
@@ -17,11 +18,17 @@ export default function Logout() {
 
 	return (
 		<Button
-			className='w-full'
-			variant={'outline'}
+			variant='ghost'
+			className={cn(
+				'gap-2 hover:text-red-600',
+				variant === 'sidebar' && 'w-full justify-start',
+				variant === 'header' && 'flex items-center'
+			)}
+			// }
 			onClick={() => logout()}
 		>
-			Выйти
+			<LogOut className='h-4 w-4' />
+			<span>Выйти</span>
 		</Button>
 	)
 }

@@ -1,4 +1,3 @@
-import { TableSettings } from '@/shared/components/table-settings'
 import { Card, CardContent } from '@/shared/ui/card'
 
 import CreatePhysicalEducationForm from './create-physical-education.form'
@@ -15,7 +14,6 @@ function PhysicalEducationsComponent() {
 				element={<PdfTableExporter />}
 				fileName={'departments'}
 			/> */}
-					<TableSettings />
 				</div>
 
 				<PhysicalEducationsTable />

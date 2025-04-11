@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form'
 import { z } from 'zod'
 
+import { Button } from '@/shared/ui/button'
 import {
 	Sheet,
 	SheetContent,
@@ -15,8 +16,6 @@ import {
 	SheetTitle,
 	SheetTrigger
 } from '@/shared/ui/sheet'
-
-import { Button } from '../ui/button'
 
 interface EditSheetProps<T extends FieldValues> {
 	fields: React.ReactNode
@@ -50,15 +49,18 @@ export default function EditSheet<T extends FieldValues>({
 	return (
 		<Sheet onOpenChange={handleOpenChange}>
 			<SheetTrigger asChild>
-				<Button variant='outline'>
+				<Button
+					variant='outline'
+					className='flex items-center'
+				>
 					<Edit className='mr-2 h-4 w-4' />
 					Редактировать
 				</Button>
 			</SheetTrigger>
 
-			<SheetContent className='w-full'>
+			<SheetContent className='w-full p-6 sm:w-auto md:max-w-lg'>
 				<SheetHeader className='mb-6'>
-					<SheetTitle>{title}</SheetTitle>
+					<SheetTitle className='text-xl font-semibold'>{title}</SheetTitle>
 				</SheetHeader>
 
 				<div className='p-4'>
@@ -71,7 +73,7 @@ export default function EditSheet<T extends FieldValues>({
 							<Button
 								disabled={!methods.formState.isValid}
 								type='submit'
-								className='w-full'
+								className='bg-primary hover:bg-primary/90 w-full transition'
 							>
 								Сохранить изменения
 							</Button>

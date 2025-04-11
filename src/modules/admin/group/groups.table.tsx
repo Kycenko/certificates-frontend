@@ -1,7 +1,5 @@
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
-import { DataTable } from '@/shared/components/data-table'
-import { TableSkeleton } from '@/shared/components/table-skeleton'
+import { TableSkeleton } from '@/shared/components/skeletons/table-skeleton'
+import { DataTable } from '@/shared/components/tables/data-table'
 
 import { useGetAllGroupsQuery } from '@/app/graphql/generated'
 
@@ -9,7 +7,6 @@ import { groupColumns } from './group.columns'
 import { useGroupOperations } from './useGroupOperations'
 
 function GroupsTable() {
-	const { pagination, columnVisibility, search } = useTableSettingsStore()
 	const { handleInfo, handleRemove, handleRemoveMany } = useGroupOperations()
 
 	const { data, loading } = useGetAllGroupsQuery({
@@ -26,10 +23,6 @@ function GroupsTable() {
 			data={data?.getAllGroups || []}
 			columns={groupColumns}
 			onRemoveMany={handleRemoveMany}
-			search={search}
-			filterable={true}
-			pagination={pagination}
-			visibility={columnVisibility}
 			searchParam='title'
 		/>
 	)

@@ -1,7 +1,5 @@
-import { useTableSettingsStore } from '@/store/table-settings.store'
-
-import { DataTable } from '@/shared/components/data-table'
-import { TableSkeleton } from '@/shared/components/table-skeleton'
+import { TableSkeleton } from '@/shared/components/skeletons/table-skeleton'
+import { DataTable } from '@/shared/components/tables/data-table'
 
 import { useGetAllPhysicalEducationsQuery } from '@/app/graphql/generated'
 
@@ -9,7 +7,6 @@ import { physicalEducationColumns } from './physical-education.columns'
 import { usePhysicalEducationOperations } from './usePhysicalEducationOperations'
 
 function PhysicalEducationsTable() {
-	const { pagination, columnVisibility, search } = useTableSettingsStore()
 	const { handleRemove, handleInfo, handleRemoveMany } =
 		usePhysicalEducationOperations()
 
@@ -23,9 +20,6 @@ function PhysicalEducationsTable() {
 		<DataTable
 			data={data?.getAllPhysicalEducations || []}
 			columns={physicalEducationColumns}
-			search={search}
-			pagination={pagination}
-			visibility={columnVisibility}
 			searchParam='title'
 			onInfo={handleInfo}
 			onRemove={handleRemove}

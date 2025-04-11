@@ -88,7 +88,7 @@ export function DetailsDataTable({
 						) : (
 							<TableRow>
 								<TableCell
-									colSpan={columns.length}
+									colSpan={table.getAllColumns().length}
 									className='h-24 text-center'
 								>
 									Ничего не найдено.

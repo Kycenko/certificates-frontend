@@ -1,9 +1,9 @@
 import { useParams } from '@tanstack/react-router'
 import { User, Users } from 'lucide-react'
 
-import { DetailsDataTable } from '@/shared/components/details-data-table'
-import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
+import { DetailsTableSkeleton } from '@/shared/components/skeletons/details-table-skeleton'
+import { DetailsDataTable } from '@/shared/components/tables/details-data-table'
 import { Badge } from '@/shared/ui/badge'
 
 import GroupFields from '../group.fields'

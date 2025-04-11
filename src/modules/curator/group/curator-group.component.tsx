@@ -19,8 +19,6 @@ function CuratorGroupComponent() {
 
 	const { students, curator, title } = data?.getGroupById || {}
 
-	console.log(data)
-
 	return (
 		<div className='space-y-6'>
 			<Card>
@@ -38,7 +36,9 @@ function CuratorGroupComponent() {
 							</div>
 							<p className='text-muted-foreground text-sm'>
 								Куратор:{' '}
-								<span className='font-medium'>{curator?.fullName}</span>
+								<span className='font-medium'>
+									{curator?.displayedName || 'Не назначен'}
+								</span>
 							</p>
 						</div>
 					</div>

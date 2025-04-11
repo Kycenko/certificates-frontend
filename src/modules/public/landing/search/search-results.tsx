@@ -5,6 +5,8 @@ import { Button } from '@/shared/ui/button'
 
 import { GetAllStudentsQuery } from '@/app/graphql/generated'
 
+import SearchEmpty from './search-empty'
+
 interface LandingSearchResultsProps {
 	students: GetAllStudentsQuery['getAllStudents']
 	isLoading: boolean
@@ -16,23 +18,23 @@ function LandingSearchResults({
 }: LandingSearchResultsProps) {
 	const router = useRouter()
 
-	if (isLoading) return <Skeleton className='h-[300px] w-full' />
+	if (isLoading) return <Skeleton className='h-60 w-full rounded-xl' />
+
+	if (!students.length) return <SearchEmpty />
 
 	return (
 		<div className='space-y-4'>
-			<h2 className='text-foreground text-xl font-semibold'>
-				Результаты поиска:
-			</h2>
-			<div className='overflow-hidden rounded-lg border shadow-sm'>
+			<h2 className='text-xl font-semibold'>Результаты поиска</h2>
+			<div className='bg-background rounded-xl border shadow-sm'>
 				<ul className='divide-border max-h-60 divide-y overflow-y-auto'>
 					{students.map(student => (
 						<li
 							key={student.id}
-							className='hover:bg-accent p-4 transition-colors duration-150'
+							className='p-4 transition-colors'
 						>
-							<div className='flex items-center justify-between'>
+							<div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
 								<div>
-									<p className='text-foreground text-lg font-medium'>
+									<p className='text-lg font-medium'>
 										{student.lastName} {student.firstName}{' '}
 										{student.secondName || ''}
 									</p>
@@ -42,8 +44,9 @@ function LandingSearchResults({
 								</div>
 								<Button
 									variant='outline'
+									size='sm'
 									onClick={() =>
-										router.navigate({ to: `/students/${student.id}` })
+										router.navigate({ to: `/admin/students/${student.id}` })
 									}
 								>
 									Просмотр

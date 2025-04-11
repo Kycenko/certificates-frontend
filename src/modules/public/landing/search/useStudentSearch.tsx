@@ -1,42 +1,45 @@
 import { useState } from 'react'
 
-import { useDebounce } from '@/shared/hooks/useDebounce'
-
-import { useGetAllStudentsQuery } from '@/app/graphql/generated'
+import { useGetAllStudentsLazyQuery } from '@/app/graphql/generated'
 
 export const useStudentSearch = () => {
-	const [searchTerm, setSearchTerm] = useState('')
+	const [inputValue, setInputValue] = useState('')
 
-	const debouncedSearchTerm = useDebounce(searchTerm, 500)
+	const [fetchStudents, { data, loading }] = useGetAllStudentsLazyQuery()
 
-	const [triggerSearch, setTriggerSearch] = useState(false)
-
-	const { data, loading } = useGetAllStudentsQuery({
-		variables: { params: { orderBy: 'asc', lastName: debouncedSearchTerm } },
-		skip: !triggerSearch
-	})
+	const [hasSearched, setHasSearched] = useState(false)
 
 	const handleSearch = () => {
-		if (searchTerm.trim()) setTriggerSearch(true)
+		if (!inputValue.trim()) return
+		fetchStudents({
+			variables: { params: { orderBy: 'asc', lastName: inputValue.trim() } }
+		})
+		setHasSearched(true)
 	}
 
 	const handleTermChange = (term: string) => {
-		setSearchTerm(term)
-
-		if (term === '' || !triggerSearch) setTriggerSearch(false)
+		setInputValue(term)
+		if (term === '') {
+			setHasSearched(false)
+		}
 	}
 
 	const handleKeyPress = (e: React.KeyboardEvent) => {
-		if (e.key === 'Enter') handleSearch()
+		if (e.key === 'Enter') {
+			handleSearch()
+		}
 	}
 
 	return {
-		searchTerm,
-
+		searchTerm: inputValue,
 		setSearchTerm: handleTermChange,
 		handleSearch,
 		handleKeyPress,
-		students: { data: data?.getAllStudents || [], loading },
-		isEmpty: triggerSearch && data?.getAllStudents?.length === 0
+		students: {
+			data: data?.getAllStudents || [],
+			loading
+		},
+		isEmpty:
+			hasSearched && !loading && (data?.getAllStudents?.length ?? 0) === 0
 	}
 }

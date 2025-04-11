@@ -1,8 +1,8 @@
 import { useParams } from '@tanstack/react-router'
 
-import { DetailsDataTable } from '@/shared/components/details-data-table'
-import { DetailsTableSkeleton } from '@/shared/components/details-table-skeleton'
 import EditSheet from '@/shared/components/edit-sheet'
+import { DetailsTableSkeleton } from '@/shared/components/skeletons/details-table-skeleton'
+import { DetailsDataTable } from '@/shared/components/tables/details-data-table'
 
 import CourseFields from '../course.fields'
 import { CourseSchema, courseSchema } from '../course.schema'

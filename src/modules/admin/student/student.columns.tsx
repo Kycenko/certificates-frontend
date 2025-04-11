@@ -3,6 +3,7 @@ import { ArrowUpDown } from 'lucide-react'
 
 import { formatDate } from '@/shared/lib/utils'
 import { Student } from '@/shared/types/student.types'
+import { Badge } from '@/shared/ui'
 import { Button } from '@/shared/ui/button'
 
 export const studentColumns: ColumnDef<Student>[] = [
@@ -50,7 +51,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div>{row.getValue('secondName') || 'Не указано'}</div>
+		cell: ({ row }) => <div>{row.getValue('secondName') || '-'}</div>
 	},
 	{
 		accessorKey: 'birthDate',
@@ -69,21 +70,7 @@ export const studentColumns: ColumnDef<Student>[] = [
 			return formatDate(row.original.birthDate)
 		}
 	},
-	{
-		accessorKey: 'isExpelled',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant={'ghost'}
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-				>
-					Отчислен?
-					<ArrowUpDown />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div>{row.getValue('isExpelled') ? 'Да' : 'Нет'}</div>
-	},
+
 	{
 		accessorKey: 'group',
 		header: ({ column }) => {
@@ -134,7 +121,40 @@ export const studentColumns: ColumnDef<Student>[] = [
 			)
 		},
 		cell: ({ row }) => (
-			<div>{row.original.group?.course?.department?.title || 'Не указано'}</div>
+			<div>{row.original.group?.course?.department?.title || '-'}</div>
+		)
+	},
+	{
+		accessorKey: 'isExpelled',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant={'ghost'}
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+				>
+					Отчислен?
+					<ArrowUpDown />
+				</Button>
+			)
+		},
+		cell: ({ row }) => (
+			<div>
+				{row.getValue('isExpelled') ? (
+					<Badge
+						className='text-red-600'
+						variant={'outline'}
+					>
+						<span>Да</span>
+					</Badge>
+				) : (
+					<Badge
+						className='text-green-600'
+						variant={'outline'}
+					>
+						<span>Нет</span>
+					</Badge>
+				)}
+			</div>
 		)
 	}
 ]

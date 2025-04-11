@@ -1,4 +1,3 @@
-import { TableSettings } from '@/shared/components/table-settings'
 import { Card, CardContent } from '@/shared/ui/card'
 
 import CertificatesTable from './certificates.tables'
@@ -15,7 +14,6 @@ function CertificatesComponent() {
 					element={<PdfTableExporter />}
 					fileName={'departments'}
 				/> */}
-					<TableSettings />
 				</div>
 
 				<CertificatesTable />
