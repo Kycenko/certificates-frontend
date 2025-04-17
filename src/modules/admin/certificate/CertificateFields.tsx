@@ -8,7 +8,6 @@ import { FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
 import { CertificateSchema } from './certificate.schema'
 
 export function CertificateFields({
-	students,
 	healthGroups,
 	physicalEducations
 }: CertificateFieldsProps) {
@@ -45,26 +44,6 @@ export function CertificateFields({
 				)}
 			/>
 
-			<FormField
-				name='studentId'
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>Студент</FormLabel>
-						<SelectCombobox
-							data={students}
-							valueKey={'id'}
-							labelKey={item =>
-								`${item.lastName} ${item.firstName} ${item.secondName || ''} `
-							}
-							placeholder='Выберите студента'
-							value={field.value}
-							onValueChange={field.onChange}
-						/>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
 			<FormField
 				name='healthGroupId'
 				control={control}

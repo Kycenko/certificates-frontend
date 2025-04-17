@@ -88,6 +88,7 @@ export const studentTableColumns: ColumnDef<Student>[] = [
 	},
 	{
 		accessorKey: 'course',
+		accessorFn: row => row.group?.course?.number,
 		header: ({ column }) => {
 			return (
 				<Button
@@ -109,6 +110,7 @@ export const studentTableColumns: ColumnDef<Student>[] = [
 	},
 	{
 		accessorKey: 'department',
+		accessorFn: row => row.group?.course?.department?.title,
 		header: ({ column }) => {
 			return (
 				<Button
@@ -126,6 +128,7 @@ export const studentTableColumns: ColumnDef<Student>[] = [
 	},
 	{
 		accessorKey: 'isExpelled',
+
 		header: ({ column }) => {
 			return (
 				<Button

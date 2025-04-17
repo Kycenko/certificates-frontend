@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PlusIcon } from 'lucide-react'
-import { motion } from 'motion/react'
 import { ReactNode } from 'react'
 import { DefaultValues, FieldValues, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -65,37 +64,30 @@ export function DataDialog<T extends FieldValues>({
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='md:max-w-1xl sm:max-w-md'>
-				<motion.div
-					initial={{ opacity: 0, scale: 0.95 }}
-					animate={{ opacity: 1, scale: 1 }}
-					exit={{ opacity: 0, scale: 0.95 }}
-					transition={{ duration: 0.3, ease: 'easeInOut' }}
-				>
-					<Form {...methods}>
-						<form onSubmit={handleSubmit(data => onSubmitted(data))}>
-							<DialogHeader>
-								<DialogTitle className='text-foreground text-2xl font-semibold'>
-									{title}
-								</DialogTitle>
-								{description && (
-									<DialogDescription className='text-muted-foreground'>
-										{description}
-									</DialogDescription>
-								)}
-							</DialogHeader>
-							<div className='flex flex-col gap-4 py-4'>{fields}</div>
-							<DialogFooter>
-								<Button
-									disabled={!methods.formState.isValid}
-									type='submit'
-									className='w-full sm:w-auto'
-								>
-									Добавить
-								</Button>
-							</DialogFooter>
-						</form>
-					</Form>
-				</motion.div>
+				<Form {...methods}>
+					<form onSubmit={handleSubmit(data => onSubmitted(data))}>
+						<DialogHeader>
+							<DialogTitle className='text-foreground text-2xl font-semibold'>
+								{title}
+							</DialogTitle>
+							{description && (
+								<DialogDescription className='text-muted-foreground'>
+									{description}
+								</DialogDescription>
+							)}
+						</DialogHeader>
+						<div className='flex flex-col gap-4 py-4'>{fields}</div>
+						<DialogFooter>
+							<Button
+								disabled={!methods.formState.isValid}
+								type='submit'
+								className='w-full sm:w-auto'
+							>
+								Добавить
+							</Button>
+						</DialogFooter>
+					</form>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	)

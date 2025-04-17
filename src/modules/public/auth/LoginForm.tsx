@@ -136,7 +136,7 @@ function LoginForm() {
 											<button
 												type='button'
 												onClick={() => setShowPassword(prev => !prev)}
-												className='text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2'
+												className='text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer'
 												aria-label='Показать или скрыть пароль'
 											>
 												{showPassword ? (

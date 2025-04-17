@@ -20,7 +20,7 @@ function LandingComponent() {
 		<div className='flex min-h-screen flex-col bg-gray-50 dark:bg-black'>
 			<LandingHeader />
 
-			<main className='flex-1 px-4 py-8'>
+			<main className='flex-1 px-4 py-6'>
 				<div className='mx-auto max-w-3xl space-y-8'>
 					<div className='space-y-6 text-center'>
 						<div className='space-y-2'>

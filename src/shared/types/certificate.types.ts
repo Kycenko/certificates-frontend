@@ -18,7 +18,6 @@ export type Certificate = {
 }
 
 export type CertificateFieldsProps = {
-	students: any[]
 	healthGroups: HealthGroupFieldsProps[]
 	physicalEducations: PhysicalEducationFieldsProps[]
 }

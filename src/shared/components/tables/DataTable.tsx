@@ -12,12 +12,18 @@ import {
 import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
+	Edit,
 	InfoIcon,
 	MoreHorizontal,
 	Trash2Icon,
 	TrashIcon
 } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import React, {
+	useCallback,
+	useDeferredValue,
+	useEffect,
+	useState
+} from 'react'
 
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'
@@ -54,6 +60,7 @@ interface TableProps {
 	onRemoveMany: (selectedIds: Set<string>) => void
 	onRemove: (id: string) => void
 	onInfo?: (id: string) => void
+	onEdit?: (id: string) => void
 	isLoading?: boolean
 }
 
@@ -63,6 +70,7 @@ export function DataTable({
 	onRemoveMany,
 	onRemove,
 	onInfo,
+	onEdit,
 	searchParam
 }: TableProps) {
 	const [sorting, setSorting] = useState<SortingState>([])
@@ -115,7 +123,12 @@ export function DataTable({
 								Подробнее
 							</DropdownMenuItem>
 						)}
-
+						{onEdit && (
+							<DropdownMenuItem onClick={() => onEdit(row.original.id)}>
+								<Edit className='h-4 w-4' />
+								Редактировать
+							</DropdownMenuItem>
+						)}
 						<DropdownMenuItem onClick={() => onRemove(row.original.id)}>
 							<TrashIcon className='h-4 w-4' />
 							Удалить
@@ -125,9 +138,10 @@ export function DataTable({
 			)
 		}
 	}
+	const deferredData = useDeferredValue(data)
 
 	const table = useReactTable({
-		data,
+		data: deferredData,
 		columns: [selectColumn, ...columns, actionsColumns],
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -150,6 +164,16 @@ export function DataTable({
 		onRemoveMany(selectedRowIds)
 		setRowSelection({})
 	}, [table, onRemoveMany])
+
+	const MemoizedTableCell = React.memo(TableCell)
+	const MemoizedTableRow = React.memo(TableRow)
+
+	const [pageSize, setPageSize] = useState(10)
+	const deferredPageSize = useDeferredValue(pageSize)
+
+	useEffect(() => {
+		table.setPageSize(deferredPageSize)
+	}, [deferredPageSize, table])
 
 	return (
 		<div className='w-full'>
@@ -174,11 +198,11 @@ export function DataTable({
 				</div>
 			</div>
 
-			<div className='border-t border-b'>
+			<div className='max-h-[535px] overflow-y-auto border-t border-b'>
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (
-							<TableRow key={headerGroup.id}>
+							<MemoizedTableRow key={headerGroup.id}>
 								{headerGroup.headers.map(header => (
 									<TableHead
 										key={header.id}
@@ -192,18 +216,18 @@ export function DataTable({
 												)}
 									</TableHead>
 								))}
-							</TableRow>
+							</MemoizedTableRow>
 						))}
 					</TableHeader>
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows?.map(row => (
-								<TableRow
+								<MemoizedTableRow
 									key={row.id}
 									data-state={row.getIsSelected() && 'selected'}
 								>
 									{row.getVisibleCells().map(cell => (
-										<TableCell
+										<MemoizedTableCell
 											key={cell.id}
 											className='border-r text-left font-medium last:border-r-0'
 										>
@@ -211,19 +235,19 @@ export function DataTable({
 												cell.column.columnDef.cell,
 												cell.getContext()
 											)}
-										</TableCell>
+										</MemoizedTableCell>
 									))}
-								</TableRow>
+								</MemoizedTableRow>
 							))
 						) : (
-							<TableRow>
-								<TableCell
+							<MemoizedTableRow>
+								<MemoizedTableCell
 									colSpan={table.getAllColumns().length}
 									className='h-24 border-r text-center font-medium last:border-r-0'
 								>
 									Ничего не найдено.
-								</TableCell>
-							</TableRow>
+								</MemoizedTableCell>
+							</MemoizedTableRow>
 						)}
 					</TableBody>
 				</Table>
@@ -238,23 +262,21 @@ export function DataTable({
 					<div className='flex items-center space-x-2'>
 						<p className='text-sm font-medium'>Строк на странице:</p>
 						<Select
-							value={table.getState().pagination.pageSize.toString()}
+							value={pageSize.toString()}
 							onValueChange={value => {
-								table.setPageSize(Number(value))
+								setPageSize(Number(value))
 							}}
 						>
 							<SelectTrigger className='h-8 w-[75px]'>
-								<SelectValue
-									placeholder={table.getState().pagination.pageSize.toString()}
-								/>
+								<SelectValue placeholder={pageSize.toString()} />
 							</SelectTrigger>
 							<SelectContent side='top'>
-								{[10, 25, 50, 75, 100].map(pageSize => (
+								{[10, 25, 50, 75, 100].map(size => (
 									<SelectItem
-										key={pageSize}
-										value={pageSize.toString()}
+										key={size}
+										value={size.toString()}
 									>
-										{pageSize}
+										{size}
 									</SelectItem>
 								))}
 							</SelectContent>

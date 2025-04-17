@@ -49,58 +49,60 @@ export function DetailsDataTable({
 				<CardTitle>{title}</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Table>
-					<TableHeader>
-						{table.getHeaderGroups().map(headerGroup => (
-							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map(header => (
-									<TableHead
-										key={header.id}
-										className='border-r text-center last:border-r-0'
-									>
-										{header.isPlaceholder
-											? null
-											: flexRender(
-													header.column.columnDef.header,
-													header.getContext()
-												)}
-									</TableHead>
-								))}
-							</TableRow>
-						))}
-					</TableHeader>
-					<TableBody>
-						{table.getRowModel().rows?.length ? (
-							table.getRowModel().rows.map(row => (
-								<TableRow
-									key={row.id}
-									data-state={row.getIsSelected() && 'selected'}
-								>
-									{row.getVisibleCells().map(cell => (
-										<TableCell
-											key={cell.id}
-											className='text-center font-medium'
+				<div className='max-h-[550px] overflow-y-auto border-t border-b'>
+					<Table>
+						<TableHeader>
+							{table.getHeaderGroups().map(headerGroup => (
+								<TableRow key={headerGroup.id}>
+									{headerGroup.headers.map(header => (
+										<TableHead
+											key={header.id}
+											className='border-r text-center last:border-r-0'
 										>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</TableCell>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext()
+													)}
+										</TableHead>
 									))}
 								</TableRow>
-							))
-						) : (
-							<TableRow>
-								<TableCell
-									colSpan={table.getAllColumns().length}
-									className='h-24 text-center font-medium'
-								>
-									Ничего не найдено.
-								</TableCell>
-							</TableRow>
-						)}
-					</TableBody>
-				</Table>
+							))}
+						</TableHeader>
+						<TableBody>
+							{table.getRowModel().rows?.length ? (
+								table.getRowModel().rows.map(row => (
+									<TableRow
+										key={row.id}
+										data-state={row.getIsSelected() && 'selected'}
+									>
+										{row.getVisibleCells().map(cell => (
+											<TableCell
+												key={cell.id}
+												className='border-r text-center font-medium last:border-r-0'
+											>
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)}
+											</TableCell>
+										))}
+									</TableRow>
+								))
+							) : (
+								<TableRow>
+									<TableCell
+										colSpan={table.getAllColumns().length}
+										className='h-24 text-center font-medium'
+									>
+										Ничего не найдено.
+									</TableCell>
+								</TableRow>
+							)}
+						</TableBody>
+					</Table>
+				</div>
 			</CardContent>
 		</Card>
 	)

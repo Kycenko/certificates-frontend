@@ -3,7 +3,6 @@ import { ClipboardList } from 'lucide-react'
 
 import Logout from '../Logout'
 import { ThemeToggle } from '../ThemeToggle'
-import PageTransition from '../motions/PageTransition'
 
 function CuratorLayout() {
 	return (
@@ -28,9 +27,7 @@ function CuratorLayout() {
 
 			<main className='flex-1 bg-gray-50 p-4 dark:bg-black'>
 				<div className='container mx-auto max-w-7xl'>
-					<PageTransition>
-						<Outlet />
-					</PageTransition>
+					<Outlet />
 				</div>
 			</main>
 		</div>

@@ -11,14 +11,6 @@ import { useState } from 'react'
 
 import TableSearch from '@/shared/components/tables/TableSearch'
 import { Student } from '@/shared/types'
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow
-} from '@/shared/ui/table'
 
 interface TableProps {
 	data: any[]
@@ -54,15 +46,15 @@ function CuratorGroupTable({ data, columns }: TableProps) {
 				/>
 			</div>
 
-			<div className='rounded-md border'>
-				<Table>
-					<TableHeader>
+			<div className='relative max-h-[505px] overflow-auto rounded-md border'>
+				<table className='w-full border-collapse'>
+					<thead className='bg-background sticky top-0 z-10'>
 						{table.getHeaderGroups().map(headerGroup => (
-							<TableRow key={headerGroup.id}>
+							<tr key={headerGroup.id}>
 								{headerGroup.headers.map(header => (
-									<TableHead
+									<th
 										key={header.id}
-										className='text-muted-foreground text-sm font-medium'
+										className='text-muted-foreground border-b px-4 py-2 text-left text-sm font-medium'
 									>
 										{header.isPlaceholder
 											? null
@@ -70,41 +62,44 @@ function CuratorGroupTable({ data, columns }: TableProps) {
 													header.column.columnDef.header,
 													header.getContext()
 												)}
-									</TableHead>
+									</th>
 								))}
-							</TableRow>
+							</tr>
 						))}
-					</TableHeader>
-
-					<TableBody>
+					</thead>
+					<tbody>
 						{rows.length > 0 ? (
 							rows.map(row => (
-								<TableRow
+								<tr
 									key={row.id}
 									data-state={row.getIsSelected() && 'selected'}
+									className='border-b'
 								>
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>
+										<td
+											key={cell.id}
+											className='px-4 py-2'
+										>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
 											)}
-										</TableCell>
+										</td>
 									))}
-								</TableRow>
+								</tr>
 							))
 						) : (
-							<TableRow>
-								<TableCell
+							<tr>
+								<td
 									colSpan={columns.length}
-									className='h-24 text-center'
+									className='text-muted-foreground h-24 text-center'
 								>
 									Ничего не найдено.
-								</TableCell>
-							</TableRow>
+								</td>
+							</tr>
 						)}
-					</TableBody>
-				</Table>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	)

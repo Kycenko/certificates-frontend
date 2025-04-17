@@ -25,29 +25,6 @@ export type AuthModel = {
   user: UserModel;
 };
 
-export type CertificateHistoryInput = {
-  certificateId: Scalars['String']['input'];
-  finishDate: Scalars['DateTime']['input'];
-  healthGroupId?: InputMaybe<Scalars['String']['input']>;
-  physicalEducationId?: InputMaybe<Scalars['String']['input']>;
-  startDate: Scalars['DateTime']['input'];
-};
-
-export type CertificateHistoryModel = {
-  __typename?: 'CertificateHistoryModel';
-  certificate: CertificateModel;
-  certificateId: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  finishDate: Scalars['DateTime']['output'];
-  healthGroup?: Maybe<HealthGroupModel>;
-  healthGroupId?: Maybe<Scalars['String']['output']>;
-  id: Scalars['String']['output'];
-  physicalEducation?: Maybe<PhysicalEducationModel>;
-  physicalEducationId: Scalars['String']['output'];
-  startDate: Scalars['DateTime']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type CertificateInput = {
   finishDate: Scalars['DateTime']['input'];
   healthGroupId: Scalars['String']['input'];
@@ -188,20 +165,17 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createCertificate: CertificateModel;
-  createCertificateHistory: CertificateHistoryModel;
   createCourse: CourseModel;
   createDepartment: DepartmentModel;
   createGroup: GroupModel;
   createHealthGroup: HealthGroupModel;
   createPhysicalEducation: PhysicalEducationModel;
   createStudent: StudentModel;
-  createStudentHistory: StudentHistoryModel;
   getNewTokens: AuthModel;
   login: AuthModel;
   logout: Scalars['Boolean']['output'];
   registerAdmin: AuthModel;
   registerCurator: AuthModel;
-  removeAllCertificateHistories: Scalars['Boolean']['output'];
   removeAllCertificates: Scalars['Boolean']['output'];
   removeAllCourses: Scalars['Boolean']['output'];
   removeAllCurators: Scalars['Boolean']['output'];
@@ -209,7 +183,6 @@ export type Mutation = {
   removeAllGroups: Scalars['Boolean']['output'];
   removeAllHealthGroup: HealthGroupModel;
   removeAllPhysicalEducations: Scalars['Boolean']['output'];
-  removeAllStudentHistory: Scalars['Boolean']['output'];
   removeAllStudents: Scalars['Boolean']['output'];
   removeCertificate: Scalars['Boolean']['output'];
   removeCourse: Scalars['Boolean']['output'];
@@ -245,11 +218,6 @@ export type MutationCreateCertificateArgs = {
 };
 
 
-export type MutationCreateCertificateHistoryArgs = {
-  data: CertificateHistoryInput;
-};
-
-
 export type MutationCreateCourseArgs = {
   data: CourseInput;
 };
@@ -280,11 +248,6 @@ export type MutationCreateStudentArgs = {
 };
 
 
-export type MutationCreateStudentHistoryArgs = {
-  data: StudentHistoryInput;
-};
-
-
 export type MutationGetNewTokensArgs = {
   refreshToken: Scalars['String']['input'];
   userId: Scalars['String']['input'];
@@ -303,16 +266,6 @@ export type MutationRegisterAdminArgs = {
 
 export type MutationRegisterCuratorArgs = {
   data: RegisterCuratorInput;
-};
-
-
-export type MutationRemoveAllCertificateHistoriesArgs = {
-  certificateId: Scalars['String']['input'];
-};
-
-
-export type MutationRemoveAllStudentHistoryArgs = {
-  studentId: Scalars['String']['input'];
 };
 
 
@@ -475,7 +428,6 @@ export type PhysicalEducationParamsInput = {
 
 export type Query = {
   __typename?: 'Query';
-  getAllCertificateHistories: Array<CertificateHistoryModel>;
   getAllCertificates: Array<CertificateModel>;
   getAllCourses: Array<CourseModel>;
   getAllCurators: Array<UserModel>;
@@ -483,7 +435,6 @@ export type Query = {
   getAllGroups: Array<GroupModel>;
   getAllHealthGroups: Array<HealthGroupModel>;
   getAllPhysicalEducations: Array<PhysicalEducationModel>;
-  getAllStudentHistories: Array<StudentHistoryModel>;
   getAllStudents: Array<StudentModel>;
   getAllStudentsByLastName: Array<StudentModel>;
   getCertificateById: CertificateModel;
@@ -500,11 +451,6 @@ export type Query = {
   getProfile: UserModel;
   getStudentById: StudentModel;
   getUserByLogin: UserModel;
-};
-
-
-export type QueryGetAllCertificateHistoriesArgs = {
-  certificateId: Scalars['String']['input'];
 };
 
 
@@ -535,11 +481,6 @@ export type QueryGetAllHealthGroupsArgs = {
 
 export type QueryGetAllPhysicalEducationsArgs = {
   params?: InputMaybe<PhysicalEducationParamsInput>;
-};
-
-
-export type QueryGetAllStudentHistoriesArgs = {
-  studentId: Scalars['String']['input'];
 };
 
 
@@ -626,22 +567,6 @@ export type RegisterCuratorInput = {
   role?: Scalars['String']['input'];
 };
 
-export type StudentHistoryInput = {
-  groupId?: InputMaybe<Scalars['String']['input']>;
-  studentId: Scalars['String']['input'];
-};
-
-export type StudentHistoryModel = {
-  __typename?: 'StudentHistoryModel';
-  createdAt: Scalars['DateTime']['output'];
-  group?: Maybe<GroupModel>;
-  groupId?: Maybe<Scalars['String']['output']>;
-  id: Scalars['String']['output'];
-  student: StudentModel;
-  studentId: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type StudentInput = {
   birthDate: Scalars['DateTime']['input'];
   firstName: Scalars['String']['input'];
@@ -663,7 +588,6 @@ export type StudentModel = {
   isExpelled: Scalars['Boolean']['output'];
   lastName: Scalars['String']['output'];
   secondName?: Maybe<Scalars['String']['output']>;
-  studentHistories?: Maybe<Array<StudentHistoryModel>>;
   updatedAt: Scalars['DateTime']['output'];
 };
 

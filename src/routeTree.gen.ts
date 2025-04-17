@@ -34,7 +34,6 @@ import { Route as AuthenticatedAdminLayoutGroupsIdImport } from './routes/_authe
 import { Route as AuthenticatedAdminLayoutDepartmentsIdImport } from './routes/_authenticated/admin/_layout/departments/$id'
 import { Route as AuthenticatedAdminLayoutCuratorsIdImport } from './routes/_authenticated/admin/_layout/curators/$id'
 import { Route as AuthenticatedAdminLayoutCoursesIdImport } from './routes/_authenticated/admin/_layout/courses/$id'
-import { Route as AuthenticatedAdminLayoutCertificatesIdImport } from './routes/_authenticated/admin/_layout/certificates/$id'
 import { Route as AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexImport } from './routes/_authenticated/admin/_layout/groups-management/physical-educations/index'
 import { Route as AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexImport } from './routes/_authenticated/admin/_layout/groups-management/health-groups/index'
 import { Route as AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdImport } from './routes/_authenticated/admin/_layout/groups-management/physical-educations/$id'
@@ -199,13 +198,6 @@ const AuthenticatedAdminLayoutCoursesIdRoute =
     getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedAdminLayoutCertificatesIdRoute =
-  AuthenticatedAdminLayoutCertificatesIdImport.update({
-    id: '/certificates/$id',
-    path: '/certificates/$id',
-    getParentRoute: () => AuthenticatedAdminLayoutRoute,
-  } as any)
-
 const AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute =
   AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexImport.update({
     id: '/groups-management/physical-educations/',
@@ -293,13 +285,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/login'
       preLoaderRoute: typeof PublicAuthLoginIndexImport
       parentRoute: typeof rootRoute
-    }
-    '/_authenticated/admin/_layout/certificates/$id': {
-      id: '/_authenticated/admin/_layout/certificates/$id'
-      path: '/certificates/$id'
-      fullPath: '/admin/certificates/$id'
-      preLoaderRoute: typeof AuthenticatedAdminLayoutCertificatesIdImport
-      parentRoute: typeof AuthenticatedAdminLayoutImport
     }
     '/_authenticated/admin/_layout/courses/$id': {
       id: '/_authenticated/admin/_layout/courses/$id'
@@ -440,7 +425,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthenticatedAdminLayoutRouteChildren {
-  AuthenticatedAdminLayoutCertificatesIdRoute: typeof AuthenticatedAdminLayoutCertificatesIdRoute
   AuthenticatedAdminLayoutCoursesIdRoute: typeof AuthenticatedAdminLayoutCoursesIdRoute
   AuthenticatedAdminLayoutCuratorsIdRoute: typeof AuthenticatedAdminLayoutCuratorsIdRoute
   AuthenticatedAdminLayoutDepartmentsIdRoute: typeof AuthenticatedAdminLayoutDepartmentsIdRoute
@@ -463,8 +447,6 @@ interface AuthenticatedAdminLayoutRouteChildren {
 
 const AuthenticatedAdminLayoutRouteChildren: AuthenticatedAdminLayoutRouteChildren =
   {
-    AuthenticatedAdminLayoutCertificatesIdRoute:
-      AuthenticatedAdminLayoutCertificatesIdRoute,
     AuthenticatedAdminLayoutCoursesIdRoute:
       AuthenticatedAdminLayoutCoursesIdRoute,
     AuthenticatedAdminLayoutCuratorsIdRoute:
@@ -566,7 +548,6 @@ export interface FileRoutesByFullPath {
   '/curator': typeof AuthenticatedCuratorLayoutRouteWithChildren
   '/student-info/$id': typeof PublicStudentInfoIdRoute
   '/auth/login': typeof PublicAuthLoginIndexRoute
-  '/admin/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
   '/admin/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
   '/admin/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
   '/admin/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
@@ -595,7 +576,6 @@ export interface FileRoutesByTo {
   '/curator': typeof AuthenticatedCuratorLayoutRouteWithChildren
   '/student-info/$id': typeof PublicStudentInfoIdRoute
   '/auth/login': typeof PublicAuthLoginIndexRoute
-  '/admin/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
   '/admin/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
   '/admin/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
   '/admin/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
@@ -627,7 +607,6 @@ export interface FileRoutesById {
   '/_authenticated/curator/_layout': typeof AuthenticatedCuratorLayoutRouteWithChildren
   '/_public/student-info/$id': typeof PublicStudentInfoIdRoute
   '/_public/auth/login/': typeof PublicAuthLoginIndexRoute
-  '/_authenticated/admin/_layout/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
   '/_authenticated/admin/_layout/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
   '/_authenticated/admin/_layout/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
   '/_authenticated/admin/_layout/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
@@ -658,7 +637,6 @@ export interface FileRouteTypes {
     | '/curator'
     | '/student-info/$id'
     | '/auth/login'
-    | '/admin/certificates/$id'
     | '/admin/courses/$id'
     | '/admin/curators/$id'
     | '/admin/departments/$id'
@@ -686,7 +664,6 @@ export interface FileRouteTypes {
     | '/curator'
     | '/student-info/$id'
     | '/auth/login'
-    | '/admin/certificates/$id'
     | '/admin/courses/$id'
     | '/admin/curators/$id'
     | '/admin/departments/$id'
@@ -716,7 +693,6 @@ export interface FileRouteTypes {
     | '/_authenticated/curator/_layout'
     | '/_public/student-info/$id'
     | '/_public/auth/login/'
-    | '/_authenticated/admin/_layout/certificates/$id'
     | '/_authenticated/admin/_layout/courses/$id'
     | '/_authenticated/admin/_layout/curators/$id'
     | '/_authenticated/admin/_layout/departments/$id'
@@ -790,7 +766,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/admin/_layout.tsx",
       "parent": "/_authenticated/admin",
       "children": [
-        "/_authenticated/admin/_layout/certificates/$id",
         "/_authenticated/admin/_layout/courses/$id",
         "/_authenticated/admin/_layout/curators/$id",
         "/_authenticated/admin/_layout/departments/$id",
@@ -830,10 +805,6 @@ export const routeTree = rootRoute
     },
     "/_public/auth/login/": {
       "filePath": "_public/auth/login/index.tsx"
-    },
-    "/_authenticated/admin/_layout/certificates/$id": {
-      "filePath": "_authenticated/admin/_layout/certificates/$id.tsx",
-      "parent": "/_authenticated/admin/_layout"
     },
     "/_authenticated/admin/_layout/courses/$id": {
       "filePath": "_authenticated/admin/_layout/courses/$id.tsx",
