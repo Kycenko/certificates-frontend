@@ -1,27 +1,35 @@
 import { useRouter } from '@tanstack/react-router'
-
-import { removeTokens } from '../lib/tokens'
-import { Button } from '../ui/button'
+import { LogOut } from 'lucide-react'
 
 import { useLogoutMutation } from '@/app/graphql/generated'
 
-export default function Logout() {
+import { cn, removeAuthData } from '../lib'
+import { Button } from '../ui/button'
+
+function Logout({ variant }: { variant: 'sidebar' | 'header' }) {
 	const router = useRouter()
 
 	const [logout] = useLogoutMutation({
 		onCompleted: () => {
-			removeTokens()
-			router.navigate({ to: '/auth/login' })
+			removeAuthData()
+			router.navigate({ to: '/auth/login', replace: true })
 		}
 	})
 
 	return (
 		<Button
-			className='w-full'
-			variant={'outline'}
+			variant='ghost'
+			className={cn(
+				'hover:text-destructive gap-2',
+				variant === 'sidebar' && 'w-full justify-start',
+				variant === 'header' && 'flex items-center'
+			)}
 			onClick={() => logout()}
 		>
-			Выйти
+			<LogOut className='h-4 w-4' />
+			<span>Выйти</span>
 		</Button>
 	)
 }
+
+export default Logout

@@ -4,10 +4,13 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { defineConfig } from "vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
+    TanStackRouterVite({
+      target: "react",
+      autoCodeSplitting: true,
+      // generatedRouteTree: './src/routes/routeTree.gen.ts',
+    }),
     react(),
     tailwindcss(),
   ],

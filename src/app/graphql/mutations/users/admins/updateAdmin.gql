@@ -1,0 +1,7 @@
+mutation updateAdmin($id: String!, $data: UpdateAdminInput!) {
+	updateAdmin(id: $id, updateDto: $data) {
+		id
+		login
+		role
+	}
+}

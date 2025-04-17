@@ -1,0 +1,10 @@
+mutation registerCurator($data: RegisterCuratorInput!) {
+	registerCurator(data: $data) {
+		accessToken
+		refreshToken
+		user {
+			login
+			role
+		}
+	}
+}

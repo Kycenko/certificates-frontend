@@ -1,0 +1,7 @@
+mutation updateCurator($id: String!, $data: UpdateCuratorInput!) {
+	updateCurator(id: $id, updateDto: $data) {
+		id
+		login
+		role
+	}
+}

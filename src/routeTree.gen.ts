@@ -8,29 +8,42 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
-import { Route as IndexImport } from './routes/index'
-import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
-import { Route as AuthenticatedStudentsIndexImport } from './routes/_authenticated/students/index'
-import { Route as AuthenticatedStatisticsIndexImport } from './routes/_authenticated/statistics/index'
-import { Route as AuthenticatedProfileIndexImport } from './routes/_authenticated/profile/index'
-import { Route as AuthenticatedGroupsIndexImport } from './routes/_authenticated/groups/index'
-import { Route as AuthenticatedGroupsManagementIndexImport } from './routes/_authenticated/groups-management/index'
-import { Route as AuthenticatedDepartmentsIndexImport } from './routes/_authenticated/departments/index'
-import { Route as AuthenticatedCoursesIndexImport } from './routes/_authenticated/courses/index'
-import { Route as AuthenticatedCertificatesIndexImport } from './routes/_authenticated/certificates/index'
-import { Route as AuthenticatedStudentsIdImport } from './routes/_authenticated/students/$id'
-import { Route as AuthenticatedGroupsIdImport } from './routes/_authenticated/groups/$id'
-import { Route as AuthenticatedDepartmentsIdImport } from './routes/_authenticated/departments/$id'
-import { Route as AuthenticatedCoursesIdImport } from './routes/_authenticated/courses/$id'
-import { Route as AuthenticatedCertificatesIdImport } from './routes/_authenticated/certificates/$id'
-import { Route as AuthenticatedGroupsManagementPhysicalEducationsIndexImport } from './routes/_authenticated/groups-management/physical-educations/index'
-import { Route as AuthenticatedGroupsManagementHealthGroupsIndexImport } from './routes/_authenticated/groups-management/health-groups/index'
-import { Route as AuthenticatedGroupsManagementPhysicalEducationsIdImport } from './routes/_authenticated/groups-management/physical-educations/$id'
-import { Route as AuthenticatedGroupsManagementHealthGroupsIdImport } from './routes/_authenticated/groups-management/health-groups/$id'
+import { Route as PublicIndexImport } from './routes/_public/index'
+import { Route as PublicStudentInfoIdImport } from './routes/_public/student-info/$id'
+import { Route as AuthenticatedCuratorLayoutImport } from './routes/_authenticated/curator/_layout'
+import { Route as AuthenticatedAdminLayoutImport } from './routes/_authenticated/admin/_layout'
+import { Route as PublicAuthLoginIndexImport } from './routes/_public/auth/login/index'
+import { Route as AuthenticatedAdminLayoutStudentsIndexImport } from './routes/_authenticated/admin/_layout/students/index'
+import { Route as AuthenticatedAdminLayoutStatisticsIndexImport } from './routes/_authenticated/admin/_layout/statistics/index'
+import { Route as AuthenticatedAdminLayoutProfileIndexImport } from './routes/_authenticated/admin/_layout/profile/index'
+import { Route as AuthenticatedAdminLayoutGroupsIndexImport } from './routes/_authenticated/admin/_layout/groups/index'
+import { Route as AuthenticatedAdminLayoutGroupsManagementIndexImport } from './routes/_authenticated/admin/_layout/groups-management/index'
+import { Route as AuthenticatedAdminLayoutDepartmentsIndexImport } from './routes/_authenticated/admin/_layout/departments/index'
+import { Route as AuthenticatedAdminLayoutCuratorsIndexImport } from './routes/_authenticated/admin/_layout/curators/index'
+import { Route as AuthenticatedAdminLayoutCoursesIndexImport } from './routes/_authenticated/admin/_layout/courses/index'
+import { Route as AuthenticatedAdminLayoutCertificatesIndexImport } from './routes/_authenticated/admin/_layout/certificates/index'
+import { Route as AuthenticatedCuratorLayoutGroupIdImport } from './routes/_authenticated/curator/_layout/group/$id'
+import { Route as AuthenticatedAdminLayoutStudentsIdImport } from './routes/_authenticated/admin/_layout/students/$id'
+import { Route as AuthenticatedAdminLayoutGroupsIdImport } from './routes/_authenticated/admin/_layout/groups/$id'
+import { Route as AuthenticatedAdminLayoutDepartmentsIdImport } from './routes/_authenticated/admin/_layout/departments/$id'
+import { Route as AuthenticatedAdminLayoutCuratorsIdImport } from './routes/_authenticated/admin/_layout/curators/$id'
+import { Route as AuthenticatedAdminLayoutCoursesIdImport } from './routes/_authenticated/admin/_layout/courses/$id'
+import { Route as AuthenticatedAdminLayoutCertificatesIdImport } from './routes/_authenticated/admin/_layout/certificates/$id'
+import { Route as AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexImport } from './routes/_authenticated/admin/_layout/groups-management/physical-educations/index'
+import { Route as AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexImport } from './routes/_authenticated/admin/_layout/groups-management/health-groups/index'
+import { Route as AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdImport } from './routes/_authenticated/admin/_layout/groups-management/physical-educations/$id'
+import { Route as AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdImport } from './routes/_authenticated/admin/_layout/groups-management/health-groups/$id'
+
+// Create Virtual Routes
+
+const AuthenticatedCuratorImport = createFileRoute('/_authenticated/curator')()
+const AuthenticatedAdminImport = createFileRoute('/_authenticated/admin')()
 
 // Create/Update Routes
 
@@ -39,144 +52,192 @@ const AuthenticatedRoute = AuthenticatedImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
-  id: '/',
+const AuthenticatedCuratorRoute = AuthenticatedCuratorImport.update({
+  id: '/curator',
+  path: '/curator',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedAdminRoute = AuthenticatedAdminImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const PublicIndexRoute = PublicIndexImport.update({
+  id: '/_public/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthLoginIndexRoute = AuthLoginIndexImport.update({
-  id: '/auth/login/',
+const PublicStudentInfoIdRoute = PublicStudentInfoIdImport.update({
+  id: '/_public/student-info/$id',
+  path: '/student-info/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthenticatedCuratorLayoutRoute = AuthenticatedCuratorLayoutImport.update(
+  {
+    id: '/_layout',
+    getParentRoute: () => AuthenticatedCuratorRoute,
+  } as any,
+)
+
+const AuthenticatedAdminLayoutRoute = AuthenticatedAdminLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+
+const PublicAuthLoginIndexRoute = PublicAuthLoginIndexImport.update({
+  id: '/_public/auth/login/',
   path: '/auth/login/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthenticatedStudentsIndexRoute = AuthenticatedStudentsIndexImport.update(
-  {
+const AuthenticatedAdminLayoutStudentsIndexRoute =
+  AuthenticatedAdminLayoutStudentsIndexImport.update({
     id: '/students/',
     path: '/students/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any,
-)
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedStatisticsIndexRoute =
-  AuthenticatedStatisticsIndexImport.update({
+const AuthenticatedAdminLayoutStatisticsIndexRoute =
+  AuthenticatedAdminLayoutStatisticsIndexImport.update({
     id: '/statistics/',
     path: '/statistics/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedProfileIndexRoute = AuthenticatedProfileIndexImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedAdminLayoutProfileIndexRoute =
+  AuthenticatedAdminLayoutProfileIndexImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedGroupsIndexRoute = AuthenticatedGroupsIndexImport.update({
-  id: '/groups/',
-  path: '/groups/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedAdminLayoutGroupsIndexRoute =
+  AuthenticatedAdminLayoutGroupsIndexImport.update({
+    id: '/groups/',
+    path: '/groups/',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedGroupsManagementIndexRoute =
-  AuthenticatedGroupsManagementIndexImport.update({
+const AuthenticatedAdminLayoutGroupsManagementIndexRoute =
+  AuthenticatedAdminLayoutGroupsManagementIndexImport.update({
     id: '/groups-management/',
     path: '/groups-management/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedDepartmentsIndexRoute =
-  AuthenticatedDepartmentsIndexImport.update({
+const AuthenticatedAdminLayoutDepartmentsIndexRoute =
+  AuthenticatedAdminLayoutDepartmentsIndexImport.update({
     id: '/departments/',
     path: '/departments/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedCoursesIndexRoute = AuthenticatedCoursesIndexImport.update({
-  id: '/courses/',
-  path: '/courses/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedAdminLayoutCuratorsIndexRoute =
+  AuthenticatedAdminLayoutCuratorsIndexImport.update({
+    id: '/curators/',
+    path: '/curators/',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedCertificatesIndexRoute =
-  AuthenticatedCertificatesIndexImport.update({
+const AuthenticatedAdminLayoutCoursesIndexRoute =
+  AuthenticatedAdminLayoutCoursesIndexImport.update({
+    id: '/courses/',
+    path: '/courses/',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
+
+const AuthenticatedAdminLayoutCertificatesIndexRoute =
+  AuthenticatedAdminLayoutCertificatesIndexImport.update({
     id: '/certificates/',
     path: '/certificates/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedStudentsIdRoute = AuthenticatedStudentsIdImport.update({
-  id: '/students/$id',
-  path: '/students/$id',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedCuratorLayoutGroupIdRoute =
+  AuthenticatedCuratorLayoutGroupIdImport.update({
+    id: '/group/$id',
+    path: '/group/$id',
+    getParentRoute: () => AuthenticatedCuratorLayoutRoute,
+  } as any)
 
-const AuthenticatedGroupsIdRoute = AuthenticatedGroupsIdImport.update({
-  id: '/groups/$id',
-  path: '/groups/$id',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedAdminLayoutStudentsIdRoute =
+  AuthenticatedAdminLayoutStudentsIdImport.update({
+    id: '/students/$id',
+    path: '/students/$id',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedDepartmentsIdRoute = AuthenticatedDepartmentsIdImport.update(
-  {
+const AuthenticatedAdminLayoutGroupsIdRoute =
+  AuthenticatedAdminLayoutGroupsIdImport.update({
+    id: '/groups/$id',
+    path: '/groups/$id',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
+
+const AuthenticatedAdminLayoutDepartmentsIdRoute =
+  AuthenticatedAdminLayoutDepartmentsIdImport.update({
     id: '/departments/$id',
     path: '/departments/$id',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any,
-)
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedCoursesIdRoute = AuthenticatedCoursesIdImport.update({
-  id: '/courses/$id',
-  path: '/courses/$id',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedAdminLayoutCuratorsIdRoute =
+  AuthenticatedAdminLayoutCuratorsIdImport.update({
+    id: '/curators/$id',
+    path: '/curators/$id',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
 
-const AuthenticatedCertificatesIdRoute =
-  AuthenticatedCertificatesIdImport.update({
+const AuthenticatedAdminLayoutCoursesIdRoute =
+  AuthenticatedAdminLayoutCoursesIdImport.update({
+    id: '/courses/$id',
+    path: '/courses/$id',
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
+  } as any)
+
+const AuthenticatedAdminLayoutCertificatesIdRoute =
+  AuthenticatedAdminLayoutCertificatesIdImport.update({
     id: '/certificates/$id',
     path: '/certificates/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedGroupsManagementPhysicalEducationsIndexRoute =
-  AuthenticatedGroupsManagementPhysicalEducationsIndexImport.update({
+const AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute =
+  AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexImport.update({
     id: '/groups-management/physical-educations/',
     path: '/groups-management/physical-educations/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedGroupsManagementHealthGroupsIndexRoute =
-  AuthenticatedGroupsManagementHealthGroupsIndexImport.update({
+const AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute =
+  AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexImport.update({
     id: '/groups-management/health-groups/',
     path: '/groups-management/health-groups/',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedGroupsManagementPhysicalEducationsIdRoute =
-  AuthenticatedGroupsManagementPhysicalEducationsIdImport.update({
+const AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute =
+  AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdImport.update({
     id: '/groups-management/physical-educations/$id',
     path: '/groups-management/physical-educations/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
-const AuthenticatedGroupsManagementHealthGroupsIdRoute =
-  AuthenticatedGroupsManagementHealthGroupsIdImport.update({
+const AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute =
+  AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdImport.update({
     id: '/groups-management/health-groups/$id',
     path: '/groups-management/health-groups/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedAdminLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -184,180 +245,314 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/_authenticated/certificates/$id': {
-      id: '/_authenticated/certificates/$id'
-      path: '/certificates/$id'
-      fullPath: '/certificates/$id'
-      preLoaderRoute: typeof AuthenticatedCertificatesIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/courses/$id': {
-      id: '/_authenticated/courses/$id'
-      path: '/courses/$id'
-      fullPath: '/courses/$id'
-      preLoaderRoute: typeof AuthenticatedCoursesIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/departments/$id': {
-      id: '/_authenticated/departments/$id'
-      path: '/departments/$id'
-      fullPath: '/departments/$id'
-      preLoaderRoute: typeof AuthenticatedDepartmentsIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/groups/$id': {
-      id: '/_authenticated/groups/$id'
-      path: '/groups/$id'
-      fullPath: '/groups/$id'
-      preLoaderRoute: typeof AuthenticatedGroupsIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/students/$id': {
-      id: '/_authenticated/students/$id'
-      path: '/students/$id'
-      fullPath: '/students/$id'
-      preLoaderRoute: typeof AuthenticatedStudentsIdImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/certificates/': {
-      id: '/_authenticated/certificates/'
-      path: '/certificates'
-      fullPath: '/certificates'
-      preLoaderRoute: typeof AuthenticatedCertificatesIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/courses/': {
-      id: '/_authenticated/courses/'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof AuthenticatedCoursesIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/departments/': {
-      id: '/_authenticated/departments/'
-      path: '/departments'
-      fullPath: '/departments'
-      preLoaderRoute: typeof AuthenticatedDepartmentsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/groups-management/': {
-      id: '/_authenticated/groups-management/'
-      path: '/groups-management'
-      fullPath: '/groups-management'
-      preLoaderRoute: typeof AuthenticatedGroupsManagementIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/groups/': {
-      id: '/_authenticated/groups/'
-      path: '/groups'
-      fullPath: '/groups'
-      preLoaderRoute: typeof AuthenticatedGroupsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/profile/': {
-      id: '/_authenticated/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/statistics/': {
-      id: '/_authenticated/statistics/'
-      path: '/statistics'
-      fullPath: '/statistics'
-      preLoaderRoute: typeof AuthenticatedStatisticsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/students/': {
-      id: '/_authenticated/students/'
-      path: '/students'
-      fullPath: '/students'
-      preLoaderRoute: typeof AuthenticatedStudentsIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/auth/login/': {
-      id: '/auth/login/'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginIndexImport
+    '/_public/': {
+      id: '/_public/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_authenticated/groups-management/health-groups/$id': {
-      id: '/_authenticated/groups-management/health-groups/$id'
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/admin/_layout': {
+      id: '/_authenticated/admin/_layout'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/curator': {
+      id: '/_authenticated/curator'
+      path: '/curator'
+      fullPath: '/curator'
+      preLoaderRoute: typeof AuthenticatedCuratorImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/curator/_layout': {
+      id: '/_authenticated/curator/_layout'
+      path: '/curator'
+      fullPath: '/curator'
+      preLoaderRoute: typeof AuthenticatedCuratorLayoutImport
+      parentRoute: typeof AuthenticatedCuratorRoute
+    }
+    '/_public/student-info/$id': {
+      id: '/_public/student-info/$id'
+      path: '/student-info/$id'
+      fullPath: '/student-info/$id'
+      preLoaderRoute: typeof PublicStudentInfoIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/_public/auth/login/': {
+      id: '/_public/auth/login/'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof PublicAuthLoginIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated/admin/_layout/certificates/$id': {
+      id: '/_authenticated/admin/_layout/certificates/$id'
+      path: '/certificates/$id'
+      fullPath: '/admin/certificates/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCertificatesIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/courses/$id': {
+      id: '/_authenticated/admin/_layout/courses/$id'
+      path: '/courses/$id'
+      fullPath: '/admin/courses/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCoursesIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/curators/$id': {
+      id: '/_authenticated/admin/_layout/curators/$id'
+      path: '/curators/$id'
+      fullPath: '/admin/curators/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCuratorsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/departments/$id': {
+      id: '/_authenticated/admin/_layout/departments/$id'
+      path: '/departments/$id'
+      fullPath: '/admin/departments/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutDepartmentsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/groups/$id': {
+      id: '/_authenticated/admin/_layout/groups/$id'
+      path: '/groups/$id'
+      fullPath: '/admin/groups/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/students/$id': {
+      id: '/_authenticated/admin/_layout/students/$id'
+      path: '/students/$id'
+      fullPath: '/admin/students/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutStudentsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/curator/_layout/group/$id': {
+      id: '/_authenticated/curator/_layout/group/$id'
+      path: '/group/$id'
+      fullPath: '/curator/group/$id'
+      preLoaderRoute: typeof AuthenticatedCuratorLayoutGroupIdImport
+      parentRoute: typeof AuthenticatedCuratorLayoutImport
+    }
+    '/_authenticated/admin/_layout/certificates/': {
+      id: '/_authenticated/admin/_layout/certificates/'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCertificatesIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/courses/': {
+      id: '/_authenticated/admin/_layout/courses/'
+      path: '/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCoursesIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/curators/': {
+      id: '/_authenticated/admin/_layout/curators/'
+      path: '/curators'
+      fullPath: '/admin/curators'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutCuratorsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/departments/': {
+      id: '/_authenticated/admin/_layout/departments/'
+      path: '/departments'
+      fullPath: '/admin/departments'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutDepartmentsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/groups-management/': {
+      id: '/_authenticated/admin/_layout/groups-management/'
+      path: '/groups-management'
+      fullPath: '/admin/groups-management'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsManagementIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/groups/': {
+      id: '/_authenticated/admin/_layout/groups/'
+      path: '/groups'
+      fullPath: '/admin/groups'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/profile/': {
+      id: '/_authenticated/admin/_layout/profile/'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutProfileIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/statistics/': {
+      id: '/_authenticated/admin/_layout/statistics/'
+      path: '/statistics'
+      fullPath: '/admin/statistics'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutStatisticsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/students/': {
+      id: '/_authenticated/admin/_layout/students/'
+      path: '/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutStudentsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
+    }
+    '/_authenticated/admin/_layout/groups-management/health-groups/$id': {
+      id: '/_authenticated/admin/_layout/groups-management/health-groups/$id'
       path: '/groups-management/health-groups/$id'
-      fullPath: '/groups-management/health-groups/$id'
-      preLoaderRoute: typeof AuthenticatedGroupsManagementHealthGroupsIdImport
-      parentRoute: typeof AuthenticatedImport
+      fullPath: '/admin/groups-management/health-groups/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
     }
-    '/_authenticated/groups-management/physical-educations/$id': {
-      id: '/_authenticated/groups-management/physical-educations/$id'
+    '/_authenticated/admin/_layout/groups-management/physical-educations/$id': {
+      id: '/_authenticated/admin/_layout/groups-management/physical-educations/$id'
       path: '/groups-management/physical-educations/$id'
-      fullPath: '/groups-management/physical-educations/$id'
-      preLoaderRoute: typeof AuthenticatedGroupsManagementPhysicalEducationsIdImport
-      parentRoute: typeof AuthenticatedImport
+      fullPath: '/admin/groups-management/physical-educations/$id'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
     }
-    '/_authenticated/groups-management/health-groups/': {
-      id: '/_authenticated/groups-management/health-groups/'
+    '/_authenticated/admin/_layout/groups-management/health-groups/': {
+      id: '/_authenticated/admin/_layout/groups-management/health-groups/'
       path: '/groups-management/health-groups'
-      fullPath: '/groups-management/health-groups'
-      preLoaderRoute: typeof AuthenticatedGroupsManagementHealthGroupsIndexImport
-      parentRoute: typeof AuthenticatedImport
+      fullPath: '/admin/groups-management/health-groups'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
     }
-    '/_authenticated/groups-management/physical-educations/': {
-      id: '/_authenticated/groups-management/physical-educations/'
+    '/_authenticated/admin/_layout/groups-management/physical-educations/': {
+      id: '/_authenticated/admin/_layout/groups-management/physical-educations/'
       path: '/groups-management/physical-educations'
-      fullPath: '/groups-management/physical-educations'
-      preLoaderRoute: typeof AuthenticatedGroupsManagementPhysicalEducationsIndexImport
-      parentRoute: typeof AuthenticatedImport
+      fullPath: '/admin/groups-management/physical-educations'
+      preLoaderRoute: typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexImport
+      parentRoute: typeof AuthenticatedAdminLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedAdminLayoutRouteChildren {
+  AuthenticatedAdminLayoutCertificatesIdRoute: typeof AuthenticatedAdminLayoutCertificatesIdRoute
+  AuthenticatedAdminLayoutCoursesIdRoute: typeof AuthenticatedAdminLayoutCoursesIdRoute
+  AuthenticatedAdminLayoutCuratorsIdRoute: typeof AuthenticatedAdminLayoutCuratorsIdRoute
+  AuthenticatedAdminLayoutDepartmentsIdRoute: typeof AuthenticatedAdminLayoutDepartmentsIdRoute
+  AuthenticatedAdminLayoutGroupsIdRoute: typeof AuthenticatedAdminLayoutGroupsIdRoute
+  AuthenticatedAdminLayoutStudentsIdRoute: typeof AuthenticatedAdminLayoutStudentsIdRoute
+  AuthenticatedAdminLayoutCertificatesIndexRoute: typeof AuthenticatedAdminLayoutCertificatesIndexRoute
+  AuthenticatedAdminLayoutCoursesIndexRoute: typeof AuthenticatedAdminLayoutCoursesIndexRoute
+  AuthenticatedAdminLayoutCuratorsIndexRoute: typeof AuthenticatedAdminLayoutCuratorsIndexRoute
+  AuthenticatedAdminLayoutDepartmentsIndexRoute: typeof AuthenticatedAdminLayoutDepartmentsIndexRoute
+  AuthenticatedAdminLayoutGroupsManagementIndexRoute: typeof AuthenticatedAdminLayoutGroupsManagementIndexRoute
+  AuthenticatedAdminLayoutGroupsIndexRoute: typeof AuthenticatedAdminLayoutGroupsIndexRoute
+  AuthenticatedAdminLayoutProfileIndexRoute: typeof AuthenticatedAdminLayoutProfileIndexRoute
+  AuthenticatedAdminLayoutStatisticsIndexRoute: typeof AuthenticatedAdminLayoutStatisticsIndexRoute
+  AuthenticatedAdminLayoutStudentsIndexRoute: typeof AuthenticatedAdminLayoutStudentsIndexRoute
+  AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute: typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute
+  AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute: typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute
+  AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute: typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute
+  AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute: typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute
+}
+
+const AuthenticatedAdminLayoutRouteChildren: AuthenticatedAdminLayoutRouteChildren =
+  {
+    AuthenticatedAdminLayoutCertificatesIdRoute:
+      AuthenticatedAdminLayoutCertificatesIdRoute,
+    AuthenticatedAdminLayoutCoursesIdRoute:
+      AuthenticatedAdminLayoutCoursesIdRoute,
+    AuthenticatedAdminLayoutCuratorsIdRoute:
+      AuthenticatedAdminLayoutCuratorsIdRoute,
+    AuthenticatedAdminLayoutDepartmentsIdRoute:
+      AuthenticatedAdminLayoutDepartmentsIdRoute,
+    AuthenticatedAdminLayoutGroupsIdRoute:
+      AuthenticatedAdminLayoutGroupsIdRoute,
+    AuthenticatedAdminLayoutStudentsIdRoute:
+      AuthenticatedAdminLayoutStudentsIdRoute,
+    AuthenticatedAdminLayoutCertificatesIndexRoute:
+      AuthenticatedAdminLayoutCertificatesIndexRoute,
+    AuthenticatedAdminLayoutCoursesIndexRoute:
+      AuthenticatedAdminLayoutCoursesIndexRoute,
+    AuthenticatedAdminLayoutCuratorsIndexRoute:
+      AuthenticatedAdminLayoutCuratorsIndexRoute,
+    AuthenticatedAdminLayoutDepartmentsIndexRoute:
+      AuthenticatedAdminLayoutDepartmentsIndexRoute,
+    AuthenticatedAdminLayoutGroupsManagementIndexRoute:
+      AuthenticatedAdminLayoutGroupsManagementIndexRoute,
+    AuthenticatedAdminLayoutGroupsIndexRoute:
+      AuthenticatedAdminLayoutGroupsIndexRoute,
+    AuthenticatedAdminLayoutProfileIndexRoute:
+      AuthenticatedAdminLayoutProfileIndexRoute,
+    AuthenticatedAdminLayoutStatisticsIndexRoute:
+      AuthenticatedAdminLayoutStatisticsIndexRoute,
+    AuthenticatedAdminLayoutStudentsIndexRoute:
+      AuthenticatedAdminLayoutStudentsIndexRoute,
+    AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute:
+      AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute,
+    AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute:
+      AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute,
+    AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute:
+      AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute,
+    AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute:
+      AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute,
+  }
+
+const AuthenticatedAdminLayoutRouteWithChildren =
+  AuthenticatedAdminLayoutRoute._addFileChildren(
+    AuthenticatedAdminLayoutRouteChildren,
+  )
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminLayoutRoute: typeof AuthenticatedAdminLayoutRouteWithChildren
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminLayoutRoute: AuthenticatedAdminLayoutRouteWithChildren,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedCuratorLayoutRouteChildren {
+  AuthenticatedCuratorLayoutGroupIdRoute: typeof AuthenticatedCuratorLayoutGroupIdRoute
+}
+
+const AuthenticatedCuratorLayoutRouteChildren: AuthenticatedCuratorLayoutRouteChildren =
+  {
+    AuthenticatedCuratorLayoutGroupIdRoute:
+      AuthenticatedCuratorLayoutGroupIdRoute,
+  }
+
+const AuthenticatedCuratorLayoutRouteWithChildren =
+  AuthenticatedCuratorLayoutRoute._addFileChildren(
+    AuthenticatedCuratorLayoutRouteChildren,
+  )
+
+interface AuthenticatedCuratorRouteChildren {
+  AuthenticatedCuratorLayoutRoute: typeof AuthenticatedCuratorLayoutRouteWithChildren
+}
+
+const AuthenticatedCuratorRouteChildren: AuthenticatedCuratorRouteChildren = {
+  AuthenticatedCuratorLayoutRoute: AuthenticatedCuratorLayoutRouteWithChildren,
+}
+
+const AuthenticatedCuratorRouteWithChildren =
+  AuthenticatedCuratorRoute._addFileChildren(AuthenticatedCuratorRouteChildren)
+
 interface AuthenticatedRouteChildren {
-  AuthenticatedCertificatesIdRoute: typeof AuthenticatedCertificatesIdRoute
-  AuthenticatedCoursesIdRoute: typeof AuthenticatedCoursesIdRoute
-  AuthenticatedDepartmentsIdRoute: typeof AuthenticatedDepartmentsIdRoute
-  AuthenticatedGroupsIdRoute: typeof AuthenticatedGroupsIdRoute
-  AuthenticatedStudentsIdRoute: typeof AuthenticatedStudentsIdRoute
-  AuthenticatedCertificatesIndexRoute: typeof AuthenticatedCertificatesIndexRoute
-  AuthenticatedCoursesIndexRoute: typeof AuthenticatedCoursesIndexRoute
-  AuthenticatedDepartmentsIndexRoute: typeof AuthenticatedDepartmentsIndexRoute
-  AuthenticatedGroupsManagementIndexRoute: typeof AuthenticatedGroupsManagementIndexRoute
-  AuthenticatedGroupsIndexRoute: typeof AuthenticatedGroupsIndexRoute
-  AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
-  AuthenticatedStatisticsIndexRoute: typeof AuthenticatedStatisticsIndexRoute
-  AuthenticatedStudentsIndexRoute: typeof AuthenticatedStudentsIndexRoute
-  AuthenticatedGroupsManagementHealthGroupsIdRoute: typeof AuthenticatedGroupsManagementHealthGroupsIdRoute
-  AuthenticatedGroupsManagementPhysicalEducationsIdRoute: typeof AuthenticatedGroupsManagementPhysicalEducationsIdRoute
-  AuthenticatedGroupsManagementHealthGroupsIndexRoute: typeof AuthenticatedGroupsManagementHealthGroupsIndexRoute
-  AuthenticatedGroupsManagementPhysicalEducationsIndexRoute: typeof AuthenticatedGroupsManagementPhysicalEducationsIndexRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedCuratorRoute: typeof AuthenticatedCuratorRouteWithChildren
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedCertificatesIdRoute: AuthenticatedCertificatesIdRoute,
-  AuthenticatedCoursesIdRoute: AuthenticatedCoursesIdRoute,
-  AuthenticatedDepartmentsIdRoute: AuthenticatedDepartmentsIdRoute,
-  AuthenticatedGroupsIdRoute: AuthenticatedGroupsIdRoute,
-  AuthenticatedStudentsIdRoute: AuthenticatedStudentsIdRoute,
-  AuthenticatedCertificatesIndexRoute: AuthenticatedCertificatesIndexRoute,
-  AuthenticatedCoursesIndexRoute: AuthenticatedCoursesIndexRoute,
-  AuthenticatedDepartmentsIndexRoute: AuthenticatedDepartmentsIndexRoute,
-  AuthenticatedGroupsManagementIndexRoute:
-    AuthenticatedGroupsManagementIndexRoute,
-  AuthenticatedGroupsIndexRoute: AuthenticatedGroupsIndexRoute,
-  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
-  AuthenticatedStatisticsIndexRoute: AuthenticatedStatisticsIndexRoute,
-  AuthenticatedStudentsIndexRoute: AuthenticatedStudentsIndexRoute,
-  AuthenticatedGroupsManagementHealthGroupsIdRoute:
-    AuthenticatedGroupsManagementHealthGroupsIdRoute,
-  AuthenticatedGroupsManagementPhysicalEducationsIdRoute:
-    AuthenticatedGroupsManagementPhysicalEducationsIdRoute,
-  AuthenticatedGroupsManagementHealthGroupsIndexRoute:
-    AuthenticatedGroupsManagementHealthGroupsIndexRoute,
-  AuthenticatedGroupsManagementPhysicalEducationsIndexRoute:
-    AuthenticatedGroupsManagementPhysicalEducationsIndexRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedCuratorRoute: AuthenticatedCuratorRouteWithChildren,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -365,155 +560,197 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '': typeof AuthenticatedRouteWithChildren
-  '/certificates/$id': typeof AuthenticatedCertificatesIdRoute
-  '/courses/$id': typeof AuthenticatedCoursesIdRoute
-  '/departments/$id': typeof AuthenticatedDepartmentsIdRoute
-  '/groups/$id': typeof AuthenticatedGroupsIdRoute
-  '/students/$id': typeof AuthenticatedStudentsIdRoute
-  '/certificates': typeof AuthenticatedCertificatesIndexRoute
-  '/courses': typeof AuthenticatedCoursesIndexRoute
-  '/departments': typeof AuthenticatedDepartmentsIndexRoute
-  '/groups-management': typeof AuthenticatedGroupsManagementIndexRoute
-  '/groups': typeof AuthenticatedGroupsIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
-  '/statistics': typeof AuthenticatedStatisticsIndexRoute
-  '/students': typeof AuthenticatedStudentsIndexRoute
-  '/auth/login': typeof AuthLoginIndexRoute
-  '/groups-management/health-groups/$id': typeof AuthenticatedGroupsManagementHealthGroupsIdRoute
-  '/groups-management/physical-educations/$id': typeof AuthenticatedGroupsManagementPhysicalEducationsIdRoute
-  '/groups-management/health-groups': typeof AuthenticatedGroupsManagementHealthGroupsIndexRoute
-  '/groups-management/physical-educations': typeof AuthenticatedGroupsManagementPhysicalEducationsIndexRoute
+  '/': typeof PublicIndexRoute
+  '/admin': typeof AuthenticatedAdminLayoutRouteWithChildren
+  '/curator': typeof AuthenticatedCuratorLayoutRouteWithChildren
+  '/student-info/$id': typeof PublicStudentInfoIdRoute
+  '/auth/login': typeof PublicAuthLoginIndexRoute
+  '/admin/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
+  '/admin/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
+  '/admin/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
+  '/admin/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
+  '/admin/groups/$id': typeof AuthenticatedAdminLayoutGroupsIdRoute
+  '/admin/students/$id': typeof AuthenticatedAdminLayoutStudentsIdRoute
+  '/curator/group/$id': typeof AuthenticatedCuratorLayoutGroupIdRoute
+  '/admin/certificates': typeof AuthenticatedAdminLayoutCertificatesIndexRoute
+  '/admin/courses': typeof AuthenticatedAdminLayoutCoursesIndexRoute
+  '/admin/curators': typeof AuthenticatedAdminLayoutCuratorsIndexRoute
+  '/admin/departments': typeof AuthenticatedAdminLayoutDepartmentsIndexRoute
+  '/admin/groups-management': typeof AuthenticatedAdminLayoutGroupsManagementIndexRoute
+  '/admin/groups': typeof AuthenticatedAdminLayoutGroupsIndexRoute
+  '/admin/profile': typeof AuthenticatedAdminLayoutProfileIndexRoute
+  '/admin/statistics': typeof AuthenticatedAdminLayoutStatisticsIndexRoute
+  '/admin/students': typeof AuthenticatedAdminLayoutStudentsIndexRoute
+  '/admin/groups-management/health-groups/$id': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute
+  '/admin/groups-management/physical-educations/$id': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute
+  '/admin/groups-management/health-groups': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute
+  '/admin/groups-management/physical-educations': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '': typeof AuthenticatedRouteWithChildren
-  '/certificates/$id': typeof AuthenticatedCertificatesIdRoute
-  '/courses/$id': typeof AuthenticatedCoursesIdRoute
-  '/departments/$id': typeof AuthenticatedDepartmentsIdRoute
-  '/groups/$id': typeof AuthenticatedGroupsIdRoute
-  '/students/$id': typeof AuthenticatedStudentsIdRoute
-  '/certificates': typeof AuthenticatedCertificatesIndexRoute
-  '/courses': typeof AuthenticatedCoursesIndexRoute
-  '/departments': typeof AuthenticatedDepartmentsIndexRoute
-  '/groups-management': typeof AuthenticatedGroupsManagementIndexRoute
-  '/groups': typeof AuthenticatedGroupsIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
-  '/statistics': typeof AuthenticatedStatisticsIndexRoute
-  '/students': typeof AuthenticatedStudentsIndexRoute
-  '/auth/login': typeof AuthLoginIndexRoute
-  '/groups-management/health-groups/$id': typeof AuthenticatedGroupsManagementHealthGroupsIdRoute
-  '/groups-management/physical-educations/$id': typeof AuthenticatedGroupsManagementPhysicalEducationsIdRoute
-  '/groups-management/health-groups': typeof AuthenticatedGroupsManagementHealthGroupsIndexRoute
-  '/groups-management/physical-educations': typeof AuthenticatedGroupsManagementPhysicalEducationsIndexRoute
+  '/': typeof PublicIndexRoute
+  '/admin': typeof AuthenticatedAdminLayoutRouteWithChildren
+  '/curator': typeof AuthenticatedCuratorLayoutRouteWithChildren
+  '/student-info/$id': typeof PublicStudentInfoIdRoute
+  '/auth/login': typeof PublicAuthLoginIndexRoute
+  '/admin/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
+  '/admin/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
+  '/admin/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
+  '/admin/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
+  '/admin/groups/$id': typeof AuthenticatedAdminLayoutGroupsIdRoute
+  '/admin/students/$id': typeof AuthenticatedAdminLayoutStudentsIdRoute
+  '/curator/group/$id': typeof AuthenticatedCuratorLayoutGroupIdRoute
+  '/admin/certificates': typeof AuthenticatedAdminLayoutCertificatesIndexRoute
+  '/admin/courses': typeof AuthenticatedAdminLayoutCoursesIndexRoute
+  '/admin/curators': typeof AuthenticatedAdminLayoutCuratorsIndexRoute
+  '/admin/departments': typeof AuthenticatedAdminLayoutDepartmentsIndexRoute
+  '/admin/groups-management': typeof AuthenticatedAdminLayoutGroupsManagementIndexRoute
+  '/admin/groups': typeof AuthenticatedAdminLayoutGroupsIndexRoute
+  '/admin/profile': typeof AuthenticatedAdminLayoutProfileIndexRoute
+  '/admin/statistics': typeof AuthenticatedAdminLayoutStatisticsIndexRoute
+  '/admin/students': typeof AuthenticatedAdminLayoutStudentsIndexRoute
+  '/admin/groups-management/health-groups/$id': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute
+  '/admin/groups-management/physical-educations/$id': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute
+  '/admin/groups-management/health-groups': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute
+  '/admin/groups-management/physical-educations': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/_authenticated/certificates/$id': typeof AuthenticatedCertificatesIdRoute
-  '/_authenticated/courses/$id': typeof AuthenticatedCoursesIdRoute
-  '/_authenticated/departments/$id': typeof AuthenticatedDepartmentsIdRoute
-  '/_authenticated/groups/$id': typeof AuthenticatedGroupsIdRoute
-  '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRoute
-  '/_authenticated/certificates/': typeof AuthenticatedCertificatesIndexRoute
-  '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
-  '/_authenticated/departments/': typeof AuthenticatedDepartmentsIndexRoute
-  '/_authenticated/groups-management/': typeof AuthenticatedGroupsManagementIndexRoute
-  '/_authenticated/groups/': typeof AuthenticatedGroupsIndexRoute
-  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
-  '/_authenticated/statistics/': typeof AuthenticatedStatisticsIndexRoute
-  '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
-  '/auth/login/': typeof AuthLoginIndexRoute
-  '/_authenticated/groups-management/health-groups/$id': typeof AuthenticatedGroupsManagementHealthGroupsIdRoute
-  '/_authenticated/groups-management/physical-educations/$id': typeof AuthenticatedGroupsManagementPhysicalEducationsIdRoute
-  '/_authenticated/groups-management/health-groups/': typeof AuthenticatedGroupsManagementHealthGroupsIndexRoute
-  '/_authenticated/groups-management/physical-educations/': typeof AuthenticatedGroupsManagementPhysicalEducationsIndexRoute
+  '/_public/': typeof PublicIndexRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin/_layout': typeof AuthenticatedAdminLayoutRouteWithChildren
+  '/_authenticated/curator': typeof AuthenticatedCuratorRouteWithChildren
+  '/_authenticated/curator/_layout': typeof AuthenticatedCuratorLayoutRouteWithChildren
+  '/_public/student-info/$id': typeof PublicStudentInfoIdRoute
+  '/_public/auth/login/': typeof PublicAuthLoginIndexRoute
+  '/_authenticated/admin/_layout/certificates/$id': typeof AuthenticatedAdminLayoutCertificatesIdRoute
+  '/_authenticated/admin/_layout/courses/$id': typeof AuthenticatedAdminLayoutCoursesIdRoute
+  '/_authenticated/admin/_layout/curators/$id': typeof AuthenticatedAdminLayoutCuratorsIdRoute
+  '/_authenticated/admin/_layout/departments/$id': typeof AuthenticatedAdminLayoutDepartmentsIdRoute
+  '/_authenticated/admin/_layout/groups/$id': typeof AuthenticatedAdminLayoutGroupsIdRoute
+  '/_authenticated/admin/_layout/students/$id': typeof AuthenticatedAdminLayoutStudentsIdRoute
+  '/_authenticated/curator/_layout/group/$id': typeof AuthenticatedCuratorLayoutGroupIdRoute
+  '/_authenticated/admin/_layout/certificates/': typeof AuthenticatedAdminLayoutCertificatesIndexRoute
+  '/_authenticated/admin/_layout/courses/': typeof AuthenticatedAdminLayoutCoursesIndexRoute
+  '/_authenticated/admin/_layout/curators/': typeof AuthenticatedAdminLayoutCuratorsIndexRoute
+  '/_authenticated/admin/_layout/departments/': typeof AuthenticatedAdminLayoutDepartmentsIndexRoute
+  '/_authenticated/admin/_layout/groups-management/': typeof AuthenticatedAdminLayoutGroupsManagementIndexRoute
+  '/_authenticated/admin/_layout/groups/': typeof AuthenticatedAdminLayoutGroupsIndexRoute
+  '/_authenticated/admin/_layout/profile/': typeof AuthenticatedAdminLayoutProfileIndexRoute
+  '/_authenticated/admin/_layout/statistics/': typeof AuthenticatedAdminLayoutStatisticsIndexRoute
+  '/_authenticated/admin/_layout/students/': typeof AuthenticatedAdminLayoutStudentsIndexRoute
+  '/_authenticated/admin/_layout/groups-management/health-groups/$id': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIdRoute
+  '/_authenticated/admin/_layout/groups-management/physical-educations/$id': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIdRoute
+  '/_authenticated/admin/_layout/groups-management/health-groups/': typeof AuthenticatedAdminLayoutGroupsManagementHealthGroupsIndexRoute
+  '/_authenticated/admin/_layout/groups-management/physical-educations/': typeof AuthenticatedAdminLayoutGroupsManagementPhysicalEducationsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | ''
-    | '/certificates/$id'
-    | '/courses/$id'
-    | '/departments/$id'
-    | '/groups/$id'
-    | '/students/$id'
-    | '/certificates'
-    | '/courses'
-    | '/departments'
-    | '/groups-management'
-    | '/groups'
-    | '/profile'
-    | '/statistics'
-    | '/students'
+    | '/'
+    | '/admin'
+    | '/curator'
+    | '/student-info/$id'
     | '/auth/login'
-    | '/groups-management/health-groups/$id'
-    | '/groups-management/physical-educations/$id'
-    | '/groups-management/health-groups'
-    | '/groups-management/physical-educations'
+    | '/admin/certificates/$id'
+    | '/admin/courses/$id'
+    | '/admin/curators/$id'
+    | '/admin/departments/$id'
+    | '/admin/groups/$id'
+    | '/admin/students/$id'
+    | '/curator/group/$id'
+    | '/admin/certificates'
+    | '/admin/courses'
+    | '/admin/curators'
+    | '/admin/departments'
+    | '/admin/groups-management'
+    | '/admin/groups'
+    | '/admin/profile'
+    | '/admin/statistics'
+    | '/admin/students'
+    | '/admin/groups-management/health-groups/$id'
+    | '/admin/groups-management/physical-educations/$id'
+    | '/admin/groups-management/health-groups'
+    | '/admin/groups-management/physical-educations'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | ''
-    | '/certificates/$id'
-    | '/courses/$id'
-    | '/departments/$id'
-    | '/groups/$id'
-    | '/students/$id'
-    | '/certificates'
-    | '/courses'
-    | '/departments'
-    | '/groups-management'
-    | '/groups'
-    | '/profile'
-    | '/statistics'
-    | '/students'
+    | '/'
+    | '/admin'
+    | '/curator'
+    | '/student-info/$id'
     | '/auth/login'
-    | '/groups-management/health-groups/$id'
-    | '/groups-management/physical-educations/$id'
-    | '/groups-management/health-groups'
-    | '/groups-management/physical-educations'
+    | '/admin/certificates/$id'
+    | '/admin/courses/$id'
+    | '/admin/curators/$id'
+    | '/admin/departments/$id'
+    | '/admin/groups/$id'
+    | '/admin/students/$id'
+    | '/curator/group/$id'
+    | '/admin/certificates'
+    | '/admin/courses'
+    | '/admin/curators'
+    | '/admin/departments'
+    | '/admin/groups-management'
+    | '/admin/groups'
+    | '/admin/profile'
+    | '/admin/statistics'
+    | '/admin/students'
+    | '/admin/groups-management/health-groups/$id'
+    | '/admin/groups-management/physical-educations/$id'
+    | '/admin/groups-management/health-groups'
+    | '/admin/groups-management/physical-educations'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
-    | '/_authenticated/certificates/$id'
-    | '/_authenticated/courses/$id'
-    | '/_authenticated/departments/$id'
-    | '/_authenticated/groups/$id'
-    | '/_authenticated/students/$id'
-    | '/_authenticated/certificates/'
-    | '/_authenticated/courses/'
-    | '/_authenticated/departments/'
-    | '/_authenticated/groups-management/'
-    | '/_authenticated/groups/'
-    | '/_authenticated/profile/'
-    | '/_authenticated/statistics/'
-    | '/_authenticated/students/'
-    | '/auth/login/'
-    | '/_authenticated/groups-management/health-groups/$id'
-    | '/_authenticated/groups-management/physical-educations/$id'
-    | '/_authenticated/groups-management/health-groups/'
-    | '/_authenticated/groups-management/physical-educations/'
+    | '/_public/'
+    | '/_authenticated/admin'
+    | '/_authenticated/admin/_layout'
+    | '/_authenticated/curator'
+    | '/_authenticated/curator/_layout'
+    | '/_public/student-info/$id'
+    | '/_public/auth/login/'
+    | '/_authenticated/admin/_layout/certificates/$id'
+    | '/_authenticated/admin/_layout/courses/$id'
+    | '/_authenticated/admin/_layout/curators/$id'
+    | '/_authenticated/admin/_layout/departments/$id'
+    | '/_authenticated/admin/_layout/groups/$id'
+    | '/_authenticated/admin/_layout/students/$id'
+    | '/_authenticated/curator/_layout/group/$id'
+    | '/_authenticated/admin/_layout/certificates/'
+    | '/_authenticated/admin/_layout/courses/'
+    | '/_authenticated/admin/_layout/curators/'
+    | '/_authenticated/admin/_layout/departments/'
+    | '/_authenticated/admin/_layout/groups-management/'
+    | '/_authenticated/admin/_layout/groups/'
+    | '/_authenticated/admin/_layout/profile/'
+    | '/_authenticated/admin/_layout/statistics/'
+    | '/_authenticated/admin/_layout/students/'
+    | '/_authenticated/admin/_layout/groups-management/health-groups/$id'
+    | '/_authenticated/admin/_layout/groups-management/physical-educations/$id'
+    | '/_authenticated/admin/_layout/groups-management/health-groups/'
+    | '/_authenticated/admin/_layout/groups-management/physical-educations/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicStudentInfoIdRoute: typeof PublicStudentInfoIdRoute
+  PublicAuthLoginIndexRoute: typeof PublicAuthLoginIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  AuthLoginIndexRoute: AuthLoginIndexRoute,
+  PublicIndexRoute: PublicIndexRoute,
+  PublicStudentInfoIdRoute: PublicStudentInfoIdRoute,
+  PublicAuthLoginIndexRoute: PublicAuthLoginIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -526,106 +763,153 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_authenticated",
-        "/auth/login/"
+        "/_public/",
+        "/_public/student-info/$id",
+        "/_public/auth/login/"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
-        "/_authenticated/certificates/$id",
-        "/_authenticated/courses/$id",
-        "/_authenticated/departments/$id",
-        "/_authenticated/groups/$id",
-        "/_authenticated/students/$id",
-        "/_authenticated/certificates/",
-        "/_authenticated/courses/",
-        "/_authenticated/departments/",
-        "/_authenticated/groups-management/",
-        "/_authenticated/groups/",
-        "/_authenticated/profile/",
-        "/_authenticated/statistics/",
-        "/_authenticated/students/",
-        "/_authenticated/groups-management/health-groups/$id",
-        "/_authenticated/groups-management/physical-educations/$id",
-        "/_authenticated/groups-management/health-groups/",
-        "/_authenticated/groups-management/physical-educations/"
+        "/_authenticated/admin",
+        "/_authenticated/curator"
       ]
     },
-    "/_authenticated/certificates/$id": {
-      "filePath": "_authenticated/certificates/$id.tsx",
-      "parent": "/_authenticated"
+    "/_public/": {
+      "filePath": "_public/index.tsx"
     },
-    "/_authenticated/courses/$id": {
-      "filePath": "_authenticated/courses/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin": {
+      "filePath": "_authenticated/admin",
+      "parent": "/_authenticated",
+      "children": [
+        "/_authenticated/admin/_layout"
+      ]
     },
-    "/_authenticated/departments/$id": {
-      "filePath": "_authenticated/departments/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout": {
+      "filePath": "_authenticated/admin/_layout.tsx",
+      "parent": "/_authenticated/admin",
+      "children": [
+        "/_authenticated/admin/_layout/certificates/$id",
+        "/_authenticated/admin/_layout/courses/$id",
+        "/_authenticated/admin/_layout/curators/$id",
+        "/_authenticated/admin/_layout/departments/$id",
+        "/_authenticated/admin/_layout/groups/$id",
+        "/_authenticated/admin/_layout/students/$id",
+        "/_authenticated/admin/_layout/certificates/",
+        "/_authenticated/admin/_layout/courses/",
+        "/_authenticated/admin/_layout/curators/",
+        "/_authenticated/admin/_layout/departments/",
+        "/_authenticated/admin/_layout/groups-management/",
+        "/_authenticated/admin/_layout/groups/",
+        "/_authenticated/admin/_layout/profile/",
+        "/_authenticated/admin/_layout/statistics/",
+        "/_authenticated/admin/_layout/students/",
+        "/_authenticated/admin/_layout/groups-management/health-groups/$id",
+        "/_authenticated/admin/_layout/groups-management/physical-educations/$id",
+        "/_authenticated/admin/_layout/groups-management/health-groups/",
+        "/_authenticated/admin/_layout/groups-management/physical-educations/"
+      ]
     },
-    "/_authenticated/groups/$id": {
-      "filePath": "_authenticated/groups/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/curator": {
+      "filePath": "_authenticated/curator",
+      "parent": "/_authenticated",
+      "children": [
+        "/_authenticated/curator/_layout"
+      ]
     },
-    "/_authenticated/students/$id": {
-      "filePath": "_authenticated/students/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/curator/_layout": {
+      "filePath": "_authenticated/curator/_layout.tsx",
+      "parent": "/_authenticated/curator",
+      "children": [
+        "/_authenticated/curator/_layout/group/$id"
+      ]
     },
-    "/_authenticated/certificates/": {
-      "filePath": "_authenticated/certificates/index.tsx",
-      "parent": "/_authenticated"
+    "/_public/student-info/$id": {
+      "filePath": "_public/student-info/$id.tsx"
     },
-    "/_authenticated/courses/": {
-      "filePath": "_authenticated/courses/index.tsx",
-      "parent": "/_authenticated"
+    "/_public/auth/login/": {
+      "filePath": "_public/auth/login/index.tsx"
     },
-    "/_authenticated/departments/": {
-      "filePath": "_authenticated/departments/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/certificates/$id": {
+      "filePath": "_authenticated/admin/_layout/certificates/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/groups-management/": {
-      "filePath": "_authenticated/groups-management/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/courses/$id": {
+      "filePath": "_authenticated/admin/_layout/courses/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/groups/": {
-      "filePath": "_authenticated/groups/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/curators/$id": {
+      "filePath": "_authenticated/admin/_layout/curators/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/profile/": {
-      "filePath": "_authenticated/profile/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/departments/$id": {
+      "filePath": "_authenticated/admin/_layout/departments/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/statistics/": {
-      "filePath": "_authenticated/statistics/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/groups/$id": {
+      "filePath": "_authenticated/admin/_layout/groups/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/students/": {
-      "filePath": "_authenticated/students/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/students/$id": {
+      "filePath": "_authenticated/admin/_layout/students/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/auth/login/": {
-      "filePath": "auth/login/index.tsx"
+    "/_authenticated/curator/_layout/group/$id": {
+      "filePath": "_authenticated/curator/_layout/group/$id.tsx",
+      "parent": "/_authenticated/curator/_layout"
     },
-    "/_authenticated/groups-management/health-groups/$id": {
-      "filePath": "_authenticated/groups-management/health-groups/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/certificates/": {
+      "filePath": "_authenticated/admin/_layout/certificates/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/groups-management/physical-educations/$id": {
-      "filePath": "_authenticated/groups-management/physical-educations/$id.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/courses/": {
+      "filePath": "_authenticated/admin/_layout/courses/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/groups-management/health-groups/": {
-      "filePath": "_authenticated/groups-management/health-groups/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/curators/": {
+      "filePath": "_authenticated/admin/_layout/curators/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
     },
-    "/_authenticated/groups-management/physical-educations/": {
-      "filePath": "_authenticated/groups-management/physical-educations/index.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/admin/_layout/departments/": {
+      "filePath": "_authenticated/admin/_layout/departments/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups-management/": {
+      "filePath": "_authenticated/admin/_layout/groups-management/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups/": {
+      "filePath": "_authenticated/admin/_layout/groups/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/profile/": {
+      "filePath": "_authenticated/admin/_layout/profile/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/statistics/": {
+      "filePath": "_authenticated/admin/_layout/statistics/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/students/": {
+      "filePath": "_authenticated/admin/_layout/students/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups-management/health-groups/$id": {
+      "filePath": "_authenticated/admin/_layout/groups-management/health-groups/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups-management/physical-educations/$id": {
+      "filePath": "_authenticated/admin/_layout/groups-management/physical-educations/$id.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups-management/health-groups/": {
+      "filePath": "_authenticated/admin/_layout/groups-management/health-groups/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
+    },
+    "/_authenticated/admin/_layout/groups-management/physical-educations/": {
+      "filePath": "_authenticated/admin/_layout/groups-management/physical-educations/index.tsx",
+      "parent": "/_authenticated/admin/_layout"
     }
   }
 }

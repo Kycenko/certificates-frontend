@@ -7,6 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: Date) {
+	if (!date) return
 	return format(date, 'dd.MM.yyyy')
 }
 
@@ -15,7 +16,7 @@ export function getFullName(
 	firstName: string,
 	secondName?: string
 ) {
-	return `${lastName} ${firstName} ${secondName ? secondName : 'Не указано'}`
+	return `${lastName} ${firstName} ${secondName ? secondName : ''}`
 }
 
 export function getShortName(

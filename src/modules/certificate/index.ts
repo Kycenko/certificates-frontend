@@ -1,7 +1,0 @@
-export * from './certificate.columns'
-export * from './certificate.schema'
-export type * from './certificate.types'
-export * from './certificates.component'
-export * from './certificates.tables'
-export * from './create-certificate.form'
-export * from './useCertificateOperations'

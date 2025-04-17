@@ -2,6 +2,6 @@ query getProfile {
 	getProfile {
 		id
 		login
-		isAdmin
+		role
 	}
 }

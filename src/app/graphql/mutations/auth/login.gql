@@ -1,11 +1,18 @@
 mutation login($data: LoginInput!) {
-    login(data: $data) {
-        accessToken
-        refreshToken
-        user {
-            id
-            login
-            isAdmin
-        }
-    }
+	login(data: $data) {
+		accessToken
+		refreshToken
+		user {
+			id
+			login
+			role
+			curator {
+				groupId
+				displayedName
+				group {
+					title
+				}
+			}
+		}
+	}
 }

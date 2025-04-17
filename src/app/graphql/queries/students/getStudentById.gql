@@ -7,10 +7,19 @@ query getStudentById($id: String!) {
 		birthDate
 		groupId
 		isExpelled
+
 		certificates {
 			id
 			startDate
 			finishDate
+
+			healthGroup {
+				title
+			}
+
+			physicalEducation {
+				title
+			}
 		}
 		group {
 			id
