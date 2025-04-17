@@ -1,23 +1,20 @@
-import { DataTableSkeleton } from '@/shared/components/skeletons/DataTableSkeleton'
 import { DataTable } from '@/shared/components/tables/DataTable'
 
-import { useGetAllStudentsQuery } from '@/app/graphql/generated'
+import { GetAllStudentsQuery } from '@/app/graphql/generated'
 
 import { studentTableColumns } from './studentTableColumns'
 import { useStudentOperations } from './useStudentOperations'
 
-function StudentsTable() {
+function StudentsTable({
+	data
+}: {
+	data: GetAllStudentsQuery['getAllStudents']
+}) {
 	const { handleInfo, handleRemove, handleRemoveMany } = useStudentOperations()
-	const { data, loading } = useGetAllStudentsQuery({
-		variables: { params: { orderBy: 'asc' } }
-	})
-
-	if (loading) return <DataTableSkeleton />
 
 	return (
 		<DataTable
-			isLoading={loading}
-			data={data?.getAllStudents || []}
+			data={data}
 			columns={studentTableColumns}
 			searchParam='lastName'
 			onRemoveMany={handleRemoveMany}

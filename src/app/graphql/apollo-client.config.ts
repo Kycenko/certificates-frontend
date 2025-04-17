@@ -18,6 +18,14 @@ const httpLink = createHttpLink({
 })
 
 export const client = new ApolloClient({
+	defaultOptions: {
+		watchQuery: {
+			nextFetchPolicy: 'cache-only'
+		},
+		query: {
+			fetchPolicy: 'network-only'
+		}
+	},
 	cache: new InMemoryCache(),
 	credentials: 'include',
 	link: authLink.concat(httpLink)

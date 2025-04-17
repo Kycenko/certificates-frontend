@@ -1,4 +1,3 @@
-export * from './AdminSearchStudents'
 export * from './CreateStudentForm'
 export * from './student.schema'
 export * from './StudentFields'

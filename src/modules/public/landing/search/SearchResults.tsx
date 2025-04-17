@@ -26,7 +26,7 @@ function LandingSearchResults({
 		<div className='space-y-4'>
 			<h2 className='text-md font-semibold'>Результаты поиска</h2>
 			<div className='bg-background rounded-xl border shadow-sm'>
-				<ul className='divide-border max-h-60 divide-y overflow-y-auto'>
+				<ul className='divide-border max-h-80 divide-y overflow-y-auto'>
 					{students.map(student => (
 						<li
 							key={student.id}

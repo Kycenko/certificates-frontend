@@ -3,12 +3,9 @@ import { ClipboardList, UserCircle } from 'lucide-react'
 
 import { Button } from '@/shared/ui/button'
 
-import AdminSearchStudents from '@/modules/admin/student/AdminSearchStudents'
-
 import Logout from '../Logout'
 import NavBar from '../NavBar'
 import { ThemeToggle } from '../ThemeToggle'
-import PageTransition from '../motions/PageTransition'
 
 function AdminLayout() {
 	return (
@@ -43,9 +40,6 @@ function AdminLayout() {
 				<aside className='hidden h-full w-64 overflow-hidden border-r backdrop-blur md:flex md:flex-col'>
 					<div className='flex h-full flex-col'>
 						<div className='flex-1 p-4'>
-							<div className='mb-6'>
-								<AdminSearchStudents />
-							</div>
 							<NavBar />
 						</div>
 
@@ -55,11 +49,9 @@ function AdminLayout() {
 					</div>
 				</aside>
 
-				<main className='flex-1 overflow-auto p-4 md:p-6'>
+				<main className='dark:bg-background flex-1 overflow-auto bg-slate-50 p-4 md:p-6'>
 					<div className='mx-auto h-full'>
-						<PageTransition>
-							<Outlet />
-						</PageTransition>
+						<Outlet />
 					</div>
 				</main>
 			</div>

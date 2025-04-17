@@ -1,6 +1,6 @@
 export * from './certificate.schema'
 export * from './CertificatesComponent'
-export * from './CertificatesTable'
 export * from './certificateTableColumns'
 export * from './CreateCertificateForm'
+export * from './EditCertificateForm'
 export * from './useCertificateOperations'
